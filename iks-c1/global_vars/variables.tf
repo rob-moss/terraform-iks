@@ -7,7 +7,8 @@ variable "endpoint" {
   type        = string
 }
 output "endpoint" {
-  value = var.endpoint
+  description = "Intersight URL."
+  value       = var.endpoint
 }
 
 #-----------------------------------
@@ -19,7 +20,8 @@ variable "organization" {
   type        = string
 }
 output "organization" {
-  value = var.organization
+  description = "Intersight Organization Name."
+  value       = var.organization
 }
 
 #-----------------------------------
@@ -41,7 +43,8 @@ variable "domain_name" {
   type        = string
 }
 output "domain_name" {
-  value = var.domain_name
+  description = "Domain Name."
+  value       = var.domain_name
 }
 
 variable "dns_primary" {
@@ -50,7 +53,8 @@ variable "dns_primary" {
   type        = string
 }
 output "dns_primary" {
-  value = trimspace(<<-EOT
+  description = "Primary DNS Server."
+  value       = trimspace(<<-EOT
   %{if var.dns_primary == "100"~}${join(".", [var.network_prefix, var.dns_primary])}
   %{else}${var.dns_primary}
   %{endif~}
@@ -64,7 +68,8 @@ variable "dns_secondary" {
   type        = string
 }
 output "dns_secondary" {
-  value = var.dns_secondary
+  description = "Secondary DNS Server."
+  value       = var.dns_secondary
 }
 
 
@@ -77,7 +82,8 @@ variable "timezone" {
   type        = string
 }
 output "timezone" {
-  value = var.timezone
+  description = "Timezone."
+  value       = var.timezone
 }
 
 variable "ntp_primary" {
@@ -86,7 +92,8 @@ variable "ntp_primary" {
   type        = string
 }
 output "ntp_primary" {
-  value = var.ntp_primary != "" ? var.ntp_primary : var.dns_primary
+  description = "Primary NTP Server."
+  value       = var.ntp_primary != "" ? var.ntp_primary : var.dns_primary
 }
 
 variable "ntp_secondary" {
@@ -95,7 +102,8 @@ variable "ntp_secondary" {
   type        = string
 }
 output "ntp_secondary" {
-  value = var.ntp_secondary != "" ? var.ntp_secondary : var.dns_secondary
+  description = "Secondary NTP Server."
+  value       = var.ntp_secondary != "" ? var.ntp_secondary : var.dns_secondary
 }
 
 #----------------------
@@ -107,7 +115,8 @@ variable "cluster_name" {
   type        = string
 }
 output "cluster_name" {
-  value = var.cluster_name
+  description = "Intersight Kubernetes Service Cluster Name."
+  value       = var.cluster_name
 }
 
 
@@ -120,7 +129,8 @@ variable "ip_pool" {
   type        = string
 }
 output "ip_pool" {
-  value = var.ip_pool != "" ? var.ip_pool : join("_", [var.cluster_name, "ip_pool"])
+  description = "IP Pool Policy Name."
+  value       = var.ip_pool != "" ? var.ip_pool : join("_", [var.cluster_name, "ip_pool"])
 }
 
 variable "ip_pool_netmask" {
@@ -129,7 +139,8 @@ variable "ip_pool_netmask" {
   type        = string
 }
 output "ip_pool_netmask" {
-  value = var.ip_pool_netmask
+  description = "IP Pool Netmask Value."
+  value       = var.ip_pool_netmask
 }
 
 variable "ip_pool_gateway" {
@@ -138,7 +149,8 @@ variable "ip_pool_gateway" {
   type        = string
 }
 output "ip_pool_gateway" {
-  value = join(".", [var.network_prefix, var.ip_pool_gateway])
+  description = "IP Pool Gateway Value."
+  value       = join(".", [var.network_prefix, var.ip_pool_gateway])
 }
 
 variable "ip_pool_from" {
@@ -147,7 +159,8 @@ variable "ip_pool_from" {
   type        = string
 }
 output "ip_pool_from" {
-  value = join(".", [var.network_prefix, var.ip_pool_from])
+  description = "IP Pool Starting IP Value."
+  value       = join(".", [var.network_prefix, var.ip_pool_from])
 }
 
 variable "ip_pool_size" {
@@ -156,7 +169,8 @@ variable "ip_pool_size" {
   type        = string
 }
 output "ip_pool_size" {
-  value = var.ip_pool_size
+  description = "IP Pool Block Size."
+  value       = var.ip_pool_size
 }
 
 
@@ -169,7 +183,8 @@ variable "k8s_version_policy" {
   type        = string
 }
 output "k8s_version_policy" {
-  value = var.k8s_version_policy != "" ? var.k8s_version_policy : join("-", [var.cluster_name, "k8s-version"])
+  description = "Kubernetes Version Policy Name."
+  value       = var.k8s_version_policy != "" ? var.k8s_version_policy : join("-", [var.cluster_name, "k8s-version"])
 }
 
 variable "k8s_trusted_registry" {
@@ -178,7 +193,8 @@ variable "k8s_trusted_registry" {
   type        = string
 }
 output "k8s_trusted_registry" {
-  value = var.k8s_trusted_registry != "" ? var.k8s_trusted_registry : join("-", [var.cluster_name, "registry"])
+  description = "Kubernetes Trusted Registry Policy Name."
+  value       = var.k8s_trusted_registry != "" ? var.k8s_trusted_registry : join("-", [var.cluster_name, "registry"])
 }
 
 variable "k8s_vm_network_policy" {
@@ -187,7 +203,8 @@ variable "k8s_vm_network_policy" {
   type        = string
 }
 output "k8s_vm_network_policy" {
-  value = var.k8s_vm_network_policy != "" ? var.k8s_vm_network_policy : join("-", [var.cluster_name, "sysconfig"])
+  description = "Kubernetes VM Network Policy Name."
+  value       = var.k8s_vm_network_policy != "" ? var.k8s_vm_network_policy : join("-", [var.cluster_name, "sysconfig"])
 }
 
 variable "k8s_vm_infra_policy" {
@@ -196,7 +213,8 @@ variable "k8s_vm_infra_policy" {
   type        = string
 }
 output "k8s_vm_infra_policy" {
-  value = var.k8s_vm_infra_policy != "" ? var.k8s_vm_infra_policy : join("-", [var.cluster_name, "vm-infra-config"])
+  description = "Kubernetes VM Infrastructure Policy Name."
+  value       = var.k8s_vm_infra_policy != "" ? var.k8s_vm_infra_policy : join("-", [var.cluster_name, "vm-infra-config"])
 }
 
 
@@ -209,7 +227,8 @@ variable "vsphere_target" {
   type        = string
 }
 output "vsphere_target" {
-  value = trimspace(<<-EOT
+  description = "vSphere Target."
+  value       = trimspace(<<-EOT
   %{if var.vsphere_target == "210"~}${join(".", [var.network_prefix, var.vsphere_target])}
   %{else}${var.vsphere_target}
   %{endif~}
