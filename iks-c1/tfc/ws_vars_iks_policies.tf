@@ -96,6 +96,13 @@ module "tfc_variables_iks_policies" {
       value       = var.tfc_organization
     },
     {
+      description = "global_vars Workspace."
+      hcl         = false
+      key         = "ws_global_vars"
+      sensitive   = false
+      value       = "${var.cluster_name}_global_vars"
+    },
+    {
       description = "Intersight API Key."
       hcl         = false
       key         = "api_key"

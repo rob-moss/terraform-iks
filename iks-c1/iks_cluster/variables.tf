@@ -11,13 +11,13 @@ variable "tfc_organization" {
 #----------------------------------
 # Terraform Cloud Workspaces
 #----------------------------------
-variable "global_vars_ws" {
+variable "ws_global_vars" {
   default     = "global_vars"
   description = "Global Variables Workspace Name."
   type        = string
 }
 
-variable "iks_policy_ws" {
+variable "ws_iks_policy" {
   default     = "iks_policies"
   description = "Intersight Kubernetes Service Policies Workspace."
   type        = string
