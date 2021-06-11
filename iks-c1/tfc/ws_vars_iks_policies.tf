@@ -57,41 +57,42 @@ variable "vsphere_resource_pool" {
 # Trusted Registries Variables
 #------------------------------
 variable "root_ca_registries" {
-  type        = list(string)
+  default     = "[]"
   description = "List of root CA Signed Registries."
-  default     = []
+  type        = string
 }
 
 variable "unsigned_registries" {
-  type        = list(string)
+  default     = "[]"
   description = "List of unsigned registries to be supported."
-  default     = []
+  type        = string
 }
 
 
 #--------------------------
 # Kubernetes Policies Tags
 #--------------------------
-variable "tags" {
-  default     = []
+variable "tags_policies" {
+  default     = "[]"
+  # default     = []
   description = "Tags to be Associated with Objects Created in Intersight."
-  type        = list(map(string))
+  type        = string
 }
 
 
 module "tfc_variables_iks_policies" {
-  source = "../modules/tfc_variables"
+  source = "../../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace[0]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[1]
   variable_list = [
     {
       description = "Terraform Cloud Organization."
       hcl         = false
       key         = "tfc_organization"
-      sensitive   = true
+      sensitive   = false
       value       = var.tfc_organization
     },
     {
@@ -169,21 +170,21 @@ module "tfc_variables_iks_policies" {
       hcl         = true
       key         = "root_ca_registries"
       sensitive   = false
-      value       = [var.root_ca_registries]
+      value       = var.root_ca_registries
     },
     {
       description = "List of unsigned registries to be supported."
       hcl         = true
       key         = "unsigned_registries"
       sensitive   = false
-      value       = [var.unsigned_registries]
+      value       = var.unsigned_registries
     },
     {
       description = "Tags to be Associated with Objects Created in Intersight."
       hcl         = true
       key         = "tags"
       sensitive   = false
-      value       = [var.tags]
+      value       = var.tags_policies
     },
   ]
 }

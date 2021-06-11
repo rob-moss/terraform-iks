@@ -23,6 +23,12 @@ variable "agent_pool" {
   type        = string
 }
 
+variable "terraform_version" {
+  default     = "1.0.0"
+  description = "Terraform Target Version."
+  type        = string
+}
+
 variable "vcs_repo" {
   description = "Terraform Cloud Organization Name."
   type        = string
@@ -32,12 +38,6 @@ variable "vcs_repo" {
 #---------------------------
 # Intersight Variables
 #---------------------------
-variable "organization" {
-  default     = "default"
-  description = "Intersight Organization Name."
-  type        = string
-}
-
 variable "api_key" {
   description = "Intersight API Key."
   sensitive   = true

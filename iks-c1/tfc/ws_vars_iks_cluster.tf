@@ -69,26 +69,26 @@ variable "worker_max_size" {
 #--------------------------
 # Kubernetes Policies Tags
 #--------------------------
-variable "tags" {
-  default     = []
+variable "tags_cluster" {
+  default     = "[]"
   description = "Tags to be Associated with Objects Created in Intersight."
-  type        = list(map(string))
+  type        = string
 }
 
 
-module "tfc_variables_iks_policies" {
-  source = "../modules/tfc_variables"
+module "tfc_variables_iks_cluster" {
+  source = "../../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace[0]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[2]
   variable_list = [
     {
       description = "Terraform Cloud Organization."
       hcl         = false
       key         = "tfc_organization"
-      sensitive   = true
+      sensitive   = false
       value       = var.tfc_organization
     },
     {
@@ -123,7 +123,7 @@ module "tfc_variables_iks_policies" {
       description = "K8S Master Virtual Machine Instance Type.  Options are {small|medium|large}."
       hcl         = false
       key         = "master_instance_type"
-      sensitive   = true
+      sensitive   = false
       value       = var.master_instance_type
     },
     {
@@ -144,7 +144,7 @@ module "tfc_variables_iks_policies" {
       description = "K8S Worker Virtual Machine Instance Type.  Options are {small|medium|large}."
       hcl         = false
       key         = "worker_instance_type"
-      sensitive   = true
+      sensitive   = false
       value       = var.worker_instance_type
     },
     {
@@ -166,7 +166,7 @@ module "tfc_variables_iks_policies" {
       hcl         = true
       key         = "tags"
       sensitive   = false
-      value       = [var.tags]
+      value       = var.tags_cluster
     },
   ]
 }

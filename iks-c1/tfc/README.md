@@ -1,60 +1,77 @@
-# Terraform Cloud - Workspace Module
+# Workspace and Variable Creation
 
-## Usage
+## Import the following Variables into your Environment before Running
 
-```hcl
-module "tfc_workspaces" {
+* Terraform Cloud Variables
 
-  source = "terraform-cloud//modules/tfc_workspaces"
+```bash
+export TF_VAR_terraform_cloud_token="obtain_token"
+export TF_VAR_tfc_oath_token="obtain_token"
+export TF_VAR_tfc_organization="your_organization"
+export TF_VAR_tfc_email="your_email"
+export TF_VAR_agent_pool="your_agent_pool"
+export TF_VAR_terraform_version="1.0.0"
+export TF_VAR_vcs_repo="your_vcs_repo"
+```
 
-  # omitted...
-}
+* Intersight Variables
+
+```bash
+export TF_VAR_organization="default"
+export TF_VAR_api_key="your_api_key"
+export TF_VAR_secret_key="your_secret_key"
+```
+
+* Global Variables
+
+```bash
+export TF_VAR_network_prefix="10.200.0"
+export TF_VAR_domain_name="demo.intra"
+export TF_VAR_dns_primary="100"
+export TF_VAR_dns_secondary=""
+```
+
+* Kubernetes Policies Variables
+
+```bash
+export TF_VAR_ip_pool_gateway="254"
+export TF_VAR_ip_pool_from="20"
+export TF_VAR_k8s_pod_cidr="100.65.0.0"
+export TF_VAR_k8s_service_cidr="100.64.0.0"
+export TF_VAR_k8s_k8s_version="1.19.5"
+export TF_VAR_unsigned_registries="[]"
+export TF_VAR_tags_policies="[ { key = \\\"Terraform\\\", value = \\\"Module\\\" }, { key = \\\"Owner\\\", value = \\\"DevNet\\\" } ]"
+```
+
+* vSphere Variables
+
+```bash
+export TF_VAR_vsphere_target="your_vpshere_target"
+export TF_VAR_vsphere_password="your_vshpere_password"
+export TF_VAR_vsphere_cluster="hx-demo"
+export TF_VAR_vsphere_datastore="hx-demo-ds1"
+export TF_VAR_vsphere_portgroup="Management"
+export TF_VAR_vsphere_resource_pool=""
+```
+
+* Kubernetes Cluster Variables
+
+```bash
+export TF_VAR_cluster_name="sbcluster"
+export TF_VAR_load_balancers="3"
+export TF_VAR_ssh_user="iksadmin"
+export TF_VAR_ssh_key="your_ssh_key"
+export TF_VAR_master_instance_type="small"
+export TF_VAR_master_desired_size="1"
+export TF_VAR_master_max_size="1"
+export TF_VAR_worker_instance_type="small"
+export TF_VAR_worker_desired_size="0"
+export TF_VAR_worker_max_size="1"
+export TF_VAR_tags_cluster="[ { key = \\\"Terraform\\\", value = \\\"Module\\\" }, { key = \\\"Owner\\\", value = \\\"DevNet\\\" } ]"
 ```
 
 This module will Create a Terraform Cloud Workspace.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
-## Requirements
 
-| Name | Version |
-|------|---------|
-| <a name="requirement_tfe"></a> [tfe](#requirement\_tfe) | 0.25.3 |
-
-## Providers
-
-No providers.
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_tfc_agent_pool"></a> [tfc\_agent\_pool](#module\_tfc\_agent\_pool) | ../modules/tfc_agent_pool | n/a |
-| <a name="module_tfc_variables_ACI"></a> [tfc\_variables\_ACI](#module\_tfc\_variables\_ACI) | ../modules/tfc_variables | n/a |
-| <a name="module_tfc_variables_IKS"></a> [tfc\_variables\_IKS](#module\_tfc\_variables\_IKS) | ../modules/tfc_variables | n/a |
-| <a name="module_tfc_workspaces"></a> [tfc\_workspaces](#module\_tfc\_workspaces) | ../modules/tfc_workspaces | n/a |
-
-## Resources
-
-No resources.
-
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| <a name="input_agent_pool"></a> [agent\_pool](#input\_agent\_pool) | Terraform Cloud Agent Pool | `string` | n/a | yes |
-| <a name="input_api_key"></a> [api\_key](#input\_api\_key) | API Key | `string` | n/a | yes |
-| <a name="input_apicPass"></a> [apicPass](#input\_apicPass) | APIC Password | `string` | n/a | yes |
-| <a name="input_secret_key"></a> [secret\_key](#input\_secret\_key) | Secret Key or file location | `string` | n/a | yes |
-| <a name="input_ssh_key"></a> [ssh\_key](#input\_ssh\_key) | SSH Public Key to be used to node login. | `string` | n/a | yes |
-| <a name="input_terraform_cloud_token"></a> [terraform\_cloud\_token](#input\_terraform\_cloud\_token) | Token to Authenticate to the Terraform Cloud | `string` | n/a | yes |
-| <a name="input_tfc_oath_token"></a> [tfc\_oath\_token](#input\_tfc\_oath\_token) | Terraform Cloud OAuth Token for VCS\_Repo Integration | `string` | n/a | yes |
-| <a name="input_tfc_org_name"></a> [tfc\_org\_name](#input\_tfc\_org\_name) | Terraform Cloud Organization Name | `string` | n/a | yes |
-| <a name="input_vc_password"></a> [vc\_password](#input\_vc\_password) | Password of the account to be used with vCenter.  This should be the password for the account used to register vCenter with Intersight. | `string` | n/a | yes |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_tfc_agent_pool"></a> [tfc\_agent\_pool](#output\_tfc\_agent\_pool) | n/a |
-| <a name="output_tfc_workspaces"></a> [tfc\_workspaces](#output\_tfc\_workspaces) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

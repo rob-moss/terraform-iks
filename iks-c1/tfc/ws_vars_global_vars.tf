@@ -56,6 +56,12 @@ output "timezone" {
 #-----------------------------------
 # IP Pool Variables
 #-----------------------------------
+variable "network_prefix" {
+  default     = "10.200.0"
+  description = "IP Pool Gateway last Octet.  The var.network_prefix will be combined with ip_pool_gateway for the Gateway Address."
+  type        = string
+}
+
 variable "ip_pool_gateway" {
   default     = "254"
   description = "IP Pool Gateway last Octet.  The var.network_prefix will be combined with ip_pool_gateway for the Gateway Address."
@@ -77,12 +83,12 @@ variable "vsphere_target" {
 }
 
 module "tfc_variables_global" {
-  source = "../modules/tfc_variables"
+  source = "../../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace[0]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[0]
   variable_list = [
     {
       description = "Intersight Organization."
@@ -129,9 +135,9 @@ module "tfc_variables_global" {
     {
       description = "IP Pool Gateway last Octet."
       hcl         = false
-      key         = "network_prefix"
+      key         = "ip_pool_gateway"
       sensitive   = false
-      value       = var.network_prefix
+      value       = var.ip_pool_gateway
     },
     {
       description = "IP Pool Starting Address."
@@ -139,13 +145,6 @@ module "tfc_variables_global" {
       key         = "ip_pool_from"
       sensitive   = false
       value       = var.ip_pool_from
-    },
-    {
-      description = "IP Pool Size."
-      hcl         = false
-      key         = "ip_pool_size"
-      sensitive   = false
-      value       = var.ip_pool_size
     },
     {
       description = "vSphere Server registered as a Target in Intersight."
