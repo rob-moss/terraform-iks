@@ -25,18 +25,18 @@ data "terraform_remote_state" "iks_policies" {
 # Create the Intersight Kubernetes Service Cluster Profile
 #----------------------------------------------------------
 module "iks_cluster" {
-  source                        = "terraform-cisco-modules/iks/intersight//modules/cluster"
-  org_name                      = local.organization
+  source   = "terraform-cisco-modules/iks/intersight//modules/cluster"
+  org_name = local.organization
   # action                        = "Unassign"
-  name                          = local.cluster_name
-  ip_pool_moid                  = local.ip_pool
-  load_balancer                 = var.load_balancers
-  net_config_moid               = local.k8s_network_cidr
-  ssh_key                       = var.ssh_key
-  ssh_user                      = var.ssh_user
-  sys_config_moid               = local.k8s_nodeos_config
-  trusted_registry_policy_moid  = local.k8s_trusted_registry
-  tags                          = var.tags
+  name                         = local.cluster_name
+  ip_pool_moid                 = local.ip_pool
+  load_balancer                = var.load_balancers
+  net_config_moid              = local.k8s_network_cidr
+  ssh_key                      = var.ssh_key
+  ssh_user                     = var.ssh_user
+  sys_config_moid              = local.k8s_nodeos_config
+  trusted_registry_policy_moid = local.k8s_trusted_registry
+  tags                         = var.tags
 }
 
 output "iks_cluster" {
@@ -95,7 +95,7 @@ module "worker_instance_type" {
 
 # Wait for cluster to come up and then output the kubeconfig, if successful
 output "kube_config" {
-	value = intersight_kubernetes_cluster_profile.kubeprofaction.kube_config[0].kube_config
+  value = intersight_kubernetes_cluster_profile.kubeprofaction.kube_config[0].kube_config
 }
 
 
@@ -104,12 +104,12 @@ output "kube_config" {
 #---------------------------------------------------
 locals {
   # Intersight Provider Variables
-  endpoint          = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
+  endpoint = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
   # Intersight Organization
   organization      = yamldecode(data.terraform_remote_state.global.outputs.organization)
   organization_moid = yamldecode(data.terraform_remote_state.iks_policies.outputs.organization_moid)
   # IKS Cluster Variables
-  cluster_name      = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
+  cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
   # Kubernetes Policy moid Variables
   ip_pool               = yamldecode(data.terraform_remote_state.iks_policies.outputs.ip_pool)
   k8s_instance_small    = yamldecode(data.terraform_remote_state.iks_policies.outputs.k8s_instance_small)

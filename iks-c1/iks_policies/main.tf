@@ -3,10 +3,10 @@
 #---------------------------------------------
 data "terraform_remote_state" "global" {
   backend = "remote"
-  config  = {
-    organization  = local.tfc_organization
-    workspaces    = {
-      name  = var.ws_global_vars
+  config = {
+    organization = local.tfc_organization
+    workspaces = {
+      name = var.ws_global_vars
     }
   }
 }
@@ -16,7 +16,7 @@ data "terraform_remote_state" "global" {
 # Get the Intersight Organization moid
 #--------------------------------------
 data "intersight_organization_organization" "organization" {
-  name  = local.organization
+  name = local.organization
 }
 
 
@@ -24,16 +24,16 @@ data "intersight_organization_organization" "organization" {
 # Create the IP Pool
 #---------------------------------------
 module "ip_pool" {
-  source            = "terraform-cisco-modules/iks/intersight//modules/ip_pool"
-  org_name          = local.organization
-  name              = local.ip_pool
-  gateway           = local.ip_pool_gateway
-  netmask           = local.netmask
-  pool_size         = local.pool_size
-  primary_dns       = local.dns_primary
-  secondary_dns     = local.dns_secondary
-  starting_address  = local.ip_pool_from
-  tags              = var.tags
+  source           = "terraform-cisco-modules/iks/intersight//modules/ip_pool"
+  org_name         = local.organization
+  name             = local.ip_pool
+  gateway          = local.ip_pool_gateway
+  netmask          = local.netmask
+  pool_size        = local.pool_size
+  primary_dns      = local.dns_primary
+  secondary_dns    = local.dns_secondary
+  starting_address = local.ip_pool_from
+  tags             = var.tags
 }
 
 
@@ -41,16 +41,16 @@ module "ip_pool" {
 # Create the Kubernetes VM Infra Config
 #---------------------------------------
 module "k8s_vm_infra_policy" {
-  source            = "terraform-cisco-modules/iks/intersight//modules/infra_config_policy"
-  org_name          = local.organization
-  name              = local.k8s_vm_infra_policy
-  device_name       = local.vsphere_target
-  vc_password       = var.vsphere_password
-  vc_cluster        = var.vsphere_cluster
-  vc_datastore      = var.vsphere_datastore
-  vc_portgroup      = var.vsphere_portgroup
-  vc_resource_pool  = var.vsphere_resource_pool
-  tags              = var.tags
+  source           = "terraform-cisco-modules/iks/intersight//modules/infra_config_policy"
+  org_name         = local.organization
+  name             = local.k8s_vm_infra_policy
+  device_name      = local.vsphere_target
+  vc_password      = var.vsphere_password
+  vc_cluster       = var.vsphere_cluster
+  vc_datastore     = var.vsphere_datastore
+  vc_portgroup     = var.vsphere_portgroup
+  vc_resource_pool = var.vsphere_resource_pool
+  tags             = var.tags
 }
 
 
@@ -58,25 +58,25 @@ module "k8s_vm_infra_policy" {
 # Create the Kubernetes VM Node OS Config Policy
 #------------------------------------------------
 module "k8s_vm_network_policy" {
-  source        = "terraform-cisco-modules/iks/intersight//modules/k8s_network"
-  org_name      = local.organization
-  policy_name   = local.k8s_vm_network_policy
-  cni           = var.cni
-  dns_servers   = trimspace(<<-EOT
+  source      = "terraform-cisco-modules/iks/intersight//modules/k8s_network"
+  org_name    = local.organization
+  policy_name = local.k8s_vm_network_policy
+  cni         = var.cni
+  dns_servers = trimspace(<<-EOT
   %{if local.dns_secondary == ""~}${[local.dns_primary]}
   %{else}${[local.dns_primary, local.dns_secondary]}%{endif~}
   EOT
   )
-  domain_name   = local.domain_name
-  ntp_servers   = trimspace(<<-EOT
+  domain_name = local.domain_name
+  ntp_servers = trimspace(<<-EOT
   %{if local.ntp_secondary == ""~}${[local.ntp_primary]}
   %{else}${[local.ntp_primary, local.ntp_secondary]}%{endif~}
   EOT
   )
-  pod_cidr      = var.k8s_pod_cidr
-  service_cidr  = var.k8s_service_cidr
-  timezone      = local.timezone
-  tags          = var.tags
+  pod_cidr     = var.k8s_pod_cidr
+  service_cidr = var.k8s_service_cidr
+  timezone     = local.timezone
+  tags         = var.tags
 }
 
 
@@ -84,11 +84,11 @@ module "k8s_vm_network_policy" {
 # Create the Kubernetes Version Policy
 #---------------------------------------
 module "k8s_version_policy" {
-  source            = "terraform-cisco-modules/iks/intersight//modules/version"
-  org_name          = local.organization
-  k8s_version_name  = local.k8s_version_policy
-  k8s_version       = var.k8s_version
-  tags              = var.tags
+  source           = "terraform-cisco-modules/iks/intersight//modules/version"
+  org_name         = local.organization
+  k8s_version_name = local.k8s_version_policy
+  k8s_version      = var.k8s_version
+  tags             = var.tags
 }
 
 
@@ -147,9 +147,9 @@ module "k8s_trusted_registry" {
 #---------------------------------------------------
 locals {
   # Intersight Provider Variables
-  endpoint      = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
+  endpoint = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
   # Intersight Organization
-  organization  = yamldecode(data.terraform_remote_state.global.outputs.organization)
+  organization = yamldecode(data.terraform_remote_state.global.outputs.organization)
   # DNS Variables
   dns_primary   = yamldecode(data.terraform_remote_state.global.outputs.dns_primary)
   dns_secondary = yamldecode(data.terraform_remote_state.global.outputs.dns_secondary)
@@ -159,7 +159,7 @@ locals {
   ntp_secondary = yamldecode(data.terraform_remote_state.global.outputs.ntp_secondary)
   timezone      = yamldecode(data.terraform_remote_state.global.outputs.timezone)
   # IKS Cluster Variable
-  cluster_name  = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
+  cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
   # IP Pool Variables
   ip_pool         = yamldecode(data.terraform_remote_state.global.outputs.ip_pool)
   ip_pool_netmask = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_netmask)
@@ -172,5 +172,5 @@ locals {
   k8s_vm_network_policy = yamldecode(data.terraform_remote_state.global.outputs.k8s_vm_network_policy)
   k8s_vm_infra_policy   = yamldecode(data.terraform_remote_state.global.outputs.k8s_vm_infra_policy)
   # vSphere Target Variable
-  vsphere_target  = yamldecode(data.terraform_remote_state.global.outputs.vsphere_target)
+  vsphere_target = yamldecode(data.terraform_remote_state.global.outputs.vsphere_target)
 }

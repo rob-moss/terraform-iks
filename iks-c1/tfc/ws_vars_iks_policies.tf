@@ -73,7 +73,7 @@ variable "unsigned_registries" {
 # Kubernetes Policies Tags
 #--------------------------
 variable "tags_policies" {
-  default     = "[]"
+  default = "[]"
   # default     = []
   description = "Tags to be Associated with Objects Created in Intersight."
   type        = string
