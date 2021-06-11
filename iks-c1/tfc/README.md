@@ -181,8 +181,6 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_organization"></a> [organization](#output\_organization) | n/a |
-| <a name="output_tfc_agent_pool"></a> [tfc\_agent\_pool](#output\_tfc\_agent\_pool) | n/a |
-| <a name="output_tfc_workspaces"></a> [tfc\_workspaces](#output\_tfc\_workspaces) | n/a |
-| <a name="output_timezone"></a> [timezone](#output\_timezone) | n/a |
+| <a name="output_tfc_agent_pool"></a> [tfc\_agent\_pool](#output\_tfc\_agent\_pool) | Terraform Cloud Agent Pool ID. |
+| <a name="output_tfc_workspaces"></a> [tfc\_workspaces](#output\_tfc\_workspaces) | Terraform Cloud Workspace identifiers. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

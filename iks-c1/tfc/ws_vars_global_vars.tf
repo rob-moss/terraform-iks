@@ -6,9 +6,7 @@ variable "organization" {
   description = "Intersight Organization."
   type        = string
 }
-output "organization" {
-  value = var.organization
-}
+
 
 #----------------------
 # IKS Cluster Variable
@@ -47,9 +45,6 @@ variable "timezone" {
   default     = "America/New_York"
   description = "Timezone for Kubernetes Sysconfig Policy."
   type        = string
-}
-output "timezone" {
-  value = var.timezone
 }
 
 
