@@ -1,5 +1,32 @@
 # Workspace and Variable Creation
 
+## Obtain tokens and keys
+
+Follow the instructions to obtain values for the following variables:
+
+## Terraform Cloud Variables
+
+* TF_VAR_terraform_cloud_token
+* TF_VAR_tfc_oath_token
+* TF_VAR_tfc_organization
+* TF_VAR_tfc_email
+* TF_VAR_agent_pool
+* TF_VAR_vcs_repo
+
+## Intersight Variables
+
+* TF_VAR_api_key
+* TF_VAR_secret_key
+* TF_VAR_vcs_repo
+
+## Assign the vCenter Password from the Instructions
+
+* TF_VAR_vsphere_password
+
+## Generate an SSH Key
+
+* TF_VAR_ssh_key
+
 ## Import the following Variables into your Environment before Running
 
 * Terraform Cloud Variables
@@ -46,7 +73,7 @@ export TF_VAR_tags_policies="[ { key = \\\"Terraform\\\", value = \\\"Module\\\"
 * vSphere Variables
 
 ```bash
-export TF_VAR_vsphere_target="your_vpshere_target"
+export TF_VAR_vsphere_target="210"
 export TF_VAR_vsphere_password="your_vshpere_password"
 export TF_VAR_vsphere_cluster="hx-demo"
 export TF_VAR_vsphere_datastore="hx-demo-ds1"
