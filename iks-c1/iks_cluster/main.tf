@@ -27,7 +27,7 @@ data "terraform_remote_state" "iks_policies" {
 module "iks_cluster" {
   source   = "terraform-cisco-modules/iks/intersight//modules/cluster"
   org_name = local.organization
-  # action                        = "Unassign"
+  action                       = "Deploy"
   name                         = local.cluster_name
   ip_pool_moid                 = local.ip_pool
   load_balancer                = var.load_balancers

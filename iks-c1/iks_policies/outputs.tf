@@ -8,7 +8,7 @@ output "organization" {
 
 output "organization_moid" {
   description = "moid of the Intersight Organization."
-  value       = data.intersight_organization_organization.organization_moid
+  value       = data.intersight_organization_organization.organization_moid.id
 }
 
 
