@@ -101,7 +101,7 @@ module "tfc_variables_iks_cluster" {
     {
       description = "iks_policies Workspace."
       hcl         = false
-      key         = "ws_iks_policy"
+      key         = "ws_iks_policies"
       sensitive   = false
       value       = "${var.cluster_name}_iks_policies"
     },
@@ -132,6 +132,13 @@ module "tfc_variables_iks_cluster" {
       key         = "ssh_user"
       sensitive   = false
       value       = var.ssh_user
+    },
+    {
+      description = "Intersight Kubernetes Service Cluster Default User."
+      hcl         = false
+      key         = "ssh_key"
+      sensitive   = true
+      value       = var.ssh_key
     },
     {
       description = "K8S Master Virtual Machine Instance Type.  Options are {small|medium|large}."

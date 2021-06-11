@@ -17,7 +17,7 @@ variable "ws_global_vars" {
   type        = string
 }
 
-variable "ws_iks_policy" {
+variable "ws_iks_policies" {
   default     = "iks_policies"
   description = "Intersight Kubernetes Service Policies Workspace."
   type        = string

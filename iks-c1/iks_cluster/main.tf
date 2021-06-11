@@ -27,7 +27,7 @@ data "terraform_remote_state" "iks_policies" {
 module "iks_cluster" {
   source   = "terraform-cisco-modules/iks/intersight//modules/cluster"
   org_name = local.organization
-  action                       = "Deploy"
+  action                       = "Unassign"
   name                         = local.cluster_name
   ip_pool_moid                 = local.ip_pool
   load_balancer                = var.load_balancers
@@ -39,43 +39,55 @@ module "iks_cluster" {
   tags                         = var.tags
 }
 
-module "control_profile" {
-  source       = "terraform-cisco-modules/iks/intersight//modules/node_profile"
-  name         = "${local.cluster_name}-master_profile"
-  profile_type = "ControlPlane"
-  desired_size = var.master_desired_size
-  max_size     = var.master_max_size
-  ip_pool_moid = local.ip_pool
-  cluster_moid = module.cluster.cluster_moid
-  version_moid = module.k8s_version_policy
-
+module "master_profile" {
+  depends_on    = [
+    module.iks_cluster
+  ]
+  source        = "terraform-cisco-modules/iks/intersight//modules/node_profile"
+  name          = "${local.cluster_name}-master_profile"
+  profile_type  = "ControlPlane"
+  desired_size  = var.master_desired_size
+  max_size      = var.master_max_size
+  cluster_moid  = module.iks_cluster.cluster_moid
+  ip_pool_moid  = local.ip_pool
+  version_moid  = local.k8s_version_policy
 }
 
 module "worker_profile" {
-  source       = "terraform-cisco-modules/iks/intersight//modules/node_profile"
-  name         = "${var.cluster_name}-worker_profile"
-  profile_type = "Worker"
-  desired_size = var.worker_desired_size
-  max_size     = var.worker_max_size
-  ip_pool_moid = local.ip_pool
-  cluster_moid = module.cluster.cluster_moid
-  version_moid = module.k8s_version_policy
+  depends_on    = [
+    module.iks_cluster
+  ]
+  source        = "terraform-cisco-modules/iks/intersight//modules/node_profile"
+  name          = "${var.cluster_name}-worker_profile"
+  profile_type  = "Worker"
+  desired_size  = var.worker_desired_size
+  max_size      = var.worker_max_size
+  cluster_moid  = module.iks_cluster.cluster_moid
+  ip_pool_moid  = local.ip_pool
+  version_moid  = local.k8s_version_policy
 
 }
 module "master_instance_type" {
-  source = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
-  name   = "${var.cluster_name}-master"
+  depends_on    = [
+    module.master_profile
+  ]
+  source        = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
+  name          = "${var.cluster_name}-master"
   instance_type_moid = trimspace(<<-EOT
   %{if var.master_instance_type == "small"~}${local.k8s_instance_small}%{endif~}
   %{if var.master_instance_type == "medium"~}${local.k8s_instance_medium}%{endif~}
   %{if var.master_instance_type == "large"~}${local.k8s_instance_large}%{endif~}
   EOT
   )
-  node_group_moid          = module.control_profile.node_group_profile_moid
-  infra_config_policy_moid = module.infra_config_policy.infra_config_moid
+  node_group_moid          = module.master_profile.node_group_profile_moid
+  infra_config_policy_moid = local.k8s_vm_infra_policy
   tags                     = var.tags
 }
+
 module "worker_instance_type" {
+  depends_on    = [
+    module.worker_profile
+  ]
   source = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
   name   = "${var.cluster_name}-worker"
   instance_type_moid = trimspace(<<-EOT
@@ -85,8 +97,26 @@ module "worker_instance_type" {
   EOT
   )
   node_group_moid          = module.worker_profile.node_group_profile_moid
-  infra_config_policy_moid = module.infra_config_policy.infra_config_moid
+  infra_config_policy_moid = local.k8s_vm_infra_policy
   tags                     = var.tags
+}
+
+resource "intersight_kubernetes_cluster_profile" "deploy_iks_cluster" {
+  depends_on = [
+        module.iks_cluster,
+        module.master_profile,
+        module.worker_profile,
+        module.master_instance_type,
+        module.worker_instance_type,
+  ]
+  action              = "Deploy"
+  name                = local.cluster_name
+  wait_for_completion = true
+  organization {
+    object_type = "organization.Organization"
+    moid        = local.organization_moid
+  }
+
 }
 
 #---------------------------------------------------
