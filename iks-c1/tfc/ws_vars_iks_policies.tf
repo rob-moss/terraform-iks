@@ -42,7 +42,7 @@ variable "vsphere_datastore" {
 }
 
 variable "vsphere_portgroup" {
-  default     = "Management"
+  default     = "[Management]"
   description = "vSphere Port Group to assign the K8S Cluster Deployment."
   type        = string
 }
@@ -153,7 +153,7 @@ module "tfc_variables_iks_policies" {
     },
     {
       description = "vSphere Port Group to assign the K8S Cluster Deployment."
-      hcl         = false
+      hcl         = true
       key         = "vsphere_portgroup"
       sensitive   = false
       value       = var.vsphere_portgroup

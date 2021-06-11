@@ -67,7 +67,7 @@ export TF_VAR_k8s_pod_cidr="100.65.0.0"
 export TF_VAR_k8s_service_cidr="100.64.0.0"
 export TF_VAR_k8s_k8s_version="1.19.5"
 export TF_VAR_unsigned_registries="[]"
-export TF_VAR_tags_policies="[ { key = \\\"Terraform\\\", value = \\\"Module\\\" }, { key = \\\"Owner\\\", value = \\\"DevNet\\\" } ]"
+export TF_VAR_tags_policies="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"DevNet\" } ]"
 ```
 
 * vSphere Variables
@@ -77,7 +77,7 @@ export TF_VAR_vsphere_target="210"
 export TF_VAR_vsphere_password="your_vshpere_password"
 export TF_VAR_vsphere_cluster="hx-demo"
 export TF_VAR_vsphere_datastore="hx-demo-ds1"
-export TF_VAR_vsphere_portgroup="Management"
+export TF_VAR_vsphere_portgroup="[\"Management\"]"
 export TF_VAR_vsphere_resource_pool=""
 ```
 
@@ -94,7 +94,7 @@ export TF_VAR_master_max_size="1"
 export TF_VAR_worker_instance_type="small"
 export TF_VAR_worker_desired_size="0"
 export TF_VAR_worker_max_size="1"
-export TF_VAR_tags_cluster="[ { key = \\\"Terraform\\\", value = \\\"Module\\\" }, { key = \\\"Owner\\\", value = \\\"DevNet\\\" } ]"
+export TF_VAR_tags_cluster="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"DevNet\" } ]"
 ```
 
 Once all Variables have been imported into your environment run the plan:
