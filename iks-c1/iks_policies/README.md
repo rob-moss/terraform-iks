@@ -63,15 +63,15 @@ Run the plan from the Terraform cloud workspace.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_ip_pool"></a> [ip\_pool](#output\_ip\_pool) | ----------------------------- Kubernetes Policies Outputs ----------------------------- |
-| <a name="output_k8s_instance_large"></a> [k8s\_instance\_large](#output\_k8s\_instance\_large) | n/a |
-| <a name="output_k8s_instance_medium"></a> [k8s\_instance\_medium](#output\_k8s\_instance\_medium) | n/a |
-| <a name="output_k8s_instance_small"></a> [k8s\_instance\_small](#output\_k8s\_instance\_small) | ----------------------------- Kubernetes Policies Outputs ----------------------------- |
-| <a name="output_k8s_network_cidr"></a> [k8s\_network\_cidr](#output\_k8s\_network\_cidr) | n/a |
-| <a name="output_k8s_nodeos_config"></a> [k8s\_nodeos\_config](#output\_k8s\_nodeos\_config) | n/a |
-| <a name="output_k8s_trusted_registry"></a> [k8s\_trusted\_registry](#output\_k8s\_trusted\_registry) | n/a |
-| <a name="output_k8s_version_policy"></a> [k8s\_version\_policy](#output\_k8s\_version\_policy) | n/a |
-| <a name="output_k8s_vm_infra_policy"></a> [k8s\_vm\_infra\_policy](#output\_k8s\_vm\_infra\_policy) | n/a |
+| <a name="output_ip_pool"></a> [ip\_pool](#output\_ip\_pool) | moid of the IP Pool |
+| <a name="output_k8s_instance_large"></a> [k8s\_instance\_large](#output\_k8s\_instance\_large) | moid of the Large Kubernetes Instance Type. |
+| <a name="output_k8s_instance_medium"></a> [k8s\_instance\_medium](#output\_k8s\_instance\_medium) | moid of the Medium Kubernetes Instance Type. |
+| <a name="output_k8s_instance_small"></a> [k8s\_instance\_small](#output\_k8s\_instance\_small) | moid of the Small Kubernetes Instance Type. |
+| <a name="output_k8s_network_cidr"></a> [k8s\_network\_cidr](#output\_k8s\_network\_cidr) | moid of the Kubernetes CIDR Policy. |
+| <a name="output_k8s_nodeos_config"></a> [k8s\_nodeos\_config](#output\_k8s\_nodeos\_config) | moid of the Kubernetes Node OS Config Policy. |
+| <a name="output_k8s_trusted_registry"></a> [k8s\_trusted\_registry](#output\_k8s\_trusted\_registry) | moid of the Kubernetes Trusted Registry Policy. |
+| <a name="output_k8s_version_policy"></a> [k8s\_version\_policy](#output\_k8s\_version\_policy) | moid of the Kubernetes Version Policy. |
+| <a name="output_k8s_vm_infra_policy"></a> [k8s\_vm\_infra\_policy](#output\_k8s\_vm\_infra\_policy) | moid of the Kubernetes VM Infrastructure Policy. |
 | <a name="output_organization"></a> [organization](#output\_organization) | ------------------------- Intersight Organization ------------------------- |
 | <a name="output_organization_moid"></a> [organization\_moid](#output\_organization\_moid) | n/a |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
