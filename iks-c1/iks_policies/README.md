@@ -43,7 +43,7 @@ Run the plan from the Terraform cloud workspace.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_api_key"></a> [api\_key](#input\_api\_key) | Intersight API Key. | `string` | n/a | yes |
-| <a name="input_cni"></a> [cni](#input\_cni) | Supported CNI type. Currently we only support Calico.* Calico - Calico CNI plugin as described in https://github.com/projectcalico/cni-plugin. | `string` | `"Calico"` | no |
+| <a name="input_cni"></a> [cni](#input\_cni) | Supported CNI type. Currently we only support Calico.<br>* Calico - Calico CNI plugin as described in:<br> https://github.com/projectcalico/cni-plugin | `string` | `"Calico"` | no |
 | <a name="input_k8s_pod_cidr"></a> [k8s\_pod\_cidr](#input\_k8s\_pod\_cidr) | Pod CIDR Block to be used to assign Pod IP Addresses. | `string` | `"100.65.0.0/64"` | no |
 | <a name="input_k8s_service_cidr"></a> [k8s\_service\_cidr](#input\_k8s\_service\_cidr) | Service CIDR Block used to assign Cluster Service IP Addresses. | `string` | `"100.64.0.0/64"` | no |
 | <a name="input_k8s_version"></a> [k8s\_version](#input\_k8s\_version) | Kubernetes Version to Deploy. | `string` | `"1.19.5"` | no |

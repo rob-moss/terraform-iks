@@ -39,7 +39,7 @@ variable "ws_global_vars" {
 #-----------------------------------------
 variable "cni" {
   type        = string
-  description = "Supported CNI type. Currently we only support Calico.* Calico - Calico CNI plugin as described in https://github.com/projectcalico/cni-plugin."
+  description = "Supported CNI type. Currently we only support Calico.\r\n* Calico - Calico CNI plugin as described in:\r\n https://github.com/projectcalico/cni-plugin"
   default     = "Calico"
 }
 
