@@ -72,6 +72,6 @@ Run the plan from the Terraform cloud workspace.
 | <a name="output_k8s_trusted_registry"></a> [k8s\_trusted\_registry](#output\_k8s\_trusted\_registry) | moid of the Kubernetes Trusted Registry Policy. |
 | <a name="output_k8s_version_policy"></a> [k8s\_version\_policy](#output\_k8s\_version\_policy) | moid of the Kubernetes Version Policy. |
 | <a name="output_k8s_vm_infra_policy"></a> [k8s\_vm\_infra\_policy](#output\_k8s\_vm\_infra\_policy) | moid of the Kubernetes VM Infrastructure Policy. |
-| <a name="output_organization"></a> [organization](#output\_organization) | ------------------------- Intersight Organization ------------------------- |
-| <a name="output_organization_moid"></a> [organization\_moid](#output\_organization\_moid) | n/a |
+| <a name="output_organization"></a> [organization](#output\_organization) | Intersight Organization Name. |
+| <a name="output_organization_moid"></a> [organization\_moid](#output\_organization\_moid) | moid of the Intersight Organization. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
