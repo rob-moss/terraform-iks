@@ -50,23 +50,23 @@ No resources.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | n/a |
-| <a name="output_dns_primary"></a> [dns\_primary](#output\_dns\_primary) | n/a |
-| <a name="output_dns_secondary"></a> [dns\_secondary](#output\_dns\_secondary) | n/a |
-| <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | n/a |
-| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | n/a |
-| <a name="output_ip_pool"></a> [ip\_pool](#output\_ip\_pool) | n/a |
-| <a name="output_ip_pool_from"></a> [ip\_pool\_from](#output\_ip\_pool\_from) | n/a |
-| <a name="output_ip_pool_gateway"></a> [ip\_pool\_gateway](#output\_ip\_pool\_gateway) | n/a |
-| <a name="output_ip_pool_netmask"></a> [ip\_pool\_netmask](#output\_ip\_pool\_netmask) | n/a |
-| <a name="output_ip_pool_size"></a> [ip\_pool\_size](#output\_ip\_pool\_size) | n/a |
-| <a name="output_k8s_trusted_registry"></a> [k8s\_trusted\_registry](#output\_k8s\_trusted\_registry) | n/a |
-| <a name="output_k8s_version_policy"></a> [k8s\_version\_policy](#output\_k8s\_version\_policy) | n/a |
-| <a name="output_k8s_vm_infra_policy"></a> [k8s\_vm\_infra\_policy](#output\_k8s\_vm\_infra\_policy) | n/a |
-| <a name="output_k8s_vm_network_policy"></a> [k8s\_vm\_network\_policy](#output\_k8s\_vm\_network\_policy) | n/a |
-| <a name="output_ntp_primary"></a> [ntp\_primary](#output\_ntp\_primary) | n/a |
-| <a name="output_ntp_secondary"></a> [ntp\_secondary](#output\_ntp\_secondary) | n/a |
-| <a name="output_organization"></a> [organization](#output\_organization) | n/a |
-| <a name="output_timezone"></a> [timezone](#output\_timezone) | n/a |
-| <a name="output_vsphere_target"></a> [vsphere\_target](#output\_vsphere\_target) | n/a |
+| <a name="output_cluster_name"></a> [cluster\_name](#output\_cluster\_name) | Intersight Kubernetes Service Cluster Name. |
+| <a name="output_dns_primary"></a> [dns\_primary](#output\_dns\_primary) | Primary DNS Server. |
+| <a name="output_dns_secondary"></a> [dns\_secondary](#output\_dns\_secondary) | Secondary DNS Server. |
+| <a name="output_domain_name"></a> [domain\_name](#output\_domain\_name) | Domain Name. |
+| <a name="output_endpoint"></a> [endpoint](#output\_endpoint) | Intersight URL. |
+| <a name="output_ip_pool"></a> [ip\_pool](#output\_ip\_pool) | IP Pool Policy Name. |
+| <a name="output_ip_pool_from"></a> [ip\_pool\_from](#output\_ip\_pool\_from) | IP Pool Starting IP Value. |
+| <a name="output_ip_pool_gateway"></a> [ip\_pool\_gateway](#output\_ip\_pool\_gateway) | IP Pool Gateway Value. |
+| <a name="output_ip_pool_netmask"></a> [ip\_pool\_netmask](#output\_ip\_pool\_netmask) | IP Pool Netmask Value. |
+| <a name="output_ip_pool_size"></a> [ip\_pool\_size](#output\_ip\_pool\_size) | IP Pool Block Size. |
+| <a name="output_k8s_trusted_registry"></a> [k8s\_trusted\_registry](#output\_k8s\_trusted\_registry) | Kubernetes Trusted Registry Policy Name. |
+| <a name="output_k8s_version_policy"></a> [k8s\_version\_policy](#output\_k8s\_version\_policy) | Kubernetes Version Policy Name. |
+| <a name="output_k8s_vm_infra_policy"></a> [k8s\_vm\_infra\_policy](#output\_k8s\_vm\_infra\_policy) | Kubernetes VM Infrastructure Policy Name. |
+| <a name="output_k8s_vm_network_policy"></a> [k8s\_vm\_network\_policy](#output\_k8s\_vm\_network\_policy) | Kubernetes VM Network Policy Name. |
+| <a name="output_ntp_primary"></a> [ntp\_primary](#output\_ntp\_primary) | Primary NTP Server. |
+| <a name="output_ntp_secondary"></a> [ntp\_secondary](#output\_ntp\_secondary) | Secondary NTP Server. |
+| <a name="output_organization"></a> [organization](#output\_organization) | Intersight Organization Name. |
+| <a name="output_timezone"></a> [timezone](#output\_timezone) | Timezone. |
+| <a name="output_vsphere_target"></a> [vsphere\_target](#output\_vsphere\_target) | vSphere Target. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

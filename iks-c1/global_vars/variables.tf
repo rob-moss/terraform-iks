@@ -54,7 +54,7 @@ variable "dns_primary" {
 }
 output "dns_primary" {
   description = "Primary DNS Server."
-  value       = trimspace(<<-EOT
+  value = trimspace(<<-EOT
   %{if var.dns_primary == "100"~}${join(".", [var.network_prefix, var.dns_primary])}
   %{else}${var.dns_primary}
   %{endif~}
@@ -228,7 +228,7 @@ variable "vsphere_target" {
 }
 output "vsphere_target" {
   description = "vSphere Target."
-  value       = trimspace(<<-EOT
+  value = trimspace(<<-EOT
   %{if var.vsphere_target == "210"~}${join(".", [var.network_prefix, var.vsphere_target])}
   %{else}${var.vsphere_target}
   %{endif~}
