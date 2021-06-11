@@ -58,7 +58,7 @@ module "worker_profile" {
     module.iks_cluster
   ]
   source        = "terraform-cisco-modules/iks/intersight//modules/node_profile"
-  name          = "${var.cluster_name}-worker_profile"
+  name          = "${local.cluster_name}-worker_profile"
   profile_type  = "Worker"
   desired_size  = var.worker_desired_size
   max_size      = var.worker_max_size
@@ -72,7 +72,7 @@ module "master_instance_type" {
     module.master_profile
   ]
   source        = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
-  name          = "${var.cluster_name}-master"
+  name          = "${local.cluster_name}-master"
   instance_type_moid = trimspace(<<-EOT
   %{if var.master_instance_type == "small"~}${local.k8s_instance_small}%{endif~}
   %{if var.master_instance_type == "medium"~}${local.k8s_instance_medium}%{endif~}
@@ -89,7 +89,7 @@ module "worker_instance_type" {
     module.worker_profile
   ]
   source = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
-  name   = "${var.cluster_name}-worker"
+  name   = "${local.cluster_name}-worker"
   instance_type_moid = trimspace(<<-EOT
   %{if var.worker_instance_type == "small"~}${local.k8s_instance_small}%{endif~}
   %{if var.worker_instance_type == "medium"~}${local.k8s_instance_medium}%{endif~}
