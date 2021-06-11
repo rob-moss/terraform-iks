@@ -3,7 +3,7 @@
 #-------------------------
 output "organization" {
   description = "Intersight Organization Name."
-  value       = var.organization
+  value       = local.organization
 }
 
 output "organization_moid" {
@@ -60,5 +60,5 @@ output "k8s_version_policy" {
 
 output "k8s_vm_infra_policy" {
   description = "moid of the Kubernetes VM Infrastructure Policy."
-  value       = module.k8s_vm_infra_policy.infra_provider_moid
+  value       = module.k8s_vm_infra_policy.infra_config_moid
 }

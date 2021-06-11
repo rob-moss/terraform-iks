@@ -15,7 +15,7 @@ data "terraform_remote_state" "global" {
 #--------------------------------------
 # Get the Intersight Organization moid
 #--------------------------------------
-data "intersight_organization_organization" "organization" {
+data "intersight_organization_organization" "organization_moid" {
   name = local.organization
 }
 
@@ -28,8 +28,8 @@ module "ip_pool" {
   org_name         = local.organization
   name             = local.ip_pool
   gateway          = local.ip_pool_gateway
-  netmask          = local.netmask
-  pool_size        = local.pool_size
+  netmask          = local.ip_pool_netmask
+  pool_size        = local.ip_pool_size
   primary_dns      = local.dns_primary
   secondary_dns    = local.dns_secondary
   starting_address = local.ip_pool_from
@@ -63,14 +63,14 @@ module "k8s_vm_network_policy" {
   policy_name = local.k8s_vm_network_policy
   cni         = var.cni
   dns_servers = trimspace(<<-EOT
-  %{if local.dns_secondary == ""~}${[local.dns_primary]}
-  %{else}${[local.dns_primary, local.dns_secondary]}%{endif~}
+  %{if local.dns_secondary == ""~}${["local.dns_primary"]}
+  %{else}${["local.dns_primary", "local.dns_secondary"]}%{endif~}
   EOT
   )
   domain_name = local.domain_name
   ntp_servers = trimspace(<<-EOT
-  %{if local.ntp_secondary == ""~}${[local.ntp_primary]}
-  %{else}${[local.ntp_primary, local.ntp_secondary]}%{endif~}
+  %{if local.ntp_secondary == ""~}${["local.ntp_primary"]}
+  %{else}${["local.ntp_primary", "local.ntp_secondary"]}%{endif~}
   EOT
   )
   pod_cidr     = var.k8s_pod_cidr
@@ -101,7 +101,7 @@ module "k8s_version_policy" {
 module "k8s_instance_small" {
   source    = "terraform-cisco-modules/iks/intersight//modules/worker_profile"
   org_name  = local.organization
-  name      = join("-", [var.cluster_name, "small"])
+  name      = join("-", [local.cluster_name, "small"])
   cpu       = 4
   disk_size = 40
   memory    = 16384
@@ -111,7 +111,7 @@ module "k8s_instance_small" {
 module "k8s_instance_medium" {
   source    = "terraform-cisco-modules/iks/intersight//modules/worker_profile"
   org_name  = local.organization
-  name      = join("-", [var.cluster_name, "medium"])
+  name      = join("-", [local.cluster_name, "medium"])
   cpu       = 8
   disk_size = 60
   memory    = 24576
@@ -121,7 +121,7 @@ module "k8s_instance_medium" {
 module "k8s_instance_large" {
   source    = "terraform-cisco-modules/iks/intersight//modules/worker_profile"
   org_name  = local.organization
-  name      = join("-", [var.cluster_name, "large"])
+  name      = join("-", [local.cluster_name, "large"])
   cpu       = 12
   disk_size = 80
   memory    = 32768
