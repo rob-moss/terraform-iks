@@ -23,7 +23,7 @@ module "tfc_workspaces" {
       agent_pool          = ""
       description         = "Kubernetes Policies Workspace"
       exec_mode           = "remote"
-      global_remote_state = false
+      global_remote_state = true
       name                = "${var.cluster_name}_iks_policies"
       queue_all_runs      = false
       terraform_version   = var.terraform_version

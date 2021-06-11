@@ -140,5 +140,4 @@ locals {
   k8s_trusted_registry  = yamldecode(data.terraform_remote_state.iks_policies.outputs.k8s_trusted_registry)
   k8s_version_policy    = yamldecode(data.terraform_remote_state.iks_policies.outputs.k8s_version_policy)
   k8s_vm_infra_policy   = yamldecode(data.terraform_remote_state.iks_policies.outputs.k8s_vm_infra_policy)
-  k8s_vm_network_policy = yamldecode(data.terraform_remote_state.iks_policies.outputs.k8s_vm_network_policy)
 }
