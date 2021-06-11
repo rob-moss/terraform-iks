@@ -58,6 +58,6 @@ Run the plan from the Terraform cloud workspace.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_iks_cluster"></a> [iks\_cluster](#output\_iks\_cluster) | n/a |
-| <a name="output_kube_config"></a> [kube\_config](#output\_kube\_config) | Wait for cluster to come up and then output the kubeconfig, if successful |
+| <a name="output_iks_cluster"></a> [iks\_cluster](#output\_iks\_cluster) | moid of the IKS Cluster. |
+| <a name="output_kube_config"></a> [kube\_config](#output\_kube\_config) | Kubernetes Configuration File. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

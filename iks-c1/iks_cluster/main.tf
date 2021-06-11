@@ -39,10 +39,6 @@ module "iks_cluster" {
   tags                         = var.tags
 }
 
-output "iks_cluster" {
-  value = module.iks_cluster.cluster_moid
-}
-
 module "control_profile" {
   source       = "terraform-cisco-modules/iks/intersight//modules/node_profile"
   name         = "${local.cluster_name}-master_profile"
@@ -92,12 +88,6 @@ module "worker_instance_type" {
   infra_config_policy_moid = module.infra_config_policy.infra_config_moid
   tags                     = var.tags
 }
-
-# Wait for cluster to come up and then output the kubeconfig, if successful
-output "kube_config" {
-  value = intersight_kubernetes_cluster_profile.kubeprofaction.kube_config[0].kube_config
-}
-
 
 #---------------------------------------------------
 # Pull Global Attributes from global_vars Workspace
