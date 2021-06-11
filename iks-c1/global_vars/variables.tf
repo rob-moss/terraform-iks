@@ -51,7 +51,9 @@ variable "dns_primary" {
 }
 output "dns_primary" {
   value = trimspace(<<-EOT
-  %{if var.dns_primary == "100"~}${join(".", [var.network_prefix, var.dns_primary])}%{endif~}
+  %{if var.dns_primary == "100"~}${join(".", [var.network_prefix, var.dns_primary])}
+  %{else}${var.dns_primary}
+  %{endif~}
   EOT
   )
 }
@@ -208,7 +210,9 @@ variable "vsphere_target" {
 }
 output "vsphere_target" {
   value = trimspace(<<-EOT
-  %{if var.vsphere_target == "210"~}${join(".", [var.network_prefix, var.vsphere_target])}%{endif~}
+  %{if var.vsphere_target == "210"~}${join(".", [var.network_prefix, var.vsphere_target])}
+  %{else}${var.vsphere_target}
+  %{endif~}
   EOT
   )
 }
