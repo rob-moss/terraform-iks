@@ -39,18 +39,18 @@ variable "ws_global_vars" {
 #-----------------------------------------
 variable "cni" {
   type        = string
-  description = "Supported CNI type. Currently we only support Calico.\r\n* Calico - Calico CNI plugin as described in:\r\n https://github.com/projectcalico/cni-plugin"
+  description = "Supported CNI type. Currently we only support Calico.\r\n* Calico - Calico CNI plugin as described in:\r\n https://github.com/projectcalico/cni-plugin."
   default     = "Calico"
 }
 
 variable "k8s_pod_cidr" {
-  default     = "100.65.0.0/64"
+  default     = "100.65.0.0/16"
   description = "Pod CIDR Block to be used to assign Pod IP Addresses."
   type        = string
 }
 
 variable "k8s_service_cidr" {
-  default     = "100.64.0.0/64"
+  default     = "100.64.0.0/16"
   description = "Service CIDR Block used to assign Cluster Service IP Addresses."
   type        = string
 }
