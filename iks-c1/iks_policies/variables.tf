@@ -98,15 +98,15 @@ variable "vsphere_resource_pool" {
 # Trusted Registries Variables
 #------------------------------
 variable "root_ca_registries" {
-  type        = list(string)
-  description = "List of root CA Signed Registries."
   default     = []
+  description = "List of root CA Signed Registries."
+  type        = list(string)
 }
 
 variable "unsigned_registries" {
-  type        = list(string)
-  description = "List of unsigned registries to be supported."
   default     = []
+  description = "List of unsigned registries to be supported."
+  type        = list(string)
 }
 
 

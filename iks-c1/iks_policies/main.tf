@@ -62,17 +62,21 @@ module "k8s_vm_network_policy" {
   org_name    = local.organization
   policy_name = local.k8s_vm_network_policy
   cni         = var.cni
-  dns_servers = trimspace(<<-EOT
-  %{if local.dns_secondary == ""~}${["local.dns_primary"]}
-  %{else}${["local.dns_primary", "local.dns_secondary"]}%{endif~}
-  EOT
-  )
+  dns_servers = [
+    local.dns_primary,
+    trimspace(<<-EOT
+    %{if local.dns_secondary != ""~}${local.dns_secondary}%{endif~}
+    EOT
+    )
+  ]
   domain_name = local.domain_name
-  ntp_servers = trimspace(<<-EOT
-  %{if local.ntp_secondary == ""~}${["local.ntp_primary"]}
-  %{else}${["local.ntp_primary", "local.ntp_secondary"]}%{endif~}
-  EOT
-  )
+  ntp_servers = [
+    local.ntp_primary,
+    trimspace(<<-EOT
+    %{if local.ntp_secondary != ""~}${local.ntp_secondary}%{endif~}
+    EOT
+    )
+  ]
   pod_cidr     = var.k8s_pod_cidr
   service_cidr = var.k8s_service_cidr
   timezone     = local.timezone
