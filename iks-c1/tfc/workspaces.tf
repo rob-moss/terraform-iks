@@ -65,6 +65,6 @@ module "tfc_workspaces" {
 }
 
 output "tfc_workspaces" {
-  description = "Terraform Cloud Workspace identifiers."
+  description = "Terraform Cloud Workspace ID(s)."
   value       = module.tfc_workspaces
 }
