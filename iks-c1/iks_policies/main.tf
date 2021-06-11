@@ -4,7 +4,7 @@
 data "terraform_remote_state" "global" {
   backend = "remote"
   config = {
-    organization = local.tfc_organization
+    organization = var.tfc_organization
     workspaces = {
       name = var.ws_global_vars
     }
