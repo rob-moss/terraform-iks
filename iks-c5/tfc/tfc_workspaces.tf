@@ -14,7 +14,7 @@ module "tfc_workspaces" {
     {
       auto_apply          = true
       agent_pool          = ""
-      description         = "Global Variables Workspace"
+      description         = "Global Variables Workspace."
       exec_mode           = "remote"
       global_remote_state = true
       name                = "${var.cluster_name}_global_vars"
@@ -26,9 +26,9 @@ module "tfc_workspaces" {
     {
       auto_apply          = true
       agent_pool          = ""
-      description         = "Intersight Kubernetes Service Workspace"
+      description         = "Intersight Kubernetes Service Workspace."
       exec_mode           = "remote"
-      global_remote_state = true
+      global_remote_state = false
       name                = "${var.cluster_name}_iks"
       queue_all_runs      = false
       terraform_version   = var.terraform_version
@@ -38,7 +38,7 @@ module "tfc_workspaces" {
     {
       auto_apply          = true
       agent_pool          = ""
-      description         = "Intersight Kubernetes Service - kube_config Workspace"
+      description         = "Intersight Kubernetes Service - kube_config Workspace."
       exec_mode           = "remote"
       global_remote_state = true
       name                = "${var.cluster_name}_kube"
@@ -50,7 +50,7 @@ module "tfc_workspaces" {
     {
       auto_apply          = true
       agent_pool          = module.tfc_agent_pool.tfc_agent_pool
-      description         = "Application Workspace - IWO and Hello-Kubernetes"
+      description         = "Application Workspace - IWO and Hello-Kubernetes."
       exec_mode           = "agent"
       global_remote_state = false
       name                = "${var.cluster_name}_apps"
@@ -58,6 +58,18 @@ module "tfc_workspaces" {
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
       working_dir         = "${var.cluster_name}/apps"
+    },
+    {
+      auto_apply          = true
+      agent_pool          = ""
+      description         = "Workspace used to Destroy IKS Cluster."
+      exec_mode           = "remote"
+      global_remote_state = false
+      name                = "${var.cluster_name}_remove"
+      queue_all_runs      = false
+      terraform_version   = var.terraform_version
+      vcs_repo            = var.vcs_repo
+      working_dir         = "${var.cluster_name}/remove"
     },
   ]
 }
