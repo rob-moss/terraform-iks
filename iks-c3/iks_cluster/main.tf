@@ -120,7 +120,11 @@ module "worker_instance_type" {
 # }
 
 output "kube_config" {
-    value = module.iks_cluster.results[0].kube_config[0].kube_config
+  depends_on  = [
+    module.iks_cluster,
+    module.master_instance_type
+  ]
+  value = module.iks_cluster.results[0].kube_config[0].kube_config
 }
 
 #---------------------------------------------------
