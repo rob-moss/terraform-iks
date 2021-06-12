@@ -27,16 +27,17 @@ data "terraform_remote_state" "iks_policies" {
 module "iks_cluster" {
   source   = "terraform-cisco-modules/iks/intersight//modules/cluster"
   org_name = local.organization
-  action                       = "Unassign"
-  name                         = local.cluster_name
-  ip_pool_moid                 = local.ip_pool
-  load_balancer                = var.load_balancers
-  net_config_moid              = local.k8s_network_cidr
-  ssh_key                      = var.ssh_key
-  ssh_user                     = var.ssh_user
-  sys_config_moid              = local.k8s_nodeos_config
-  trusted_registry_policy_moid = local.k8s_trusted_registry
-  tags                         = var.tags
+  action                        = "Deploy"
+  wait_for_completion           = true
+  name                          = local.cluster_name
+  ip_pool_moid                  = local.ip_pool
+  load_balancer                 = var.load_balancers
+  net_config_moid               = local.k8s_network_cidr
+  ssh_key                       = var.ssh_key
+  ssh_user                      = var.ssh_user
+  sys_config_moid               = local.k8s_nodeos_config
+  trusted_registry_policy_moid  = local.k8s_trusted_registry
+  tags                          = var.tags
 }
 
 module "master_profile" {
@@ -108,40 +109,12 @@ module "worker_instance_type" {
   tags                     = var.tags
 }
 
-resource "intersight_kubernetes_cluster_profile" "cluster_without_worker" {
-  # skip this module if the worker_desired_size is 0
-  count = var.worker_desired_size != "0" ? 0 : 1
-  depends_on = [
-    module.iks_cluster,
-    module.master_profile,
-    module.master_instance_type,
-  ]
-  action              = "Deploy"
-  name                = local.cluster_name
-  wait_for_completion = true
-  organization {
-    object_type = "organization.Organization"
-    moid        = local.organization_moid
-  }
+data "intersight_kubernetes_cluster" "kube_config" {
+    name = local.cluster_name
 }
 
-resource "intersight_kubernetes_cluster_profile" "cluster_with_worker" {
-  # skip this module if the worker_desired_size is 0
-  count = var.worker_desired_size == "0" ? 0 : 1
-  depends_on = [
-    module.iks_cluster,
-    module.master_profile,
-    module.master_instance_type,
-    module.worker_profile,
-    module.worker_instance_type
-  ]
-  action              = "Deploy"
-  name                = local.cluster_name
-  wait_for_completion = true
-  organization {
-    object_type = "organization.Organization"
-    moid        = local.organization_moid
-  }
+output "kube_config" {
+    value = data.intersight_kubernetes_cluster.kube_config.results[0].kube_config.kube_config
 }
 
 #---------------------------------------------------

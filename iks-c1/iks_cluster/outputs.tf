@@ -22,12 +22,7 @@ output "worker_profile" {
 #---------------------------------------------------------------------------
 # Wait for cluster to come up and then output the kubeconfig, if successful
 #---------------------------------------------------------------------------
-output "kube_config" {
-  description = "Kubernetes Configuration File."
-  value       = trimspace(<<-EOT
-  %{if var.worker_desired_size == "0"~}${intersight_kubernetes_cluster_profile.cluster_without_worker[0].kube_config[0].kube_config}
-  %{else~}${intersight_kubernetes_cluster_profile.cluster_with_worker[0].kube_config[0].kube_config}
-  %{endif~}
-  EOT
-  )
-}
+#output "kube_config" {
+#  description = "Kubernetes Configuration File."
+#  value       = module.cluster_without_worker[0].kube_config[0].kube_config
+#}

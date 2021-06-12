@@ -66,18 +66,6 @@ module "tfc_workspaces" {
       vcs_repo            = var.vcs_repo
       working_dir         = "${var.cluster_name}/app_sample"
     },
-    {
-      auto_apply          = false
-      agent_pool          = ""
-      description         = "Temp Workspace"
-      exec_mode           = "remote"
-      global_remote_state = false
-      name                = "${var.cluster_name}_temp"
-      queue_all_runs      = false
-      terraform_version   = var.terraform_version
-      vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/temp"
-    },
   ]
 }
 
