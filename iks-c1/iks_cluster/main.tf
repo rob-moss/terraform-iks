@@ -110,7 +110,11 @@ module "worker_instance_type" {
 }
 
 data "intersight_kubernetes_cluster" "kube_config" {
-    name = local.cluster_name
+  depends_on = [
+    module.iks_cluster,
+    module.master_instance_type
+  ]
+  name = local.cluster_name
 }
 
 # output "kube_config" {
