@@ -19,7 +19,7 @@ module "tfc_workspaces" {
       working_dir         = "${var.cluster_name}/global_vars"
     },
     {
-      auto_apply          = false
+      auto_apply          = true
       agent_pool          = ""
       description         = "Kubernetes Policies Workspace"
       exec_mode           = "remote"
@@ -31,7 +31,7 @@ module "tfc_workspaces" {
       working_dir         = "${var.cluster_name}/iks_policies"
     },
     {
-      auto_apply          = false
+      auto_apply          = true
       agent_pool          = ""
       description         = "Intersight Kubernetes Service Workspace"
       exec_mode           = "remote"
@@ -43,7 +43,7 @@ module "tfc_workspaces" {
       working_dir         = "${var.cluster_name}/iks_cluster"
     },
     {
-      auto_apply          = false
+      auto_apply          = true
       agent_pool          = module.tfc_agent_pool.tfc_agent_pool
       description         = "IWO Application Workspace"
       exec_mode           = "agent"
@@ -55,7 +55,7 @@ module "tfc_workspaces" {
       working_dir         = "${var.cluster_name}/app_iwo"
     },
     {
-      auto_apply          = false
+      auto_apply          = true
       agent_pool          = module.tfc_agent_pool.tfc_agent_pool
       description         = "Sample Application Workspace"
       exec_mode           = "agent"
