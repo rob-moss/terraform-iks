@@ -5,9 +5,9 @@
 
 data "terraform_remote_state" "global" {
   backend = "remote"
-  config  = {
-    organization  = var.tfc_organization
-    workspaces    = {
+  config = {
+    organization = var.tfc_organization
+    workspaces = {
       name = var.ws_global_vars
     }
   }
@@ -21,32 +21,32 @@ data "terraform_remote_state" "global" {
 
 locals {
   # Intersight Provider Variables
-  endpoint              = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
+  endpoint = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
   # Intersight Organization
-  organization          = yamldecode(data.terraform_remote_state.global.outputs.organization)
+  organization = yamldecode(data.terraform_remote_state.global.outputs.organization)
   # DNS Variables
-  dns_primary           = yamldecode(data.terraform_remote_state.global.outputs.dns_primary)
-  dns_secondary         = yamldecode(data.terraform_remote_state.global.outputs.dns_secondary)
-  domain_name           = yamldecode(data.terraform_remote_state.global.outputs.domain_name)
+  dns_primary   = yamldecode(data.terraform_remote_state.global.outputs.dns_primary)
+  dns_secondary = yamldecode(data.terraform_remote_state.global.outputs.dns_secondary)
+  domain_name   = yamldecode(data.terraform_remote_state.global.outputs.domain_name)
   # Time Variables
-  ntp_primary           = yamldecode(data.terraform_remote_state.global.outputs.ntp_primary)
-  ntp_secondary         = yamldecode(data.terraform_remote_state.global.outputs.ntp_secondary)
-  timezone              = yamldecode(data.terraform_remote_state.global.outputs.timezone)
+  ntp_primary   = yamldecode(data.terraform_remote_state.global.outputs.ntp_primary)
+  ntp_secondary = yamldecode(data.terraform_remote_state.global.outputs.ntp_secondary)
+  timezone      = yamldecode(data.terraform_remote_state.global.outputs.timezone)
   # IKS Cluster Variable
-  cluster_name          = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
+  cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
   # IP Pool Variables
-  ip_pool               = yamldecode(data.terraform_remote_state.global.outputs.ip_pool)
-  ip_pool_netmask       = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_netmask)
-  ip_pool_gateway       = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_gateway)
-  ip_pool_from          = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_from)
-  ip_pool_size          = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_size)
+  ip_pool         = yamldecode(data.terraform_remote_state.global.outputs.ip_pool)
+  ip_pool_netmask = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_netmask)
+  ip_pool_gateway = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_gateway)
+  ip_pool_from    = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_from)
+  ip_pool_size    = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_size)
   # Kubernetes Policy Names Variables
   k8s_trusted_registry  = yamldecode(data.terraform_remote_state.global.outputs.k8s_trusted_registry)
   k8s_version_policy    = yamldecode(data.terraform_remote_state.global.outputs.k8s_version_policy)
   k8s_vm_network_policy = yamldecode(data.terraform_remote_state.global.outputs.k8s_vm_network_policy)
   k8s_vm_infra_policy   = yamldecode(data.terraform_remote_state.global.outputs.k8s_vm_infra_policy)
   # vSphere Target Variable
-  vsphere_target        = yamldecode(data.terraform_remote_state.global.outputs.vsphere_target)
+  vsphere_target = yamldecode(data.terraform_remote_state.global.outputs.vsphere_target)
 }
 
 
@@ -209,7 +209,7 @@ module "k8s_trusted_registry" {
 #______________________________________________
 
 module "iks_cluster" {
-  depends_on                    = [
+  depends_on = [
     module.ip_pool,
     module.k8s_instance_small,
     module.k8s_instance_medium,
@@ -219,20 +219,20 @@ module "iks_cluster" {
     module.k8s_vm_infra_policy,
     module.k8s_vm_network_policy,
   ]
-  source                        = "terraform-cisco-modules/iks/intersight//modules/cluster"
-  org_name                      = local.organization
-  action                        = "Deploy" # "Deploy, Unassign"
-  wait_for_completion           = false
-  name                          = local.cluster_name
-  load_balancer                 = var.load_balancers
-  ssh_key                       = var.ssh_key
-  ssh_user                      = var.ssh_user
-  tags                          = var.tags
+  source              = "terraform-cisco-modules/iks/intersight//modules/cluster"
+  org_name            = local.organization
+  action              = "Deploy" # "Deploy, Unassign"
+  wait_for_completion = false
+  name                = local.cluster_name
+  load_balancer       = var.load_balancers
+  ssh_key             = var.ssh_key
+  ssh_user            = var.ssh_user
+  tags                = var.tags
   # Attach Kubernetes Policies
-  ip_pool_moid                  = module.ip_pool.ip_pool_moid
-  net_config_moid               = module.k8s_vm_network_policy.network_policy_moid
-  sys_config_moid               = module.k8s_vm_network_policy.sys_config_policy_moid
-  trusted_registry_policy_moid  = module.k8s_trusted_registry.trusted_registry_moid
+  ip_pool_moid                 = module.ip_pool.ip_pool_moid
+  net_config_moid              = module.k8s_vm_network_policy.network_policy_moid
+  sys_config_moid              = module.k8s_vm_network_policy.sys_config_policy_moid
+  trusted_registry_policy_moid = module.k8s_trusted_registry.trusted_registry_moid
 }
 
 #______________________________________________
@@ -241,35 +241,35 @@ module "iks_cluster" {
 #______________________________________________
 
 module "master_profile" {
-  depends_on    = [
+  depends_on = [
     module.iks_cluster,
   ]
-  source        = "terraform-cisco-modules/iks/intersight//modules/node_profile"
-  desired_size  = var.master_desired_size
-  max_size      = var.master_max_size
-  name          = "${local.cluster_name}-master_profile"
-  profile_type  = "ControlPlane"
+  source       = "terraform-cisco-modules/iks/intersight//modules/node_profile"
+  desired_size = var.master_desired_size
+  max_size     = var.master_max_size
+  name         = "${local.cluster_name}-master_profile"
+  profile_type = "ControlPlane"
   # Attach Kubernetes Policies
-  cluster_moid  = module.iks_cluster.cluster_moid
-  ip_pool_moid  = module.ip_pool.ip_pool_moid
-  version_moid  = module.k8s_version_policy.version_policy_moid
+  cluster_moid = module.iks_cluster.cluster_moid
+  ip_pool_moid = module.ip_pool.ip_pool_moid
+  version_moid = module.k8s_version_policy.version_policy_moid
 }
 
 module "master_instance_type" {
-  depends_on                = [
+  depends_on = [
     module.master_profile
   ]
-  source                    = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
-  name                      = "${local.cluster_name}-master"
-  instance_type_moid        = trimspace(<<-EOT
+  source = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
+  name   = "${local.cluster_name}-master"
+  instance_type_moid = trimspace(<<-EOT
   %{if var.master_instance_type == "small"~}${module.k8s_instance_small.worker_profile_moid}%{endif~}
   %{if var.master_instance_type == "medium"~}${module.k8s_instance_medium.worker_profile_moid}%{endif~}
   %{if var.master_instance_type == "large"~}${module.k8s_instance_large.worker_profile_moid}%{endif~}
   EOT
   )
-  node_group_moid           = module.master_profile.node_group_profile_moid
-  infra_config_policy_moid  = module.k8s_vm_infra_policy.infra_config_moid
-  tags                      = var.tags
+  node_group_moid          = module.master_profile.node_group_profile_moid
+  infra_config_policy_moid = module.k8s_vm_infra_policy.infra_config_moid
+  tags                     = var.tags
 }
 
 #______________________________________________
@@ -279,39 +279,39 @@ module "master_instance_type" {
 
 module "worker_profile" {
   count = var.worker_desired_size == "0" ? 0 : 1
-  depends_on    = [
+  depends_on = [
     module.iks_cluster
   ]
-  source        = "terraform-cisco-modules/iks/intersight//modules/node_profile"
-  desired_size  = var.worker_desired_size
-  max_size      = var.worker_max_size
-  name          = "${local.cluster_name}-worker_profile"
-  profile_type  = "Worker"
-  tags          = var.tags
+  source       = "terraform-cisco-modules/iks/intersight//modules/node_profile"
+  desired_size = var.worker_desired_size
+  max_size     = var.worker_max_size
+  name         = "${local.cluster_name}-worker_profile"
+  profile_type = "Worker"
+  tags         = var.tags
   # Attach Kubernetes Policies
-  cluster_moid  = module.iks_cluster.cluster_moid
-  ip_pool_moid  = module.ip_pool.ip_pool_moid
-  version_moid  = module.k8s_version_policy.version_policy_moid
+  cluster_moid = module.iks_cluster.cluster_moid
+  ip_pool_moid = module.ip_pool.ip_pool_moid
+  version_moid = module.k8s_version_policy.version_policy_moid
 }
 
 module "worker_instance_type" {
   # skip this module if the worker_desired_size is 0
-  count                     = var.worker_desired_size == "0" ? 0 : 1
-  depends_on                = [
+  count = var.worker_desired_size == "0" ? 0 : 1
+  depends_on = [
     module.worker_profile
   ]
-  source                    = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
-  name                      = "${local.cluster_name}-worker"
-  instance_type_moid        = trimspace(<<-EOT
+  source = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
+  name   = "${local.cluster_name}-worker"
+  instance_type_moid = trimspace(<<-EOT
   %{if var.worker_instance_type == "small"~}${module.k8s_instance_small.worker_profile_moid}%{endif~}
   %{if var.worker_instance_type == "medium"~}${module.k8s_instance_medium.worker_profile_moid}%{endif~}
   %{if var.worker_instance_type == "large"~}${module.k8s_instance_large.worker_profile_moid}%{endif~}
   EOT
   )
-  node_group_moid           = trimspace(<<-EOT
+  node_group_moid = trimspace(<<-EOT
   %{if var.worker_desired_size != "0"~}${module.worker_profile.node_group_profile_moid}%{endif~}
   EOT
   )
-  infra_config_policy_moid  = module.k8s_vm_infra_policy.infra_config_moid
-  tags                      = var.tags
+  infra_config_policy_moid = module.k8s_vm_infra_policy.infra_config_moid
+  tags                     = var.tags
 }

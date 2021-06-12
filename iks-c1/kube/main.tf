@@ -5,9 +5,9 @@
 
 data "terraform_remote_state" "global" {
   backend = "remote"
-  config  = {
-    organization  = var.tfc_organization
-    workspaces    = {
+  config = {
+    organization = var.tfc_organization
+    workspaces = {
       name = var.ws_global_vars
     }
   }
@@ -21,9 +21,9 @@ data "terraform_remote_state" "global" {
 
 locals {
   # Intersight Provider Variables
-  endpoint      = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
+  endpoint = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
   # IKS Cluster Variable
-  cluster_name  = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
+  cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
 }
 
 

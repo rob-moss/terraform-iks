@@ -34,9 +34,9 @@ locals {
 #_____________________________________________________________________
 
 resource "helm_release" "helloiksfrtfcb" {
-  name        = "helloiksapp"
-  namespace   = "default"
-  chart       = "https://prathjan.github.io/helm-chart/helloiks-0.1.0.tgz"
+  name      = "helloiksapp"
+  namespace = "default"
+  chart     = "https://prathjan.github.io/helm-chart/helloiks-0.1.0.tgz"
   set {
     name  = "MESSAGE"
     value = "Hello Intersight Kubernetes Service from Terraform Cloud for Business!!"
@@ -49,7 +49,7 @@ resource "helm_release" "helloiksfrtfcb" {
 #______________________________________________________________________
 
 resource "helm_release" "iwok8scollector" {
-  name       = "iwok8scollector"
+  name      = "iwok8scollector"
   namespace = "default"
   #  namespace = "iwo-collector"
   chart = "https://prathjan.github.io/helm-chart/iwok8scollector-0.6.2.tgz"
