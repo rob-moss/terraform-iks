@@ -10,7 +10,7 @@ data "terraform_remote_state" "iks_cluster" {
 }
 
 resource helm_release helloiksfrtfcb {
-  name       = "hello_iks_app"
+  name       = "helloiksapp"
   namespace = "default"
   chart = "https://prathjan.github.io/helm-chart/helloiks-0.1.0.tgz"
 
