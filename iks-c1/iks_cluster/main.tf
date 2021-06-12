@@ -53,21 +53,6 @@ module "master_profile" {
   version_moid  = local.k8s_version_policy
 }
 
-module "worker_profile" {
-  count = var.worker_desired_size == 0 ? 0 : 1
-  depends_on    = [
-    module.iks_cluster
-  ]
-  source        = "terraform-cisco-modules/iks/intersight//modules/node_profile"
-  name          = "${local.cluster_name}-worker_profile"
-  profile_type  = "Worker"
-  desired_size  = var.worker_desired_size
-  max_size      = var.worker_max_size
-  cluster_moid  = module.iks_cluster.cluster_moid
-  ip_pool_moid  = local.ip_pool
-  version_moid  = local.k8s_version_policy
-
-}
 module "master_instance_type" {
   depends_on    = [
     module.master_profile
@@ -85,9 +70,25 @@ module "master_instance_type" {
   tags                     = var.tags
 }
 
+module "worker_profile" {
+  count = var.worker_desired_size == "0" ? 0 : 1
+  depends_on    = [
+    module.iks_cluster
+  ]
+  source        = "terraform-cisco-modules/iks/intersight//modules/node_profile"
+  name          = "${local.cluster_name}-worker_profile"
+  profile_type  = "Worker"
+  desired_size  = var.worker_desired_size
+  max_size      = var.worker_max_size
+  cluster_moid  = module.iks_cluster.cluster_moid
+  ip_pool_moid  = local.ip_pool
+  version_moid  = local.k8s_version_policy
+
+}
+
 module "worker_instance_type" {
   # skip this module if the worker_desired_size is 0
-  count = var.worker_desired_size == 0 ? 0 : 1
+  count = var.worker_desired_size == "0" ? 0 : 1
   depends_on    = [
     module.worker_profile
   ]
@@ -109,7 +110,7 @@ module "worker_instance_type" {
 
 resource "intersight_kubernetes_cluster_profile" "cluster_without_worker" {
   # skip this module if the worker_desired_size is 0
-  count = var.worker_desired_size != 0 ? 0 : 1
+  count = var.worker_desired_size == "0" ? 0 : 1
   depends_on = [
     module.iks_cluster,
     module.master_profile,
