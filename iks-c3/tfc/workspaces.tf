@@ -31,7 +31,7 @@ module "tfc_workspaces" {
       working_dir         = "${var.cluster_name}/iks_policies"
     },
     {
-      auto_apply          = true
+      auto_apply          = false
       agent_pool          = ""
       description         = "Intersight Kubernetes Service Workspace"
       exec_mode           = "remote"

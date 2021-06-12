@@ -27,8 +27,9 @@ data "terraform_remote_state" "iks_policies" {
 module "iks_cluster" {
   source   = "terraform-cisco-modules/iks/intersight//modules/cluster"
   org_name = local.organization
+  # action                        = "Unassign"
+  # action                        = ""
   action                        = "Unassign"
-  # action                        = "Deploy"
   wait_for_completion           = false
   name                          = local.cluster_name
   ip_pool_moid                  = local.ip_pool
@@ -118,9 +119,9 @@ data "intersight_kubernetes_cluster" "kube_config" {
   name = local.cluster_name
 }
 
-# output "kube_config" {
-#     value = data.intersight_kubernetes_cluster.kube_config.results[0].kube_config.kube_config
-# }
+output "kube_config" {
+    value = data.intersight_kubernetes_cluster.kube_config
+}
 
 #---------------------------------------------------
 # Pull Global Attributes from global_vars Workspace

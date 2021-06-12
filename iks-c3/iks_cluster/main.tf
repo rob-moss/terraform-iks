@@ -29,8 +29,8 @@ module "iks_cluster" {
   org_name = local.organization
   # action                        = "Unassign"
   # action                        = "Deploy"
-  action                        = "Ready"
-  # wait_for_completion           = false
+  action                        = ""
+  wait_for_completion           = true
   name                          = local.cluster_name
   ip_pool_moid                  = local.ip_pool
   load_balancer                 = var.load_balancers
