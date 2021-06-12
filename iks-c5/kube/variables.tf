@@ -20,3 +20,21 @@ variable "ws_global_vars" {
   description = "Global Variables Workspace Name."
   type        = string
 }
+
+
+#__________________________________________________________
+#
+# Intersight Provider Variables
+#__________________________________________________________
+
+variable "api_key" {
+  description = "Intersight API Key."
+  sensitive   = true
+  type        = string
+}
+
+variable "secret_key" {
+  description = "Intersight Secret Key."
+  sensitive   = true
+  type        = string
+}

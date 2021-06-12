@@ -20,6 +20,8 @@ data "terraform_remote_state" "global" {
 #__________________________________________________________
 
 locals {
+  # Intersight Provider Variables
+  endpoint      = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
   # IKS Cluster Variable
   cluster_name  = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
 }
