@@ -12,9 +12,8 @@ data "terraform_remote_state" "iks_cluster" {
 resource helm_release iwok8scollector {
   name       = "iwo_k8s_collector"
   namespace = "default"
-#  namespace = "iwo-collector"
-#  repository = "https://prathjan.github.io/helm-chart"
-  chart = "https://github.com/scotttyso/terraform-iks/helm-chart/helloiks-0.1.0.tgz"
+  #  namespace = "iwo-collector"
+  chart = "https://prathjan.github.io/helm-chart/iwok8scollector-0.6.2.tgz"
 
   set {
     name  = "iwoServerVersion"

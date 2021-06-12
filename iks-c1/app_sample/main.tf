@@ -12,7 +12,7 @@ data "terraform_remote_state" "iks_cluster" {
 resource helm_release helloiksfrtfcb {
   name       = "hello_iks_app"
   namespace = "default"
-  chart = "https://github.com/scotttyso/terraform-iks/helm-chart/helloiks-0.1.0.tgz"
+  chart = "https://prathjan.github.io/helm-chart/helloiks-0.1.0.tgz"
 
   set {
     name  = "MESSAGE"
