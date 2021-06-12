@@ -1,6 +1,13 @@
-#---------------------------
+#__________________________________________________________
+#
 # Terraform Cloud Variables
-#---------------------------
+#__________________________________________________________
+
+variable "agent_pool" {
+  description = "Terraform Cloud Agent Pool."
+  type        = string
+}
+
 variable "terraform_cloud_token" {
   description = "Token to Authenticate to the Terraform Cloud."
   sensitive   = true
@@ -18,11 +25,6 @@ variable "tfc_organization" {
   type        = string
 }
 
-variable "agent_pool" {
-  description = "Terraform Cloud Agent Pool."
-  type        = string
-}
-
 variable "terraform_version" {
   default     = "1.0.0"
   description = "Terraform Target Version."
@@ -30,14 +32,16 @@ variable "terraform_version" {
 }
 
 variable "vcs_repo" {
-  description = "Terraform Cloud Organization Name."
+  description = "Version Control System Repository."
   type        = string
 }
 
 
-#---------------------------
+#__________________________________________________________
+#
 # Intersight Variables
-#---------------------------
+#__________________________________________________________
+
 variable "api_key" {
   description = "Intersight API Key."
   sensitive   = true
@@ -45,27 +49,19 @@ variable "api_key" {
 }
 
 variable "secret_key" {
-  description = "Intersight Secret Key or file location."
+  description = "Intersight Secret Key."
   sensitive   = true
   type        = string
 }
 
 
-#----------------------------
+#__________________________________________________________
+#
 # Global Variables Workspace
-#----------------------------
+#__________________________________________________________
+
 variable "ws_global_vars" {
   default     = "global_vars"
-  description = "Global Variable Workspace Name"
-  type        = string
-}
-
-
-#---------------------------------
-# IKS Cluster Workspace
-#---------------------------------
-variable "ws_iks_cluster" {
-  default     = "iks_cluster"
-  description = "IKS Cluster Variable Workspace Name"
+  description = "Global Variables Workspace Name"
   type        = string
 }

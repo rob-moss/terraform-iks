@@ -97,7 +97,7 @@ export TF_VAR_worker_max_size="1"
 export TF_VAR_tags_cluster="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"CiscoDevNet\" } ]"
 ```
 
-Once all Variables have been imported into your environment run the plan:
+Once all Variables have been imported into your environment run the plan in the tfc folder:
 
 ```bash
 terraform plan -out=main.plan

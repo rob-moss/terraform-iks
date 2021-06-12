@@ -1,3 +1,9 @@
+#______________________________________________________________
+#
+# Terraform Cloud Provider
+# https://registry.terraform.io/providers/hashicorp/tfe/latest
+#______________________________________________________________
+
 terraform {
   required_providers {
     tfe = {
