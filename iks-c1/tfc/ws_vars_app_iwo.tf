@@ -14,6 +14,13 @@ module "tfc_variables_app_iwo" {
       value       = var.tfc_organization
     },
     {
+      description = "global_vars Workspace."
+      hcl         = false
+      key         = "ws_global_vars"
+      sensitive   = false
+      value       = "${var.cluster_name}_global_vars"
+    },
+    {
       description = "iks_cluster Workspace."
       hcl         = false
       key         = "ws_iks_cluster"

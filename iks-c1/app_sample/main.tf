@@ -9,11 +9,11 @@ data "terraform_remote_state" "iks_cluster" {
   }
 }
 
-resource helm_release helloiksfrtfcb {
-  name       = "helloiksapp"
-  namespace = "default"
-  chart = "https://prathjan.github.io/helm-chart/helloiks-0.1.0.tgz"
-
+resource "helm_release" "helloiksfrtfcb" {
+  name        = "helloiksapp"
+  namespace   = "default"
+  repository  = "https://prathjan.github.io/helm-chart/helloiks-0.1.0.tgz"
+  chart       = "helloiks"
   set {
     name  = "MESSAGE"
     value = "Hello Intersight Kubernetes Service from Terraform Cloud for Business!!"
