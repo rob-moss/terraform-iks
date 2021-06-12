@@ -59,7 +59,7 @@ locals {
   endpoint          = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
   # Intersight Organization
   organization      = yamldecode(data.terraform_remote_state.global.outputs.organization)
-  organization_moid = yamldecode(data.terraform_remote_state.iks_policies.outputs.organization_moid)
+  # organization_moid = yamldecode(data.terraform_remote_state.ws_iks_cluster.outputs.organization_moid)
   # IKS Cluster Variables
   cluster_name      = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
   kube_config       = base64decode(data.intersight_kubernetes_cluster.kube_config.results[0].kube_config)

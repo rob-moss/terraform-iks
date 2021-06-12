@@ -207,62 +207,6 @@ module "k8s_trusted_registry" {
 #
 # Create the IKS Cluster Profile
 #______________________________________________
-output "organization_moid" {
-  description = "moid of the Intersight Organization."
-  value       = data.intersight_organization_organization.organization_moid.id
-}
-
-
-#-----------------------------
-# IP Pool Outputs
-#-----------------------------
-output "ip_pool" {
-  description = "moid of the IP Pool"
-  value       = module.ip_pool.ip_pool_moid
-}
-
-#-----------------------------
-# Kubernetes Policies Outputs
-#-----------------------------
-output "k8s_instance_small" {
-  description = "moid of the Small Kubernetes Instance Type."
-  value       = module.k8s_instance_small.worker_profile_moid
-}
-
-output "k8s_instance_medium" {
-  description = "moid of the Medium Kubernetes Instance Type."
-  value       = module.k8s_instance_medium.worker_profile_moid
-}
-
-output "k8s_instance_large" {
-  description = "moid of the Large Kubernetes Instance Type."
-  value       = module.k8s_instance_large.worker_profile_moid
-}
-
-output "k8s_network_cidr" {
-  description = "moid of the Kubernetes CIDR Policy."
-  value       = module.k8s_vm_network_policy.network_policy_moid
-}
-
-output "k8s_nodeos_config" {
-  description = "moid of the Kubernetes Node OS Config Policy."
-  value       = module.k8s_vm_network_policy.sys_config_policy_moid
-}
-
-output "k8s_trusted_registry" {
-  description = "moid of the Kubernetes Trusted Registry Policy."
-  value       = module.k8s_trusted_registry.trusted_registry_moid
-}
-
-output "k8s_version_policy" {
-  description = "moid of the Kubernetes Version Policy."
-  value       = module.k8s_version_policy.version_policy_moid
-}
-
-output "k8s_vm_infra_policy" {
-  description = "moid of the Kubernetes VM Infrastructure Policy."
-  value       = module.k8s_vm_infra_policy.infra_config_moid
-}
 
 module "iks_cluster" {
   depends_on                    = [
@@ -339,35 +283,35 @@ module "worker_profile" {
     module.iks_cluster
   ]
   source        = "terraform-cisco-modules/iks/intersight//modules/node_profile"
-  name          = "${local.cluster_name}-worker_profile"
-  profile_type  = "Worker"
   desired_size  = var.worker_desired_size
   max_size      = var.worker_max_size
+  name          = "${local.cluster_name}-worker_profile"
+  profile_type  = "Worker"
+  tags          = var.tags
+  # Attach Kubernetes Policies
   cluster_moid  = module.iks_cluster.cluster_moid
   ip_pool_moid  = module.ip_pool.ip_pool_moid
   version_moid  = module.k8s_version_policy.version_policy_moid
-  tags          = var.tags
-
 }
 
 module "worker_instance_type" {
   # skip this module if the worker_desired_size is 0
-  count = var.worker_desired_size == "0" ? 0 : 1
-  depends_on    = [
+  count                     = var.worker_desired_size == "0" ? 0 : 1
+  depends_on                = [
     module.worker_profile
   ]
-  source = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
-  name   = "${local.cluster_name}-worker"
-  instance_type_moid = trimspace(<<-EOT
-  %{if var.worker_instance_type == "small"~}${local.k8s_instance_small}%{endif~}
-  %{if var.worker_instance_type == "medium"~}${local.k8s_instance_medium}%{endif~}
-  %{if var.worker_instance_type == "large"~}${local.k8s_instance_large}%{endif~}
+  source                    = "terraform-cisco-modules/iks/intersight//modules/infra_provider"
+  name                      = "${local.cluster_name}-worker"
+  instance_type_moid        = trimspace(<<-EOT
+  %{if var.worker_instance_type == "small"~}${module.k8s_instance_small.worker_profile_moid}%{endif~}
+  %{if var.worker_instance_type == "medium"~}${module.k8s_instance_medium.worker_profile_moid}%{endif~}
+  %{if var.worker_instance_type == "large"~}${module.k8s_instance_large.worker_profile_moid}%{endif~}
   EOT
   )
-  node_group_moid          = trimspace(<<-EOT
+  node_group_moid           = trimspace(<<-EOT
   %{if var.worker_desired_size != "0"~}${module.worker_profile.node_group_profile_moid}%{endif~}
   EOT
   )
-  infra_config_policy_moid = local.k8s_vm_infra_policy
-  tags                     = var.tags
+  infra_config_policy_moid  = module.k8s_vm_infra_policy.infra_config_moid
+  tags                      = var.tags
 }
