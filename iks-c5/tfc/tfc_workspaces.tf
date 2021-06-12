@@ -50,26 +50,14 @@ module "tfc_workspaces" {
     {
       auto_apply          = true
       agent_pool          = module.tfc_agent_pool.tfc_agent_pool
-      description         = "Sample Application Workspace"
+      description         = "Application Workspace - IWO and Hello-Kubernetes"
       exec_mode           = "agent"
       global_remote_state = false
-      name                = "${var.cluster_name}_sample"
+      name                = "${var.cluster_name}_apps"
       queue_all_runs      = false
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/_sample"
-    },
-    {
-      auto_apply          = true
-      agent_pool          = module.tfc_agent_pool.tfc_agent_pool
-      description         = "IWO Application Workspace"
-      exec_mode           = "agent"
-      global_remote_state = false
-      name                = "${var.cluster_name}_iwo"
-      queue_all_runs      = false
-      terraform_version   = var.terraform_version
-      vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/iwo"
+      working_dir         = "${var.cluster_name}/apps"
     },
   ]
 }

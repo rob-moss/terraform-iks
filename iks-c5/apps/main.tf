@@ -28,10 +28,25 @@ locals {
   cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
 }
 
-#__________________________________________________________
+#_____________________________________________________________________
 #
-# Deploy the IWO Pod using the Helm Provider
-#__________________________________________________________
+# Deploy the Hello-Kubernetes Application Pod using the Helm Provider
+#_____________________________________________________________________
+
+resource "helm_release" "helloiksfrtfcb" {
+  name        = "helloiksapp"
+  namespace   = "default"
+  chart       = "https://prathjan.github.io/helm-chart/helloiks-0.1.0.tgz"
+  set {
+    name  = "MESSAGE"
+    value = "Hello Intersight Kubernetes Service from Terraform Cloud for Business!!"
+  }
+}
+
+#______________________________________________________________________
+#
+# Deploy the Intersight Workload Optimizer Pod using the Helm Provider
+#______________________________________________________________________
 
 resource "helm_release" "iwok8scollector" {
   name       = "iwok8scollector"

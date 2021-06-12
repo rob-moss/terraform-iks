@@ -1,5 +1,17 @@
 #__________________________________________________________
 #
+# Intersight Kubernetes Service Workspace
+#__________________________________________________________
+
+variable "ws_iks" {
+  default     = "iks"
+  description = "Intersight Kubernetes Service Workspace Name"
+  type        = string
+}
+
+
+#__________________________________________________________
+#
 # Terraform Cloud Workspace Variables: kube
 #__________________________________________________________
 

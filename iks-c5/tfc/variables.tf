@@ -65,26 +65,3 @@ variable "ws_global_vars" {
   description = "Global Variables Workspace Name"
   type        = string
 }
-
-
-#__________________________________________________________
-#
-# Intersight Kubernetes Service Workspace
-#__________________________________________________________
-
-variable "ws_iks" {
-  default     = "iks"
-  description = "Intersight Kubernetes Service Workspace Name"
-  type        = string
-}
-
-#__________________________________________________________
-#
-# IKS kube_config Workspace
-#__________________________________________________________
-
-variable "ws_kube" {
-  default     = "kube"
-  description = "Intersight Kubernetes Service kube_config Workspace Name"
-  type        = string
-}

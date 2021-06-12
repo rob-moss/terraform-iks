@@ -1,15 +1,26 @@
 #__________________________________________________________
 #
-# Terraform Cloud Workspace Variables: iwo
+# IKS kube_config Workspace
 #__________________________________________________________
 
-module "tfc_variables_app_iwo" {
+variable "ws_kube" {
+  default     = "kube"
+  description = "Intersight Kubernetes Service kube_config Workspace Name"
+  type        = string
+}
+
+#__________________________________________________________
+#
+# Terraform Cloud Workspace Variables: sample
+#__________________________________________________________
+
+module "tfc_variables_apps" {
   source = "../../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[4]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[3]
   variable_list = [
     {
       description = "Terraform Cloud Organization."
