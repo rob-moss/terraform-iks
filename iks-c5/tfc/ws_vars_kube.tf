@@ -3,7 +3,7 @@
 # Terraform Cloud Workspace Variables: kube
 #__________________________________________________________
 
-module "tfc_variables_iks_cluster" {
+module "tfc_variables_kube" {
   source = "../../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
