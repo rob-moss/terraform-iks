@@ -111,16 +111,16 @@ module "worker_instance_type" {
   tags                     = var.tags
 }
 
-data "intersight_kubernetes_cluster" "kube_config" {
-  depends_on = [
-    module.iks_cluster,
-    module.master_instance_type
-  ]
-  name = local.cluster_name
-}
+# data "intersight_kubernetes_cluster" "kube_config" {
+#   depends_on = [
+#     module.iks_cluster,
+#     module.master_instance_type
+#   ]
+#   name = local.cluster_name
+# }
 
 output "kube_config" {
-    value = data.intersight_kubernetes_cluster.kube_config.results[0].kube_config[0].kube_config
+    value = module.iks_cluster.results[0].kube_config[0].kube_config
 }
 
 #---------------------------------------------------
