@@ -101,7 +101,7 @@ module "worker_instance_type" {
   EOT
   )
   node_group_moid          = trimspace(<<-EOT
-  %{if var.worker_desired_size != 0~}${module.worker_profile.node_group_profile_moid}%{endif~}
+  %{if var.worker_desired_size != "0"~}${module.worker_profile.node_group_profile_moid}%{endif~}
   EOT
   )
   infra_config_policy_moid = local.k8s_vm_infra_policy
@@ -127,7 +127,7 @@ resource "intersight_kubernetes_cluster_profile" "cluster_without_worker" {
 
 resource "intersight_kubernetes_cluster_profile" "cluster_with_worker" {
   # skip this module if the worker_desired_size is 0
-  count = var.worker_desired_size == 0 ? 0 : 1
+  count = var.worker_desired_size == "0" ? 0 : 1
   depends_on = [
     module.iks_cluster,
     module.master_profile,
