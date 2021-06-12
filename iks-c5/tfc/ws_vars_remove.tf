@@ -1,15 +1,15 @@
 #__________________________________________________________
 #
-# Terraform Cloud Workspace Variables: kube
+# Terraform Cloud Workspace Variables: remove
 #__________________________________________________________
 
-module "tfc_variables_kube" {
+module "tfc_variables_remove" {
   source = "../../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[2]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[4]
   variable_list = [
     #---------------------------
     # Terraform Cloud Variables

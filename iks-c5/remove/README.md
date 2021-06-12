@@ -1,6 +1,6 @@
-# Intersight Kubernetes Service kube_config Workspace
+# Remove Intersight Kubernetes Service Workspace
 
-## Use this module to obtain the kube_config through Intersight
+## Use this module to Destroy the IKS Cluster
 
 Run the plan from the Terraform cloud workspace.
 
