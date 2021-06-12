@@ -1,6 +1,6 @@
-# Sample App Workspace
+# Kubernetes Applications Workspace
 
-## Use this module to create a Kubernetes Application through the Intersight Assist Appliance
+## Use this module to deploy Intersight Workload Optimizer and Hello Kubernetes through the Intersight Assist Appliance
 
 Run the plan from the Terraform cloud workspace.
 
