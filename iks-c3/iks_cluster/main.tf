@@ -124,7 +124,7 @@ output "kube_config" {
     module.iks_cluster,
     module.master_instance_type
   ]
-  value = module.iks_cluster.results[0].kube_config[0].kube_config
+  value = module.iks_cluster
 }
 
 #---------------------------------------------------
