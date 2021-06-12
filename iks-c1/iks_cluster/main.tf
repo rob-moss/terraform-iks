@@ -110,7 +110,7 @@ module "worker_instance_type" {
 
 resource "intersight_kubernetes_cluster_profile" "cluster_without_worker" {
   # skip this module if the worker_desired_size is 0
-  count = var.worker_desired_size == "0" ? 0 : 1
+  count = var.worker_desired_size != "0" ? 0 : 1
   depends_on = [
     module.iks_cluster,
     module.master_profile,
