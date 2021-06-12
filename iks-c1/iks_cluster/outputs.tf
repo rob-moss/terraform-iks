@@ -25,10 +25,9 @@ output "worker_profile" {
 output "kube_config" {
   description = "Kubernetes Configuration File."
   value       = trimspace(<<-EOT
-  %{if var.worker_desired_size == "0"~}${intersight_kubernetes_cluster_profile.cluster_without_worker[count.index].kube_config[0].kube_config}
-  %{else~}${intersight_kubernetes_cluster_profile.cluster_with_worker[count.index].kube_config[0].kube_config}
+  %{if var.worker_desired_size == "0"~}${intersight_kubernetes_cluster_profile.cluster_without_worker[0].kube_config}
+  %{else~}${intersight_kubernetes_cluster_profile.cluster_with_worker[0].kube_config}
   %{endif~}
   EOT
   )
-  count = 1
 }
