@@ -1,20 +1,15 @@
 #---------------------------------
-# Terraform Required Parameters
+# Kubernetes Provider Settings
 #---------------------------------
-terraform {
-  required_providers {
-    intersight = {
-      source  = "CiscoDevNet/intersight"
-      version = "1.0.8"
-    }
+provider "helm" {
+  kubernetes {
+    host = local.kube_config.clusters[0].cluster.server
+    client_certificate = base64decode(local.kube_config.users[0].user.client-certificate-data)
+    client_key = base64decode(local.kube_config.users[0].user.client-key-data)
+    cluster_ca_certificate = base64decode(local.kube_config.clusters[0].cluster.certificate-authority-data)
   }
 }
 
-#---------------------------------
-# Intersight Provider Settings
-#---------------------------------
-provider "intersight" {
-  apikey    = var.api_key
-  endpoint  = var.endpoint
-  secretkey = var.secret_key
+locals {
+  kube_config = yamldecode(data.terraform_remote_state.iks_cluster.outputs.kube_config)
 }

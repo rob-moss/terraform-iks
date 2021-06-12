@@ -1,31 +1,19 @@
-#-------------------------------
-# Intersight Provider Variables
-#-------------------------------
-variable "api_key" {
-  description = "Intersight API Key."
-  sensitive   = true
-  type        = string
-}
 
-variable "endpoint" {
-  default     = "https://intersight.com"
-  description = "Intersight URL"
-  type        = string
-}
-
-variable "secret_key" {
-  description = "Intersight Secret Key."
-  sensitive   = true
+#----------------------------------
+# Terraform Cloud Organization
+#----------------------------------
+variable "tfc_organization" {
+  default     = "DevNet"
+  description = "Terraform Cloud Organization."
   type        = string
 }
 
 
-#-------------------------
-# IKS Variables Workspace
-#-------------------------
-variable "iks_ws_name" {
-  default     = "iks"
-  description = "Intersight Kubernetes Service (IKS) Workspace Name"
+#----------------------------------
+# Terraform Cloud Workspaces
+#----------------------------------
+variable "ws_iks_cluster" {
+  default     = "iks_cluster"
+  description = "Intersight Kubernetes Service (IKS) Cluster Workspace Name"
   type        = string
 }
-

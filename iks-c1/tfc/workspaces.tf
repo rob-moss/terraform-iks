@@ -35,7 +35,7 @@ module "tfc_workspaces" {
       agent_pool          = ""
       description         = "Intersight Kubernetes Service Workspace"
       exec_mode           = "remote"
-      global_remote_state = false
+      global_remote_state = true
       name                = "${var.cluster_name}_iks_cluster"
       queue_all_runs      = false
       terraform_version   = var.terraform_version
@@ -44,9 +44,9 @@ module "tfc_workspaces" {
     },
     {
       auto_apply          = false
-      agent_pool          = ""
+      agent_pool          = module.tfc_agent_pool.tfc_agent_pool
       description         = "IWO Application Workspace"
-      exec_mode           = "remote"
+      exec_mode           = "agent"
       global_remote_state = false
       name                = "${var.cluster_name}_app_iwo"
       queue_all_runs      = false
@@ -56,9 +56,9 @@ module "tfc_workspaces" {
     },
     {
       auto_apply          = false
-      agent_pool          = ""
+      agent_pool          = module.tfc_agent_pool.tfc_agent_pool
       description         = "Sample Application Workspace"
-      exec_mode           = "remote"
+      exec_mode           = "agent"
       global_remote_state = false
       name                = "${var.cluster_name}_app_sample"
       queue_all_runs      = false

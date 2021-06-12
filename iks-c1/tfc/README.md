@@ -34,7 +34,7 @@ Follow the instructions to obtain values for the following variables:
 ```bash
 export TF_VAR_terraform_cloud_token="obtain_token"
 export TF_VAR_tfc_oath_token="obtain_token"
-export TF_VAR_tfc_organization="your_organization"
+export TF_VAR_tfc_organization="CiscoDevNet"
 export TF_VAR_tfc_email="your_email"
 export TF_VAR_agent_pool="your_agent_pool"
 export TF_VAR_terraform_version="1.0.0"
@@ -67,7 +67,7 @@ export TF_VAR_k8s_pod_cidr="100.65.0.0/16"
 export TF_VAR_k8s_service_cidr="100.64.0.0/16"
 export TF_VAR_k8s_k8s_version="1.19.5"
 export TF_VAR_unsigned_registries="[]"
-export TF_VAR_tags_policies="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"DevNet\" } ]"
+export TF_VAR_tags_policies="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"CiscoDevNet\" } ]"
 ```
 
 * vSphere Variables
@@ -94,7 +94,7 @@ export TF_VAR_master_max_size="1"
 export TF_VAR_worker_instance_type="small"
 export TF_VAR_worker_desired_size="0"
 export TF_VAR_worker_max_size="1"
-export TF_VAR_tags_cluster="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"DevNet\" } ]"
+export TF_VAR_tags_cluster="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"CiscoDevNet\" } ]"
 ```
 
 Once all Variables have been imported into your environment run the plan:

@@ -50,6 +50,7 @@ variable "secret_key" {
   type        = string
 }
 
+
 #----------------------------
 # Global Variables Workspace
 #----------------------------
@@ -59,3 +60,12 @@ variable "ws_global_vars" {
   type        = string
 }
 
+
+#---------------------------------
+# IKS Cluster Workspace
+#---------------------------------
+variable "ws_iks_cluster" {
+  default     = "iks_cluster"
+  description = "IKS Cluster Variable Workspace Name"
+  type        = string
+}

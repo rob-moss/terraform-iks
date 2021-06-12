@@ -1,5 +1,5 @@
 #----------------------------
-# Global Variables Workspace
+# IKS Policies Workspace
 #----------------------------
 variable "ws_iks_policies" {
   default     = "iks_policies"
