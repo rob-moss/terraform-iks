@@ -1,6 +1,6 @@
-# IKS Cluster Module
+# IKS Policies and Cluster Profile Module
 
-## Use this module to create Kubernetes polices in Intersight
+## Use this module to create Kubernetes policies and an IKS Cluster profile in Intersight
 
 Run the plan from the Terraform cloud workspace.
 

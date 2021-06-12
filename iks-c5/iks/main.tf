@@ -5,9 +5,9 @@
 
 data "terraform_remote_state" "global" {
   backend = "remote"
-  config = {
-    organization = var.tfc_organization
-    workspaces = {
+  config  = {
+    organization  = var.tfc_organization
+    workspaces    = {
       name = var.ws_global_vars
     }
   }
@@ -21,32 +21,32 @@ data "terraform_remote_state" "global" {
 
 locals {
   # Intersight Provider Variables
-  endpoint = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
+  endpoint              = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
   # Intersight Organization
-  organization = yamldecode(data.terraform_remote_state.global.outputs.organization)
+  organization          = yamldecode(data.terraform_remote_state.global.outputs.organization)
   # DNS Variables
-  dns_primary   = yamldecode(data.terraform_remote_state.global.outputs.dns_primary)
-  dns_secondary = yamldecode(data.terraform_remote_state.global.outputs.dns_secondary)
-  domain_name   = yamldecode(data.terraform_remote_state.global.outputs.domain_name)
+  dns_primary           = yamldecode(data.terraform_remote_state.global.outputs.dns_primary)
+  dns_secondary         = yamldecode(data.terraform_remote_state.global.outputs.dns_secondary)
+  domain_name           = yamldecode(data.terraform_remote_state.global.outputs.domain_name)
   # Time Variables
-  ntp_primary   = yamldecode(data.terraform_remote_state.global.outputs.ntp_primary)
-  ntp_secondary = yamldecode(data.terraform_remote_state.global.outputs.ntp_secondary)
-  timezone      = yamldecode(data.terraform_remote_state.global.outputs.timezone)
+  ntp_primary           = yamldecode(data.terraform_remote_state.global.outputs.ntp_primary)
+  ntp_secondary         = yamldecode(data.terraform_remote_state.global.outputs.ntp_secondary)
+  timezone              = yamldecode(data.terraform_remote_state.global.outputs.timezone)
   # IKS Cluster Variable
-  cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
+  cluster_name          = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
   # IP Pool Variables
-  ip_pool         = yamldecode(data.terraform_remote_state.global.outputs.ip_pool)
-  ip_pool_netmask = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_netmask)
-  ip_pool_gateway = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_gateway)
-  ip_pool_from    = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_from)
-  ip_pool_size    = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_size)
+  ip_pool               = yamldecode(data.terraform_remote_state.global.outputs.ip_pool)
+  ip_pool_netmask       = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_netmask)
+  ip_pool_gateway       = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_gateway)
+  ip_pool_from          = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_from)
+  ip_pool_size          = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_size)
   # Kubernetes Policy Names Variables
   k8s_trusted_registry  = yamldecode(data.terraform_remote_state.global.outputs.k8s_trusted_registry)
   k8s_version_policy    = yamldecode(data.terraform_remote_state.global.outputs.k8s_version_policy)
   k8s_vm_network_policy = yamldecode(data.terraform_remote_state.global.outputs.k8s_vm_network_policy)
   k8s_vm_infra_policy   = yamldecode(data.terraform_remote_state.global.outputs.k8s_vm_infra_policy)
   # vSphere Target Variable
-  vsphere_target = yamldecode(data.terraform_remote_state.global.outputs.vsphere_target)
+  vsphere_target        = yamldecode(data.terraform_remote_state.global.outputs.vsphere_target)
 }
 
 

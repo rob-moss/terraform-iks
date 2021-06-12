@@ -1,16 +1,19 @@
 #__________________________________________________________
 #
-# Terraform Cloud Workspace Variables: iwo
+# Terraform Cloud Workspace Variables: kube
 #__________________________________________________________
 
-module "tfc_variables_app_iwo" {
+module "tfc_variables_iks_cluster" {
   source = "../../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[4]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[2]
   variable_list = [
+    #---------------------------
+    # Terraform Cloud Variables
+    #---------------------------
     {
       description = "Terraform Cloud Organization."
       hcl         = false
@@ -25,12 +28,22 @@ module "tfc_variables_app_iwo" {
       sensitive   = false
       value       = "${var.cluster_name}_global_vars"
     },
+    #---------------------------
+    # Intersight Variables
+    #---------------------------
     {
-      description = "Intersight Kubernetes Service kube_config Workspace."
+      description = "Intersight API Key."
       hcl         = false
-      key         = "ws_kube"
-      sensitive   = false
-      value       = "${var.cluster_name}_kube"
+      key         = "api_key"
+      sensitive   = true
+      value       = var.api_key
+    },
+    {
+      description = "Intersight Secret Key."
+      hcl         = false
+      key         = "secret_key"
+      sensitive   = true
+      value       = var.secret_key
     },
   ]
 }

@@ -1,25 +1,25 @@
-#-----------------------------------
-# Intersight Organization Variables
-#-----------------------------------
+#__________________________________________________________
+#
+# Global Variables
+#__________________________________________________________
+
 variable "organization" {
   default     = "default"
-  description = "Intersight Organization."
+  description = "Intersight Organization Name."
   type        = string
 }
 
-
-#----------------------
-# IKS Cluster Variable
-#----------------------
 variable "cluster_name" {
   default     = "iks"
   description = "Intersight Kubernetes Service Cluster Name."
   type        = string
 }
 
-#-----------------------------------
+#______________________________________________
+#
 # DNS Variables
-#-----------------------------------
+#______________________________________________
+
 variable "domain_name" {
   default     = "demo.intra"
   description = "Domain Name for Kubernetes Sysconfig Policy."
@@ -38,9 +38,11 @@ variable "dns_secondary" {
 }
 
 
-#-----------------------------------
-# Time Variables
-#-----------------------------------
+#______________________________________________
+#
+# Timezone
+#______________________________________________
+
 variable "timezone" {
   default     = "America/New_York"
   description = "Timezone for Kubernetes Sysconfig Policy."
@@ -48,9 +50,11 @@ variable "timezone" {
 }
 
 
-#-----------------------------------
+#______________________________________________
+#
 # IP Pool Variables
-#-----------------------------------
+#______________________________________________
+
 variable "network_prefix" {
   default     = "10.200.0"
   description = "IP Pool Gateway last Octet.  The var.network_prefix will be combined with ip_pool_gateway for the Gateway Address."
@@ -69,13 +73,20 @@ variable "ip_pool_from" {
   type        = string
 }
 
-#--------------------------------
-# K8S VM Infra Policy Variables
-#--------------------------------
+#______________________________________________
+#
+# Kubernetes VM Infra Policy Variables
+#______________________________________________
+
 variable "vsphere_target" {
   description = "vSphere Server registered as a Target in Intersight.  The default, 210, only works if this is for the DevNet Sandbox."
   type        = string
 }
+
+#__________________________________________________________
+#
+# Terraform Cloud Workspace Variables: global_vars
+#__________________________________________________________
 
 module "tfc_variables_global" {
   source = "../../../terraform-cloud/modules/tfc_variables"

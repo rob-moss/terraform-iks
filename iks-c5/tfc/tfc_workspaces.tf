@@ -38,14 +38,14 @@ module "tfc_workspaces" {
     {
       auto_apply          = true
       agent_pool          = ""
-      description         = "IKS kube_config"
+      description         = "Intersight Kubernetes Service - kube_config Workspace"
       exec_mode           = "remote"
-      global_remote_state = false
-      name                = "${var.cluster_name}_kube_config"
+      global_remote_state = true
+      name                = "${var.cluster_name}_kube"
       queue_all_runs      = false
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/kube_config"
+      working_dir         = "${var.cluster_name}/kube"
     },
     {
       auto_apply          = true
@@ -53,11 +53,11 @@ module "tfc_workspaces" {
       description         = "Sample Application Workspace"
       exec_mode           = "agent"
       global_remote_state = false
-      name                = "${var.cluster_name}_app_sample"
+      name                = "${var.cluster_name}_sample"
       queue_all_runs      = false
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/app_sample"
+      working_dir         = "${var.cluster_name}/_sample"
     },
     {
       auto_apply          = true

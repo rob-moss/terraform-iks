@@ -77,3 +77,14 @@ variable "ws_iks" {
   description = "Intersight Kubernetes Service Workspace Name"
   type        = string
 }
+
+#__________________________________________________________
+#
+# IKS kube_config Workspace
+#__________________________________________________________
+
+variable "ws_kube" {
+  default     = "kube"
+  description = "Intersight Kubernetes Service kube_config Workspace Name"
+  type        = string
+}

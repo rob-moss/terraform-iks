@@ -1,3 +1,8 @@
+#__________________________________________________________
+#
+# Obtain Agent Pool ID from Terraform Cloud
+#__________________________________________________________
+
 module "tfc_agent_pool" {
   source       = "../../../terraform-cloud/modules/tfc_agent_pool"
   agent_pool   = var.agent_pool

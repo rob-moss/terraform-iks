@@ -1,6 +1,8 @@
-#---------------------------------------------
-# Get Outputs from the IKS Policies Workspace
-#---------------------------------------------
+#__________________________________________________________
+#
+# Get Outputs from the global_vars and kube Workspace(s)
+#__________________________________________________________
+
 data "terraform_remote_state" "global" {
   backend = "remote"
   config = {
@@ -11,15 +13,25 @@ data "terraform_remote_state" "global" {
   }
 }
 
-data "terraform_remote_state" "iks_cluster" {
+data "terraform_remote_state" "kube" {
   backend = "remote"
   config = {
     organization = var.tfc_organization
     workspaces = {
-      name = var.ws_iks_cluster
+      name = var.ws_kube
     }
   }
 }
+
+locals {
+  # IKS Cluster Name
+  cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
+}
+
+#__________________________________________________________
+#
+# Deploy the IWO Pod using the Helm Provider
+#__________________________________________________________
 
 resource "helm_release" "iwok8scollector" {
   name       = "iwok8scollector"
@@ -36,11 +48,6 @@ resource "helm_release" "iwok8scollector" {
   }
   set {
     name  = "targetName"
-    value = "${local.cluster_name}_app_sample"
+    value = "${local.cluster_name}_sample"
   }
-}
-
-locals {
-  # IKS Cluster Variables
-  cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
 }

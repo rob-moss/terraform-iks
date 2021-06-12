@@ -171,7 +171,7 @@ module "tfc_variables_iks_cluster" {
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[2]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[1]
   variable_list = [
     #---------------------------
     # Terraform Cloud Variables
@@ -189,13 +189,6 @@ module "tfc_variables_iks_cluster" {
       key         = "ws_global_vars"
       sensitive   = false
       value       = "${var.cluster_name}_global_vars"
-    },
-    {
-      description = "iks_policies Workspace."
-      hcl         = false
-      key         = "ws_iks_policies"
-      sensitive   = false
-      value       = "${var.cluster_name}_iks_policies"
     },
     #---------------------------
     # Intersight Variables

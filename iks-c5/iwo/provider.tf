@@ -1,6 +1,9 @@
-#---------------------------------
-# Kubernetes Provider Settings
-#---------------------------------
+#_______________________________________________________________
+#
+# Terraform Provider - Helm
+# https://registry.terraform.io/providers/hashicorp/helm/latest
+#_______________________________________________________________
+
 provider "helm" {
   kubernetes {
     host = local.kube_config.clusters[0].cluster.server
@@ -11,5 +14,5 @@ provider "helm" {
 }
 
 locals {
-  kube_config = yamldecode(data.terraform_remote_state.iks_cluster.outputs.kube_config)
+  kube_config = yamldecode(data.terraform_remote_state.kube.outputs.kube_config)
 }

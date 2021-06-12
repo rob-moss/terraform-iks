@@ -1,10 +1,15 @@
+#__________________________________________________________
+#
+# Terraform Cloud Workspace Variables: sample
+#__________________________________________________________
+
 module "tfc_variables_app_sample" {
   source = "../../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[4]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[3]
   variable_list = [
     {
       description = "Terraform Cloud Organization."
@@ -21,25 +26,11 @@ module "tfc_variables_app_sample" {
       value       = "${var.cluster_name}_global_vars"
     },
     {
-      description = "iks_cluster Workspace."
+      description = "Intersight Kubernetes Service kube_config Workspace."
       hcl         = false
-      key         = "ws_iks_cluster"
+      key         = "ws_kube"
       sensitive   = false
-      value       = "${var.cluster_name}_iks_cluster"
-    },
-    {
-      description = "Intersight API Key."
-      hcl         = false
-      key         = "api_key"
-      sensitive   = true
-      value       = var.api_key
-    },
-    {
-      description = "Intersight Secret Key."
-      hcl         = false
-      key         = "secret_key"
-      sensitive   = true
-      value       = var.secret_key
+      value       = "${var.cluster_name}_kube"
     },
   ]
 }

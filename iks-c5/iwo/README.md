@@ -1,6 +1,6 @@
 # IWO App Workspace
 
-## Use this module to create the Kubernetes IWO pod through Intersight
+## Use this module to create a IWO Pod through the Intersight Assist Appliance
 
 Run the plan from the Terraform cloud workspace.
 

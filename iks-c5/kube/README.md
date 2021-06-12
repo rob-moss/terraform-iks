@@ -1,6 +1,6 @@
-# Sample App Workspace
+# Intersight Kubernetes Service kube_config Workspace
 
-## Use this module to create the Kubernetes sample application through Intersight
+## Use this module to obtain the kube_config through Intersight
 
 Run the plan from the Terraform cloud workspace.
 
