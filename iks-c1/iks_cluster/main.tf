@@ -104,15 +104,13 @@ module "worker_instance_type" {
   tags                     = var.tags
 }
 
-resource "intersight_kubernetes_cluster_profile" "deploy_iks_cluster" {
+resource "intersight_kubernetes_cluster_profile" "cluster_without_worker" {
+  # skip this module if the worker_desired_size is 0
+  count = var.worker_desired_size != 0 ? 0 : 1
   depends_on = [
-        module.iks_cluster,
-        module.master_profile,
-        module.master_instance_type,
-        trimspace(<<-EOT
-        %{if var.worker_desired_size == 0~}${module.worker_instance_type}%{endif~}
-        EOT
-        )
+    module.iks_cluster,
+    module.master_profile,
+    module.master_instance_type,
   ]
   action              = "Deploy"
   name                = local.cluster_name
@@ -121,7 +119,25 @@ resource "intersight_kubernetes_cluster_profile" "deploy_iks_cluster" {
     object_type = "organization.Organization"
     moid        = local.organization_moid
   }
+}
 
+resource "intersight_kubernetes_cluster_profile" "cluster_with_worker" {
+  # skip this module if the worker_desired_size is 0
+  count = var.worker_desired_size == 0 ? 0 : 1
+  depends_on = [
+    module.iks_cluster,
+    module.master_profile,
+    module.master_instance_type,
+    module.worker_profile,
+    module.worker_instance_type
+  ]
+  action              = "Deploy"
+  name                = local.cluster_name
+  wait_for_completion = true
+  organization {
+    object_type = "organization.Organization"
+    moid        = local.organization_moid
+  }
 }
 
 #---------------------------------------------------
