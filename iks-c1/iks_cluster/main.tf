@@ -29,8 +29,8 @@ module "iks_cluster" {
   org_name = local.organization
   # action                        = "Unassign"
   # action                        = ""
-  action                        = "Unassign"
-  wait_for_completion           = false
+  action                        = "Deploy"
+  wait_for_completion           = true
   name                          = local.cluster_name
   ip_pool_moid                  = local.ip_pool
   load_balancer                 = var.load_balancers
@@ -120,7 +120,7 @@ data "intersight_kubernetes_cluster" "kube_config" {
 }
 
 output "kube_config" {
-    value = data.intersight_kubernetes_cluster.kube_config
+    value = base64decode(data.intersight_kubernetes_cluster.kube_config.results[0].kube_config)
 }
 
 #---------------------------------------------------
