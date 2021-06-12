@@ -7,13 +7,13 @@ module "tfc_workspaces" {
   tfc_org_name   = var.tfc_organization
   workspace_list = [
     {
-      auto_apply          = false
+      auto_apply          = true
       agent_pool          = ""
       description         = "Global Variables Workspace"
       exec_mode           = "remote"
       global_remote_state = true
       name                = "${var.cluster_name}_global_vars"
-      queue_all_runs      = false
+      queue_all_runs      = true
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
       working_dir         = "${var.cluster_name}/global_vars"

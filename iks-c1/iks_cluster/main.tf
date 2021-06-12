@@ -113,9 +113,9 @@ data "intersight_kubernetes_cluster" "kube_config" {
     name = local.cluster_name
 }
 
-output "kube_config" {
-    value = data.intersight_kubernetes_cluster.kube_config.results[0].kube_config.kube_config
-}
+# output "kube_config" {
+#     value = data.intersight_kubernetes_cluster.kube_config.results[0].kube_config.kube_config
+# }
 
 #---------------------------------------------------
 # Pull Global Attributes from global_vars Workspace
