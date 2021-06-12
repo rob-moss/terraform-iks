@@ -109,7 +109,6 @@ resource "intersight_kubernetes_cluster_profile" "deploy_iks_cluster" {
         module.iks_cluster,
         module.master_profile,
         module.master_instance_type,
-        module.worker_profile,
         trimspace(<<-EOT
         %{if var.worker_desired_size == 0~}${module.worker_instance_type}%{endif~}
         EOT
