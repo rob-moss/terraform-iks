@@ -166,7 +166,7 @@ variable "worker_max_size" {
 #__________________________________________________________
 
 module "tfc_variables_iks_cluster" {
-  source = "../../../terraform-cloud/modules/tfc_variables"
+  source = "../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]

@@ -4,7 +4,7 @@
 #__________________________________________________________
 
 module "tfc_variables_apps" {
-  source = "../../../terraform-cloud/modules/tfc_variables"
+  source = "../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]

@@ -249,7 +249,7 @@ module "master_profile" {
   max_size     = var.master_max_size
   name         = "${local.cluster_name}-master_profile"
   profile_type = trimspace(<<-EOT
-  %{if var.var.worker_desired_size == "0"~}ControlPlaneWorker
+  %{if var.worker_desired_size == "0"~}ControlPlaneWorker
   %{else~}ControlPlane
   %{endif~}
   EOT
