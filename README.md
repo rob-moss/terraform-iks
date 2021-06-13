@@ -2,15 +2,15 @@
 
 ## Contents
 
-    * Use Cases
-    * Pre-requisites and Guidelines
-    * Create TFCB Workspaces using the TFE Provider
-    * Execute Plans in Terraform Cloud Workspaces
-    * Provision IP Pools, Kubernetes Policies, and an IKS Cluster with TFCB
-    * Import the IKS Cluster kube_config into a TFCB Workspace
-    * Deploy IWO Performance Collector App using Helm
-    * Deploy the sample "Hello IKS" App using Helm
-    * Try with a Cisco DevNet Sandbox
+* Use Cases
+* Pre-requisites and Guidelines
+* Create TFCB Workspaces using the TFE Provider
+* Execute Plans in Terraform Cloud Workspaces
+* Provision IP Pools, Kubernetes Policies, and an IKS Cluster with TFCB
+* Import the IKS Cluster kube_config into a TFCB Workspace
+* Deploy IWO Performance Collector App using Helm
+* Deploy the sample "Hello IKS" App using Helm
+* Try with a Cisco DevNet Sandbox
 
 ### Use Cases
 
