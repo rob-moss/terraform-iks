@@ -80,6 +80,7 @@ variable "ip_pool_from" {
 #______________________________________________
 
 variable "vsphere_target" {
+  default     = "210"
   description = "vSphere Server registered as a Target in Intersight.  The default, 210, only works if this is for the DevNet Sandbox."
   type        = string
 }
