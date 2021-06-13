@@ -17,7 +17,7 @@ variable "tfc_organization" {
 
 variable "ws_global_vars" {
   default     = ""
-  description = "Global Variables Workspace Name.  The default value will be set to {var.cluster_name}_global_vars by the tfe variable module."
+  description = "Global Variables Workspace Name.  The default value will be set to {cluster_name}_global_vars by the tfe variable module."
   type        = string
 }
 
