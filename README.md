@@ -71,11 +71,9 @@ Once you have confirmed in Intersight that the cluster has been fully provisione
 
 Download the cluster kube_config from from the workspace and run a couple of kubectl commands to verify an operational cluster:
 
-    ```bash
     kubectl get nodes
 
     kubectl get pods --all-namespaces
-    ```
 
 ### Deploy IWO collector using Helm
 
@@ -91,21 +89,15 @@ Once successful, the collector is installed into your Kubernetes cluster and req
 
     Execute: 
     
-    ```bash
     kubectl <path_to_kubeconfig> port-forward <collector_pod_id> 9110
-    ```
 
     Execute this to get the Device ID: 
     
-    ```bash
     curl -s http://localhost:9110/DeviceIdentifiers
-    ```
 
     Execte this to get the Claim Code: 
     
-    ```bash
     curl -s http://localhost:9110/SecurityTokens
-    ```
 
 Once successful, open the Optimizer in Intersight and view insights for the App just deployed:
 
@@ -121,15 +113,11 @@ Open "{cluster_name}_app_hello" and Queue a plan manually.
 
 Once successful, access the app with the loadbalancer IP:
 
-    ```bash
     kubectl get svc --all-namespaces
-    ```
 
 or
 
-    ```bash
     kubectl get ingress
-    ```
 
 Open URL in a browser window : <https://LB_IP>
 
