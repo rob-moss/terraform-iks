@@ -42,27 +42,3 @@ resource "helm_release" "helloiksfrtfcb" {
     value = "Hello Intersight Kubernetes Service from Terraform Cloud for Business!!"
   }
 }
-
-#______________________________________________________________________
-#
-# Deploy the Intersight Workload Optimizer Pod using the Helm Provider
-#______________________________________________________________________
-
-resource "helm_release" "iwok8scollector" {
-  name      = "iwok8scollector"
-  namespace = "default"
-  #  namespace = "iwo-collector"
-  chart = "https://prathjan.github.io/helm-chart/iwok8scollector-0.6.2.tgz"
-  set {
-    name  = "iwoServerVersion"
-    value = "8.0"
-  }
-  set {
-    name  = "collectorImage.tag"
-    value = "8.0.6"
-  }
-  set {
-    name  = "targetName"
-    value = "${local.cluster_name}_sample"
-  }
-}

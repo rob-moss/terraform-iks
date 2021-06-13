@@ -3,7 +3,7 @@
 #-------------------------------
 variable "endpoint" {
   default     = "https://intersight.com"
-  description = "Intersight URL"
+  description = "Intersight URL."
   type        = string
 }
 output "endpoint" {

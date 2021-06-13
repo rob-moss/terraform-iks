@@ -1,6 +1,6 @@
-# Kubernetes Applications Workspace
+# Kubernetes Applications - Hello Kubernetes
 
-## Use this module to deploy Intersight Workload Optimizer and Hello Kubernetes through the Intersight Assist Appliance
+## Use this module to deploy the Hello Kubernetes Application through the Intersight Assist Appliance
 
 Run the plan from the Terraform cloud workspace.
 
