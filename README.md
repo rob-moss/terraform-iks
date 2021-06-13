@@ -1,15 +1,16 @@
-# Configuring IKS cluster with Cisco Intersight Service for Terraform on vSphere Infrastructure
+# Configuring IKS cluster with Cisco Intersight Service for HashiCorp Terraform on vSphere Infrastructure
 
 ## Contents
 
-      Use Cases
-      Pre-requisites, Guidelines
-      Create TFCB Workspaces using TFE Provider
-      Provision IP Pools, Policies and IKS Cluster with TFCB
-      Import the IKS Cluster kube_config into a TFCB Workspace
-      Deploy IWO Performance Collector Pod using Helm
-      Deploy a sample App "Hello IKS" using Helm
-      Try with a Sandbox
+* Use Cases
+* Pre-requisites and Guidelines
+* Create TFCB Workspaces using the TFE Provider
+* Execute Plans in Terraform Cloud Workspaces
+* Provision IP Pools, Kubernetes Policies, and an IKS Cluster with TFCB
+* Import the IKS Cluster kube_config into a TFCB Workspace
+* Deploy IWO Performance Collector App using Helm
+* Deploy the sample "Hello IKS" App using Helm
+* Try with a Cisco DevNet Sandbox
 
 ### Use Cases
 
@@ -20,7 +21,7 @@
 
 ![alt text](https://github.com/prathjan/images/blob/main/iksnew.png?raw=true)
 
-### Pre-requisites, Guidelines
+### Pre-requisites and Guidelines
 
 1. Sign up for a user account on Intersight.com. You will need at least one Advantage Tier license as well as a Intersight Workload Optimizer license to complete this use case. Log in to intersight.com and generate API/Secret Keys.  Both licensing requirements can utilize the available demo licensing if you don't have the subscription levels.
 
@@ -45,11 +46,15 @@
             github.com
             prathjan.github.io
 
-7. Follow the instructions in the "tfe" folder of this repository to provision the TFCB Workspaces.
+### Create TFCB Workspaces using the TFE Provider
 
-8. Open the Workspace "{cluster_name}_global_vars" in TFCB and queue a plan manually. This will populate the global variables that will be used by the other TFCB workspaces.
+1. Follow the instructions in the "tfe" folder of this repository to provision the TFCB Workspaces.
 
-9. You will execute the Runs in the workspaces in this order:
+### Execute Plans in Terraform Cloud Workspaces
+
+1. Open the Workspace "{cluster_name}_global_vars" in TFCB and queue a plan manually. This will populate the global variables that will be used by the other TFCB workspaces.
+
+2. You will execute the Runs in the workspaces in this order:
 
     {cluster_name}_iks - See section below on "Provision IKS Policies and IP Pools with TFCB"
 
@@ -75,7 +80,7 @@ Download the cluster kube_config from from the workspace and run a couple of kub
 
     kubectl get pods --all-namespaces
 
-### Deploy IWO collector using Helm
+### Deploy IWO Performance Collector App using Helm
 
 If you don't have Intersight Workload Optimizer licensing tied to your Intersight Instance you can skip this section.
 
@@ -129,7 +134,7 @@ You should see this:
 
 You can decommision all resources provisioned by queing a destroy plan in each workspace. Please use the workspace {cluster_name}_remove to delete the cluster. You can delete the policies after the cluster has been deleted.
 
-### Try with a Sandbox
+### Try with a Cisco DevNet Sandbox
 
 A sandbox covering a lot of the above concepts can be found here:
 
