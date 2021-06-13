@@ -141,7 +141,8 @@ export TF_VAR_unsigned_registries="[]"
 
 ```bash
 export TF_VAR_tags="[]"
-export TF_VAR_cluster_name="sbcluster"
+export TF_VAR_action="Deploy"
+export TF_VAR_cluster_name="iks"
 export TF_VAR_load_balancers="3"
 export TF_VAR_ssh_user="iksadmin"
 export TF_VAR_master_instance_type="small"
@@ -194,14 +195,14 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_tfc_agent_pool"></a> [tfc\_agent\_pool](#module\_tfc\_agent\_pool) | ../../../terraform-cloud/modules/tfc_agent_pool | n/a |
-| <a name="module_tfc_variables_app_hello"></a> [tfc\_variables\_app\_hello](#module\_tfc\_variables\_app\_hello) | ../../../terraform-cloud/modules/tfc_variables | n/a |
-| <a name="module_tfc_variables_apps"></a> [tfc\_variables\_apps](#module\_tfc\_variables\_apps) | ../../../terraform-cloud/modules/tfc_variables | n/a |
-| <a name="module_tfc_variables_global"></a> [tfc\_variables\_global](#module\_tfc\_variables\_global) | ../../../terraform-cloud/modules/tfc_variables | n/a |
-| <a name="module_tfc_variables_iks_cluster"></a> [tfc\_variables\_iks\_cluster](#module\_tfc\_variables\_iks\_cluster) | ../../../terraform-cloud/modules/tfc_variables | n/a |
-| <a name="module_tfc_variables_kube"></a> [tfc\_variables\_kube](#module\_tfc\_variables\_kube) | ../../../terraform-cloud/modules/tfc_variables | n/a |
-| <a name="module_tfc_variables_remove"></a> [tfc\_variables\_remove](#module\_tfc\_variables\_remove) | ../../../terraform-cloud/modules/tfc_variables | n/a |
-| <a name="module_tfc_workspaces"></a> [tfc\_workspaces](#module\_tfc\_workspaces) | ../../../terraform-cloud/modules/tfc_workspaces | n/a |
+| <a name="module_tfc_agent_pool"></a> [tfc\_agent\_pool](#module\_tfc\_agent\_pool) | ../../terraform-cloud/modules/tfc_agent_pool | n/a |
+| <a name="module_tfc_variables_app_hello"></a> [tfc\_variables\_app\_hello](#module\_tfc\_variables\_app\_hello) | ../../terraform-cloud/modules/tfc_variables | n/a |
+| <a name="module_tfc_variables_apps"></a> [tfc\_variables\_apps](#module\_tfc\_variables\_apps) | ../../terraform-cloud/modules/tfc_variables | n/a |
+| <a name="module_tfc_variables_global"></a> [tfc\_variables\_global](#module\_tfc\_variables\_global) | ../../terraform-cloud/modules/tfc_variables | n/a |
+| <a name="module_tfc_variables_iks"></a> [tfc\_variables\_iks](#module\_tfc\_variables\_iks) | ../../terraform-cloud/modules/tfc_variables | n/a |
+| <a name="module_tfc_variables_kube"></a> [tfc\_variables\_kube](#module\_tfc\_variables\_kube) | ../../terraform-cloud/modules/tfc_variables | n/a |
+| <a name="module_tfc_variables_remove"></a> [tfc\_variables\_remove](#module\_tfc\_variables\_remove) | ../../terraform-cloud/modules/tfc_variables | n/a |
+| <a name="module_tfc_workspaces"></a> [tfc\_workspaces](#module\_tfc\_workspaces) | ../../terraform-cloud/modules/tfc_workspaces | n/a |
 
 ## Resources
 
@@ -211,6 +212,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_action"></a> [action](#input\_action) | Action to perform on the Intersight Kubernetes Cluster.  Options are {Deploy\|Ready\|Unassign}. | `string` | `"Deploy"` | no |
 | <a name="input_agent_pool"></a> [agent\_pool](#input\_agent\_pool) | Terraform Cloud Agent Pool. | `string` | n/a | yes |
 | <a name="input_api_key"></a> [api\_key](#input\_api\_key) | Intersight API Key. | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Intersight Kubernetes Service Cluster Name. | `string` | `"iks"` | no |

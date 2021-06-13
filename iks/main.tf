@@ -221,7 +221,7 @@ module "iks_cluster" {
   ]
   source              = "terraform-cisco-modules/iks/intersight//modules/cluster"
   org_name            = local.organization
-  action              = "Deploy" # "Deploy, Unassign"
+  action              = var.action
   wait_for_completion = false
   name                = local.cluster_name
   load_balancer       = var.load_balancers

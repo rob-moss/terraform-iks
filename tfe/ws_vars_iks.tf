@@ -95,6 +95,12 @@ variable "tags" {
 # Intersight Kubernetes Cluster Variables
 #______________________________________________
 
+variable "action" {
+  default     = "Deploy"
+  description = "Action to perform on the Intersight Kubernetes Cluster.  Options are {Deploy|Ready|Unassign}."
+  type        = string
+}
+
 variable "load_balancers" {
   default     = 3
   description = "Intersight Kubernetes Load Balancer count."
@@ -165,7 +171,7 @@ variable "worker_max_size" {
 # Terraform Cloud Workspace Variables: iks
 #__________________________________________________________
 
-module "tfc_variables_iks_cluster" {
+module "tfc_variables_iks" {
   source = "../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
@@ -290,6 +296,13 @@ module "tfc_variables_iks_cluster" {
     #---------------------------
     # IKS Cluster Variables
     #---------------------------
+    {
+      description = "Cluster Action."
+      hcl         = false
+      key         = "action"
+      sensitive   = false
+      value       = var.action
+    },
     {
       description = "Intersight Kubernetes Load Balancer count."
       hcl         = false

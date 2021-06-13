@@ -40,9 +40,11 @@ data "intersight_organization_organization" "organization_moid" {
 resource "intersight_kubernetes_cluster_profile" "delete" {
   action              = "Delete"
   name                = local.cluster_name
-  wait_for_completion = false
+  wait_for_completion = true
   organization {
     object_type = "organization.Organization"
     moid        = data.intersight_organization_organization.organization_moid.results.0.moid
   }
 }
+
+

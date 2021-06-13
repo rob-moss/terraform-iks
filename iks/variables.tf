@@ -148,6 +148,12 @@ variable "tags" {
 # IKS Cluster Variables
 #______________________________________________
 
+variable "action" {
+  default     = "Deploy"
+  description = "Action to perform on the Intersight Kubernetes Cluster.  Options are {Deploy|Ready|Unassign}."
+  type        = string
+}
+
 variable "load_balancers" {
   default     = 3
   description = "Intersight Kubernetes Load Balancer count."
