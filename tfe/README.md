@@ -7,9 +7,13 @@ Follow the base repository instructions to obtain values for the following varia
 ### Terraform Cloud Variables
 
 * terraform_cloud_token
+
   instructions: <https://www.terraform.io/docs/cloud/users-teams-organizations/api-tokens.html>
+
 * tfc_oath_token
+
   instructions: <https://www.terraform.io/docs/cloud/vcs/index.html>
+
 * tfc_organization (TFCB Organization Name)
 * tfc_email (Must be an Email Assigned to the TFCB Account)
 * agent_pool (The Name of the Agent Pool in the TFCB Account)
@@ -22,18 +26,18 @@ Follow the base repository instructions to obtain values for the following varia
 
   instructions: <https://community.cisco.com/t5/data-center-documents/intersight-api-overview/ta-p/3651994>
 
-### Assign the vCenter Password from the Instructions
+### When assigning the vSphere Password - It Must match the password used to register the Target in Intersight
 
 * vsphere_password
 
-### Generate a SSH Key
+### Generate SSH Key
 
 * ssh_key (Note this must be a ecdsa key type)
   instructions: <https://www.ssh.com/academy/ssh/keygen>
 
-### Import the following Variables into your Environment before Running
+### Import the Variables into your Environment before Running the Terraform Cloud Provider module(s) in this directory
 
-The Following examples are for a Linux based Operating System.  Note that the TF_VAR_ prefix are used as a notification to the terraform engine that the environment variable will be consumed by terraform.
+The Following examples are for a Linux based Operating System.  Note that the TF_VAR_ prefix is used as a notification to the terraform engine that the environment variable will be consumed by terraform.
 
 * Terraform Cloud Variables
 
@@ -73,7 +77,7 @@ export TF_VAR_ssh_key="your_ssh_key"
 
 ## Optional Variables
 
-Below are additional varaibles.  Confirm anything that needs to change for your environment.  The default values are shown below.
+Below are additional variables that have been assigned default values already.  Confirm anything that needs to change for your environment.  The default values are shown below.
 
 * Terraform Cloud Default Variables
 
@@ -93,15 +97,25 @@ export TF_VAR_organization="default"
     To help simply the number of variables that are required the following manipulation rules have been added to the global_vars.
 
     Note: with dns_primary, dns_secondary, ntp_primary, ntp_secondary, ip_pool_gateway, ip_pool_from:
-      The default value is shown below.  For Example with dns_primary showing 100.
-      This is combined with the network_prefix to become 10.200.0.100.  
-      This works with the following variables:
-        - dns_primary
-        - dns_secondary
-        - ntp_primary
-        - ntp_secondary
-        - ip_pool_gateway
-        - ip_pool_from
+
+    The default value is shown below.  For Example with dns_primary showing 100.
+
+    This is combined with the network_prefix to become 10.200.0.100.  
+
+    This works with the following variables:
+
+    dns_primary
+  
+    dns_secondary
+
+    ntp_primary
+
+    ntp_secondary
+
+    ip_pool_gateway
+
+    ip_pool_from
+
     Secondary Note: dns_primary will also be assigned to ntp_primary if you don't assign anything.
     The same applies to dns_secondary; it is assigned to ntp_secondary if ntp_secondary is also left blank.
 
