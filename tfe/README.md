@@ -1,5 +1,7 @@
 # Workspace and Variable Creation
 
+## VERY IMPORTANT NOTE: This provider stores terraform state in plain text.  Do not accidently remove the .gitignore that is protecting you from accidently uploading the state files
+
 ## Obtain tokens and keys
 
 Follow the base repository instructions to obtain values for the following variables:
