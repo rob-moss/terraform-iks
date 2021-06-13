@@ -40,11 +40,11 @@
     TFC Cloud (This requires a Terraform for Cloud Business Account and at least 1 Advantage Tier License in Intersight)
     TFC Cloud Agent - After Claiming the TFCB Target, provising a Terraform Agent.  Be sure to add the following Managed Hosts/Networks:
 
-            network for vsphere host i.e. 198.18.0.0/24
-            network for Kubernetes Pod IP Range, i.e 198.18.1.0/24 (CIDR Ranges are not required)
-            github-releases.githubusercontent.com
-            github.com
-            prathjan.github.io
+    * network for vsphere host i.e. 198.18.0.0/24
+    * network for Kubernetes Pod IP Range, i.e 198.18.1.0/24 (CIDR Ranges are not required)
+    * github-releases.githubusercontent.com
+    * github.com
+    * prathjan.github.io
 
 ### Create TFCB Workspaces using the TFE Provider
 
@@ -56,13 +56,13 @@
 
 2. You will execute the Runs in the workspaces in this order:
 
-    {cluster_name}_iks - See section below on "Provision IKS Policies and IP Pools with TFCB"
+    * {cluster_name}_iks - See section below on "Provision IKS Policies and IP Pools with TFCB"
 
-    {cluster_name}_kube - See section below on "Provision a IKS Cluster with TFCB"
+    * {cluster_name}_kube - See section below on "Provision a IKS Cluster with TFCB"
 
-    {cluster_name}_iwo - See section below on "Deploy IWO collector using Helm"
+    * {cluster_name}_iwo - See section below on "Deploy IWO collector using Helm"
 
-    {cluster_name}_app_hello - See section below on "Deploy a sample "Hello IKS" App using Helm"
+    * {cluster_name}_app_hello - See section below on "Deploy a sample "Hello IKS" App using Helm"
 
 ### Provision IP Pools, Kubernetes Policies, and an IKS Cluster with TFCB
 
