@@ -1,6 +1,6 @@
 # Workspace and Variable Creation
 
-## VERY IMPORTANT NOTE: This provider stores terraform state in plain text.  Do not accidently remove the .gitignore that is protecting you from accidently uploading the state files
+## VERY IMPORTANT NOTE: This provider stores terraform state in plain text.  Do not remove the .gitignore that is protecting you from uploading the state files
 
 ## Obtain tokens and keys
 
@@ -195,6 +195,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_tfc_agent_pool"></a> [tfc\_agent\_pool](#module\_tfc\_agent\_pool) | ../../../terraform-cloud/modules/tfc_agent_pool | n/a |
+| <a name="module_tfc_variables_app_hello"></a> [tfc\_variables\_app\_hello](#module\_tfc\_variables\_app\_hello) | ../../../terraform-cloud/modules/tfc_variables | n/a |
 | <a name="module_tfc_variables_apps"></a> [tfc\_variables\_apps](#module\_tfc\_variables\_apps) | ../../../terraform-cloud/modules/tfc_variables | n/a |
 | <a name="module_tfc_variables_global"></a> [tfc\_variables\_global](#module\_tfc\_variables\_global) | ../../../terraform-cloud/modules/tfc_variables | n/a |
 | <a name="module_tfc_variables_iks_cluster"></a> [tfc\_variables\_iks\_cluster](#module\_tfc\_variables\_iks\_cluster) | ../../../terraform-cloud/modules/tfc_variables | n/a |

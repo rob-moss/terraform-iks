@@ -26,12 +26,12 @@ No resources.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Intersight Kubernetes Service Cluster Name. | `string` | `"iks"` | no |
-| <a name="input_dns_primary"></a> [dns\_primary](#input\_dns\_primary) | Primary DNS Server for Kubernetes Sysconfig Policy. If Using DevNet Sandbox default is {network\_prefix}.100 | `string` | `"100"` | no |
+| <a name="input_dns_primary"></a> [dns\_primary](#input\_dns\_primary) | Primary DNS Server for Kubernetes Sysconfig Policy or node id of the server. | `string` | `"100"` | no |
 | <a name="input_dns_secondary"></a> [dns\_secondary](#input\_dns\_secondary) | Secondary DNS Server for Kubernetes Sysconfig Policy. | `string` | `""` | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Domain Name for Kubernetes Sysconfig Policy. | `string` | `"demo.intra"` | no |
-| <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | Intersight URL | `string` | `"https://intersight.com"` | no |
+| <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | Intersight URL. | `string` | `"https://intersight.com"` | no |
 | <a name="input_ip_pool"></a> [ip\_pool](#input\_ip\_pool) | Intersight Kubernetes Service IP Pool.  Default name is {cluster\_name}\_ip\_pool | `string` | `""` | no |
-| <a name="input_ip_pool_from"></a> [ip\_pool\_from](#input\_ip\_pool\_from) | IP Pool Starting IP last Octet.  The var.network\_prefix will be combined with ip\_pool\_from for the Gateway Address. | `string` | `"20"` | no |
+| <a name="input_ip_pool_from"></a> [ip\_pool\_from](#input\_ip\_pool\_from) | IP Pool Starting IP last Octet.  The var.network\_prefix will be combined with ip\_pool\_from for the Starting Address. | `string` | `"20"` | no |
 | <a name="input_ip_pool_gateway"></a> [ip\_pool\_gateway](#input\_ip\_pool\_gateway) | IP Pool Gateway last Octet.  The var.network\_prefix will be combined with ip\_pool\_gateway for the Gateway Address. | `string` | `"254"` | no |
 | <a name="input_ip_pool_netmask"></a> [ip\_pool\_netmask](#input\_ip\_pool\_netmask) | IP Pool Netmask. | `string` | `"255.255.255.0"` | no |
 | <a name="input_ip_pool_size"></a> [ip\_pool\_size](#input\_ip\_pool\_size) | IP Pool Block Size. | `string` | `"30"` | no |

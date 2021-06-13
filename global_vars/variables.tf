@@ -32,7 +32,7 @@ variable "network_prefix" {
   description = "Network Prefix to Assign to DNS/NTP Servers & vCenter Target default values."
   type        = string
   validation {
-    condition = (can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.network_prefix)))
+    condition     = (can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.network_prefix)))
     error_message = "The network_prefix must be in the format X.X.X."
   }
 }
@@ -66,8 +66,8 @@ variable "dns_primary" {
 output "dns_primary" {
   description = "Primary DNS Server."
   value = trimspace(<<-EOT
-  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_primary)) }${var.dns_primary}%{endif}
-  %{if can(regex("^[0-9]{1,3}$", var.dns_primary)) }${join(".", [var.network_prefix, var.dns_primary])}%{endif}
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_primary))}${var.dns_primary}%{endif}
+  %{if can(regex("^[0-9]{1,3}$", var.dns_primary))}${join(".", [var.network_prefix, var.dns_primary])}%{endif}
   EOT
   )
 }
@@ -79,9 +79,9 @@ variable "dns_secondary" {
 }
 output "dns_secondary" {
   description = "Secondary DNS Server."
-  value       = trimspace(<<-EOT
-  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_secondary)) }${var.dns_secondary}%{endif}
-  %{if can(regex("^[0-9]{1,3}$", var.dns_secondary)) }${join(".", [var.network_prefix, var.dns_secondary])}%{endif}
+  value = trimspace(<<-EOT
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_secondary))}${var.dns_secondary}%{endif}
+  %{if can(regex("^[0-9]{1,3}$", var.dns_secondary))}${join(".", [var.network_prefix, var.dns_secondary])}%{endif}
   EOT
   )
 }
@@ -108,14 +108,14 @@ variable "ntp_primary" {
 output "ntp_primary" {
   description = "Primary NTP Server."
   #value       = var.ntp_primary != "" ? var.ntp_primary : var.dns_primary
-  value       = trimspace(<<-EOT
-  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.ntp_primary)) }var.ntp_primary%{endif}
+  value = trimspace(<<-EOT
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.ntp_primary))}var.ntp_primary%{endif}
   %{if can(regex("^$", var.ntp_primary)) &&
-   can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_primary))}${var.dns_primary}%{endif}
+    can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_primary))}${var.dns_primary}%{endif}
   %{if can(regex("^$", var.ntp_primary)) &&
-   can(regex("^[0-9]{1,3}$", var.dns_primary)) }${join(".", [var.network_prefix, var.dns_primary])}%{endif}
+  can(regex("^[0-9]{1,3}$", var.dns_primary))}${join(".", [var.network_prefix, var.dns_primary])}%{endif}
   EOT
-  )
+)
 }
 
 variable "ntp_secondary" {
@@ -125,14 +125,14 @@ variable "ntp_secondary" {
 }
 output "ntp_secondary" {
   description = "Secondary NTP Server."
-  value       = trimspace(<<-EOT
-  %{if can(regex("[\\d]+\\.{3}", var.ntp_secondary)) }var.ntp_secondary%{endif}
+  value = trimspace(<<-EOT
+  %{if can(regex("[\\d]+\\.{3}", var.ntp_secondary))}var.ntp_secondary%{endif}
   %{if can(regex("^$", var.ntp_secondary)) &&
-   can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_secondary))}${var.dns_secondary}%{endif}
+    can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_secondary))}${var.dns_secondary}%{endif}
   %{if can(regex("^$", var.ntp_secondary)) &&
-   can(regex("^[0-9]{1,3}$", var.dns_secondary)) }${join(".", [var.network_prefix, var.dns_secondary])}%{endif}
+  can(regex("^[0-9]{1,3}$", var.dns_secondary))}${join(".", [var.network_prefix, var.dns_secondary])}%{endif}
   EOT
-  )
+)
 }
 
 #----------------------
@@ -193,8 +193,8 @@ variable "ip_pool_gateway" {
 output "ip_pool_gateway" {
   description = "IP Pool Gateway Value."
   value = trimspace(<<-EOT
-  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.ip_pool_gateway)) }${var.ip_pool_gateway}%{endif}
-  %{if can(regex("^[0-9]{1,3}$", var.ip_pool_gateway)) }${join(".", [var.network_prefix, var.ip_pool_gateway])}%{endif}
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.ip_pool_gateway))}${var.ip_pool_gateway}%{endif}
+  %{if can(regex("^[0-9]{1,3}$", var.ip_pool_gateway))}${join(".", [var.network_prefix, var.ip_pool_gateway])}%{endif}
   EOT
   )
 }
@@ -295,9 +295,9 @@ variable "vsphere_target" {
 output "vsphere_target" {
   description = "vSphere Target."
   value = trimspace(<<-EOT
-  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.vsphere_target)) }${var.vsphere_target}%{endif}
-  %{if can(regex("^[0-9]{1,3}$", var.vsphere_target)) }${join(".", [var.network_prefix, var.vsphere_target])}%{endif}
-  %{if can(regex("^[[:alnum:]]+", var.vsphere_target)) }${var.vsphere_target}%{endif}
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.vsphere_target))}${var.vsphere_target}%{endif}
+  %{if can(regex("^[0-9]{1,3}$", var.vsphere_target))}${join(".", [var.network_prefix, var.vsphere_target])}%{endif}
+  %{if can(regex("^[[:alnum:]]+", var.vsphere_target))}${var.vsphere_target}%{endif}
   EOT
   )
 }

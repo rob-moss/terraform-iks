@@ -34,8 +34,8 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_tfc_organization"></a> [tfc\_organization](#input\_tfc\_organization) | Terraform Cloud Organization. | `string` | `"CiscoDevNet"` | no |
-| <a name="input_ws_global_vars"></a> [ws\_global\_vars](#input\_ws\_global\_vars) | Global Variables Workspace Name. | `string` | `"global_vars"` | no |
-| <a name="input_ws_kube"></a> [ws\_kube](#input\_ws\_kube) | Intersight Kubernetes Service (IKS) kube\_config Workspace Name | `string` | `"kube"` | no |
+| <a name="input_ws_global_vars"></a> [ws\_global\_vars](#input\_ws\_global\_vars) | Global Variables Workspace Name.  The default value will be set to {var.cluster\_name}\_global\_vars by the tfe variable module. | `string` | `""` | no |
+| <a name="input_ws_kube"></a> [ws\_kube](#input\_ws\_kube) | Intersight Kubernetes Service (IKS) kube\_config Workspace Name.  The default value will be set to {var.cluster\_name}\_kube by the tfe variable module. | `string` | `""` | no |
 
 ## Outputs
 
