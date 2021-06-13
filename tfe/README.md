@@ -33,6 +33,7 @@ Follow the base repository instructions to obtain values for the following varia
 ### Generate SSH Key
 
 * ssh_key (Note this must be a ecdsa key type)
+
   instructions: <https://www.ssh.com/academy/ssh/keygen>
 
 ### Import the Variables into your Environment before Running the Terraform Cloud Provider module(s) in this directory
