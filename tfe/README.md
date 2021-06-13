@@ -214,7 +214,7 @@ No resources.
 | <a name="input_agent_pool"></a> [agent\_pool](#input\_agent\_pool) | Terraform Cloud Agent Pool. | `string` | n/a | yes |
 | <a name="input_api_key"></a> [api\_key](#input\_api\_key) | Intersight API Key. | `string` | n/a | yes |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Intersight Kubernetes Service Cluster Name. | `string` | `"iks"` | no |
-| <a name="input_dns_primary"></a> [dns\_primary](#input\_dns\_primary) | Primary DNS Server for Kubernetes Sysconfig Policy. | `string` | n/a | yes |
+| <a name="input_dns_primary"></a> [dns\_primary](#input\_dns\_primary) | Primary DNS Server for Kubernetes Sysconfig Policy. | `string` | `"100"` | no |
 | <a name="input_dns_secondary"></a> [dns\_secondary](#input\_dns\_secondary) | Secondary DNS Server for Kubernetes Sysconfig Policy. | `string` | `""` | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Domain Name for Kubernetes Sysconfig Policy. | `string` | `"demo.intra"` | no |
 | <a name="input_ip_pool_from"></a> [ip\_pool\_from](#input\_ip\_pool\_from) | IP Pool Starting IP last Octet.  The var.network\_prefix will be combined with ip\_pool\_from for the Gateway Address. | `string` | `"20"` | no |
@@ -249,8 +249,6 @@ No resources.
 | <a name="input_worker_desired_size"></a> [worker\_desired\_size](#input\_worker\_desired\_size) | K8S Worker Desired Cluster Size. | `string` | `1` | no |
 | <a name="input_worker_instance_type"></a> [worker\_instance\_type](#input\_worker\_instance\_type) | K8S Worker Virtual Machine Instance Type.  Options are {small\|medium\|large}. | `string` | `"small"` | no |
 | <a name="input_worker_max_size"></a> [worker\_max\_size](#input\_worker\_max\_size) | K8S Worker Maximum Cluster Size. | `string` | `4` | no |
-| <a name="input_ws_global_vars"></a> [ws\_global\_vars](#input\_ws\_global\_vars) | Global Variables Workspace Name | `string` | `"global_vars"` | no |
-| <a name="input_ws_kube"></a> [ws\_kube](#input\_ws\_kube) | Intersight Kubernetes Service kube\_config Workspace Name | `string` | `"kube"` | no |
 
 ## Outputs
 

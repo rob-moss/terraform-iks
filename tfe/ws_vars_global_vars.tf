@@ -27,6 +27,7 @@ variable "domain_name" {
 }
 
 variable "dns_primary" {
+  default     = "100"
   description = "Primary DNS Server for Kubernetes Sysconfig Policy."
   type        = string
 }

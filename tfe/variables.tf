@@ -53,26 +53,3 @@ variable "secret_key" {
   sensitive   = true
   type        = string
 }
-
-
-#__________________________________________________________
-#
-# Global Variables Workspace
-#__________________________________________________________
-
-variable "ws_global_vars" {
-  default     = "global_vars"
-  description = "Global Variables Workspace Name"
-  type        = string
-}
-
-#__________________________________________________________
-#
-# IKS kube_config Workspace
-#__________________________________________________________
-
-variable "ws_kube" {
-  default     = "kube"
-  description = "Intersight Kubernetes Service kube_config Workspace Name"
-  type        = string
-}
