@@ -85,18 +85,18 @@ Open "{cluster_name}_iwo" and Queue a plan manually.
 
 Once successful, the collector is installed into your Kubernetes cluster and requires you to claim it as target in Intersight->Target. You will use the following steps to get the Device ID and Code:
 
-    Download kube_config for the {cluster_name} from Intersight or your {cluster_name}_kube workspace.
+Download kube_config for the {cluster_name} from Intersight or your {cluster_name}_kube workspace.
 
-    Execute: 
-    
+Execute:
+
     kubectl <path_to_kubeconfig> port-forward <collector_pod_id> 9110
 
-    Execute this to get the Device ID: 
-    
+Execute this to get the Device ID:
+
     curl -s http://localhost:9110/DeviceIdentifiers
 
-    Execte this to get the Claim Code: 
-    
+Execute this to get the Claim Code:
+
     curl -s http://localhost:9110/SecurityTokens
 
 Once successful, open the Optimizer in Intersight and view insights for the App just deployed:
