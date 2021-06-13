@@ -31,6 +31,10 @@ variable "network_prefix" {
   default     = "10.200.0"
   description = "Network Prefix to Assign to DNS/NTP Servers & vCenter Target default values."
   type        = string
+  validation {
+    condition = (can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.network_prefix)))
+    error_message = "The network_prefix must be in the format X.X.X."
+  }
 }
 
 
@@ -49,15 +53,21 @@ output "domain_name" {
 
 variable "dns_primary" {
   default     = "100"
-  description = "Primary DNS Server for Kubernetes Sysconfig Policy. If Using DevNet Sandbox default is {network_prefix}.100"
+  description = "Primary DNS Server for Kubernetes Sysconfig Policy or node id of the server."
   type        = string
+  validation {
+    condition = (
+      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.dns_primary)) ||
+      can(regex("^[0-9]{1,3}$", var.dns_primary))
+    )
+    error_message = "The dns_primary must be in the format X.X.X.X or X."
+  }
 }
 output "dns_primary" {
   description = "Primary DNS Server."
   value = trimspace(<<-EOT
-  %{if var.dns_primary == "100"~}${join(".", [var.network_prefix, var.dns_primary])}
-  %{else}${var.dns_primary}
-  %{endif~}
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_primary)) }${var.dns_primary}%{endif}
+  %{if can(regex("^[0-9]{1,3}$", var.dns_primary)) }${join(".", [var.network_prefix, var.dns_primary])}%{endif}
   EOT
   )
 }
@@ -69,7 +79,11 @@ variable "dns_secondary" {
 }
 output "dns_secondary" {
   description = "Secondary DNS Server."
-  value       = var.dns_secondary
+  value       = trimspace(<<-EOT
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_secondary)) }${var.dns_secondary}%{endif}
+  %{if can(regex("^[0-9]{1,3}$", var.dns_secondary)) }${join(".", [var.network_prefix, var.dns_secondary])}%{endif}
+  EOT
+  )
 }
 
 
@@ -93,7 +107,15 @@ variable "ntp_primary" {
 }
 output "ntp_primary" {
   description = "Primary NTP Server."
-  value       = var.ntp_primary != "" ? var.ntp_primary : var.dns_primary
+  #value       = var.ntp_primary != "" ? var.ntp_primary : var.dns_primary
+  value       = trimspace(<<-EOT
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.ntp_primary)) }var.ntp_primary%{endif}
+  %{if can(regex("^$", var.ntp_primary)) &&
+   can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_primary))}${var.dns_primary}%{endif}
+  %{if can(regex("^$", var.ntp_primary)) &&
+   can(regex("^[0-9]{1,3}$", var.dns_primary)) }${join(".", [var.network_prefix, var.dns_primary])}%{endif}
+  EOT
+  )
 }
 
 variable "ntp_secondary" {
@@ -103,7 +125,14 @@ variable "ntp_secondary" {
 }
 output "ntp_secondary" {
   description = "Secondary NTP Server."
-  value       = var.ntp_secondary != "" ? var.ntp_secondary : var.dns_secondary
+  value       = trimspace(<<-EOT
+  %{if can(regex("[\\d]+\\.{3}", var.ntp_secondary)) }var.ntp_secondary%{endif}
+  %{if can(regex("^$", var.ntp_secondary)) &&
+   can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_secondary))}${var.dns_secondary}%{endif}
+  %{if can(regex("^$", var.ntp_secondary)) &&
+   can(regex("^[0-9]{1,3}$", var.dns_secondary)) }${join(".", [var.network_prefix, var.dns_secondary])}%{endif}
+  EOT
+  )
 }
 
 #----------------------
@@ -137,6 +166,12 @@ variable "ip_pool_netmask" {
   default     = "255.255.255.0"
   description = "IP Pool Netmask."
   type        = string
+  validation {
+    condition = (
+      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.ip_pool_netmask))
+    )
+    error_message = "The ip_pool_netmask must be in the format X.X.X.X."
+  }
 }
 output "ip_pool_netmask" {
   description = "IP Pool Netmask Value."
@@ -147,16 +182,33 @@ variable "ip_pool_gateway" {
   default     = "254"
   description = "IP Pool Gateway last Octet.  The var.network_prefix will be combined with ip_pool_gateway for the Gateway Address."
   type        = string
+  validation {
+    condition = (
+      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.ip_pool_gateway)) ||
+      can(regex("^[0-9]{1,3}$", var.ip_pool_gateway))
+    )
+    error_message = "The ip_pool_gateway must be in the format X.X.X.X or X."
+  }
 }
 output "ip_pool_gateway" {
   description = "IP Pool Gateway Value."
-  value       = join(".", [var.network_prefix, var.ip_pool_gateway])
+  value = trimspace(<<-EOT
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.ip_pool_gateway)) }${var.ip_pool_gateway}%{endif}
+  %{if can(regex("^[0-9]{1,3}$", var.ip_pool_gateway)) }${join(".", [var.network_prefix, var.ip_pool_gateway])}%{endif}
+  EOT
+  )
 }
 
 variable "ip_pool_from" {
   default     = "20"
-  description = "IP Pool Starting IP last Octet.  The var.network_prefix will be combined with ip_pool_from for the Gateway Address."
+  description = "IP Pool Starting IP last Octet.  The var.network_prefix will be combined with ip_pool_from for the Starting Address."
   type        = string
+  validation {
+    condition = (
+      can(regex("^[0-9]{1,3}$", var.ip_pool_from))
+    )
+    error_message = "The ip_pool_from must be in the format X."
+  }
 }
 output "ip_pool_from" {
   description = "IP Pool Starting IP Value."
@@ -167,6 +219,12 @@ variable "ip_pool_size" {
   default     = "30"
   description = "IP Pool Block Size."
   type        = string
+  validation {
+    condition = (
+      can(regex("^[0-9]{1,3}$", var.ip_pool_size))
+    )
+    error_message = "The ip_pool_size must be in the X."
+  }
 }
 output "ip_pool_size" {
   description = "IP Pool Block Size."
@@ -225,13 +283,21 @@ variable "vsphere_target" {
   default     = "210"
   description = "vSphere Server registered as a Target in Intersight.  The default, 210, only works if this is for the DevNet Sandbox."
   type        = string
+  validation {
+    condition = (
+      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.vsphere_target)) ||
+      can(regex("^[0-9]{1,3}$", var.vsphere_target)) ||
+      can(regex("^[[:alnum:]]+", var.vsphere_target))
+    )
+    error_message = "The vsphere_target must be in the format hostname or IPv4 Address or just a number."
+  }
 }
 output "vsphere_target" {
   description = "vSphere Target."
   value = trimspace(<<-EOT
-  %{if var.vsphere_target == "210"~}${join(".", [var.network_prefix, var.vsphere_target])}
-  %{else}${var.vsphere_target}
-  %{endif~}
+  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.vsphere_target)) }${var.vsphere_target}%{endif}
+  %{if can(regex("^[0-9]{1,3}$", var.vsphere_target)) }${join(".", [var.network_prefix, var.vsphere_target])}%{endif}
+  %{if can(regex("^[[:alnum:]]+", var.vsphere_target)) }${var.vsphere_target}%{endif}
   EOT
   )
 }

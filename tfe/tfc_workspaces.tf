@@ -21,7 +21,7 @@ module "tfc_workspaces" {
       queue_all_runs      = false
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/global_vars"
+      working_dir         = "global_vars"
     },
     {
       auto_apply          = true
@@ -33,7 +33,7 @@ module "tfc_workspaces" {
       queue_all_runs      = false
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/iks"
+      working_dir         = "iks"
     },
     {
       auto_apply          = true
@@ -45,19 +45,31 @@ module "tfc_workspaces" {
       queue_all_runs      = false
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/kube"
+      working_dir         = "kube"
     },
     {
       auto_apply          = true
       agent_pool          = module.tfc_agent_pool.tfc_agent_pool
-      description         = "Application Workspace - IWO and Hello-Kubernetes."
+      description         = "Application Workspace - Intersight Workload Optimizer."
       exec_mode           = "agent"
       global_remote_state = false
-      name                = "${var.cluster_name}_apps"
+      name                = "${var.cluster_name}_iwo"
       queue_all_runs      = false
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/apps"
+      working_dir         = "iwo"
+    },
+    {
+      auto_apply          = true
+      agent_pool          = module.tfc_agent_pool.tfc_agent_pool
+      description         = "Application Workspace - Hello Kubernetes."
+      exec_mode           = "agent"
+      global_remote_state = false
+      name                = "${var.cluster_name}_app_hello"
+      queue_all_runs      = false
+      terraform_version   = var.terraform_version
+      vcs_repo            = var.vcs_repo
+      working_dir         = "app_hello"
     },
     {
       auto_apply          = true
@@ -69,7 +81,7 @@ module "tfc_workspaces" {
       queue_all_runs      = false
       terraform_version   = var.terraform_version
       vcs_repo            = var.vcs_repo
-      working_dir         = "${var.cluster_name}/remove"
+      working_dir         = "remove"
     },
   ]
 }

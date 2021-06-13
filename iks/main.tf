@@ -248,7 +248,12 @@ module "master_profile" {
   desired_size = var.master_desired_size
   max_size     = var.master_max_size
   name         = "${local.cluster_name}-master_profile"
-  profile_type = "ControlPlane"
+  profile_type = trimspace(<<-EOT
+  %{if var.var.worker_desired_size == "0"~}ControlPlaneWorker
+  %{else~}ControlPlane
+  %{endif~}
+  EOT
+  )
   # Attach Kubernetes Policies
   cluster_moid = module.iks_cluster.cluster_moid
   ip_pool_moid = module.ip_pool.ip_pool_moid

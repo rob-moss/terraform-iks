@@ -2,109 +2,165 @@
 
 ## Obtain tokens and keys
 
-Follow the instructions to obtain values for the following variables:
+Follow the base repository instructions to obtain values for the following variables:
 
-## Terraform Cloud Variables
+### Terraform Cloud Variables
 
-* TF_VAR_terraform_cloud_token
-* TF_VAR_tfc_oath_token
-* TF_VAR_tfc_organization
-* TF_VAR_tfc_email
-* TF_VAR_agent_pool
-* TF_VAR_vcs_repo
+* terraform_cloud_token
+  instructions: <https://www.terraform.io/docs/cloud/users-teams-organizations/api-tokens.html>
+* tfc_oath_token
+  instructions: <https://www.terraform.io/docs/cloud/vcs/index.html>
+* tfc_organization (TFCB Organization Name)
+* tfc_email (Must be an Email Assigned to the TFCB Account)
+* agent_pool (The Name of the Agent Pool in the TFCB Account)
+* vcs_repo (The Name of your Version Control Repository. i.e. CiscoDevNet/intersight-tfb-iks)
 
-## Intersight Variables
+### Intersight Variables
 
-* TF_VAR_api_key
-* TF_VAR_secret_key
-* TF_VAR_vcs_repo
+* api_key
+* secret_key
 
-## Assign the vCenter Password from the Instructions
+  instructions: <https://community.cisco.com/t5/data-center-documents/intersight-api-overview/ta-p/3651994>
 
-* TF_VAR_vsphere_password
+### Assign the vCenter Password from the Instructions
 
-## Generate an SSH Key
+* vsphere_password
 
-* TF_VAR_ssh_key
+### Generate a SSH Key
 
-## Import the following Variables into your Environment before Running
+* ssh_key (Note this must be a ecdsa key type)
+  instructions: <https://www.ssh.com/academy/ssh/keygen>
+
+### Import the following Variables into your Environment before Running
+
+The Following examples are for a Linux based Operating System.  Note that the TF_VAR_ prefix are used as a notification to the terraform engine that the environment variable will be consumed by terraform.
 
 * Terraform Cloud Variables
 
 ```bash
-export TF_VAR_terraform_cloud_token="obtain_token"
-export TF_VAR_tfc_oath_token="obtain_token"
-export TF_VAR_tfc_organization="CiscoDevNet"
+export TF_VAR_terraform_cloud_token="your_cloud_token"
+export TF_VAR_tfc_oath_token="your_oath_token"
 export TF_VAR_tfc_email="your_email"
-export TF_VAR_agent_pool="your_agent_pool"
-export TF_VAR_terraform_version="1.0.0"
+export TF_VAR_agent_pool="your_agent_pool_name"
 export TF_VAR_vcs_repo="your_vcs_repo"
 ```
 
 * Intersight Variables
 
 ```bash
-export TF_VAR_organization="default"
 export TF_VAR_api_key="your_api_key"
 export TF_VAR_secret_key="your_secret_key"
 ```
 
 * Global Variables
+  Refer to explanation below on the purpose of the network_prefix variable
 
 ```bash
 export TF_VAR_network_prefix="10.200.0"
-export TF_VAR_domain_name="demo.intra"
-export TF_VAR_dns_primary="100"
-export TF_VAR_dns_secondary=""
-```
-
-* Kubernetes Policies Variables
-
-```bash
-export TF_VAR_ip_pool_gateway="254"
-export TF_VAR_ip_pool_from="20"
-export TF_VAR_k8s_pod_cidr="100.65.0.0/16"
-export TF_VAR_k8s_service_cidr="100.64.0.0/16"
-export TF_VAR_k8s_k8s_version="1.19.5"
-export TF_VAR_unsigned_registries="[]"
-export TF_VAR_tags_policies="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"CiscoDevNet\" } ]"
 ```
 
 * vSphere Variables
 
 ```bash
-export TF_VAR_vsphere_target="210"
 export TF_VAR_vsphere_password="your_vshpere_password"
-export TF_VAR_vsphere_cluster="hx-demo"
-export TF_VAR_vsphere_datastore="hx-demo-ds1"
-export TF_VAR_vsphere_portgroup="[\"Management\"]"
-export TF_VAR_vsphere_resource_pool=""
 ```
 
 * Kubernetes Cluster Variables
 
 ```bash
+export TF_VAR_ssh_key="your_ssh_key"
+```
+
+## Optional Variables
+
+Below are additional varaibles.  Confirm anything that needs to change for your environment.  The default values are shown below.
+
+* Terraform Cloud Default Variables
+
+```bash
+export TF_VAR_tfc_organization="CiscoDevNet"
+export TF_VAR_terraform_version="1.0.0"
+```
+
+* Intersight Default Variables
+
+```bash
+export TF_VAR_organization="default"
+```
+
+* Kubernetes Cluster and Policies Default Variables
+
+    To help simply the number of variables that are required the following manipulation rules have been added to the global_vars.
+
+    Note: with dns_primary, dns_secondary, ntp_primary, ntp_secondary, ip_pool_gateway, ip_pool_from:
+      The default value is shown below.  For Example with dns_primary showing 100.
+      This is combined with the network_prefix to become 10.200.0.100.  
+      This works with the following variables:
+        - dns_primary
+        - dns_secondary
+        - ntp_primary
+        - ntp_secondary
+        - ip_pool_gateway
+        - ip_pool_from
+    Secondary Note: dns_primary will also be assigned to ntp_primary if you don't assign anything.
+    The same applies to dns_secondary; it is assigned to ntp_secondary if ntp_secondary is also left blank.
+
+```bash
+export TF_VAR_domain_name="demo.intra"
+export TF_VAR_dns_primary="100"
+export TF_VAR_dns_secondary=""
+export TF_VAR_ntp_primary=""
+export TF_VAR_ntp_secondary=""
+export TF_VAR_ip_pool_gateway="254"
+export TF_VAR_ip_pool_from="20"
+export TF_VAR_k8s_pod_cidr="100.65.0.0/16"
+export TF_VAR_k8s_service_cidr="100.64.0.0/16"
+export TF_VAR_k8s_k8s_version="1.19.5"
+export TF_VAR_root_ca_registries="[]"
+export TF_VAR_unsigned_registries="[]"
+```
+
+* Kubernetes Cluster Optional Variables
+
+```bash
+export TF_VAR_tags="[]"
 export TF_VAR_cluster_name="sbcluster"
 export TF_VAR_load_balancers="3"
 export TF_VAR_ssh_user="iksadmin"
-export TF_VAR_ssh_key="your_ssh_key"
 export TF_VAR_master_instance_type="small"
 export TF_VAR_master_desired_size="1"
 export TF_VAR_master_max_size="1"
 export TF_VAR_worker_instance_type="small"
 export TF_VAR_worker_desired_size="0"
 export TF_VAR_worker_max_size="1"
-export TF_VAR_tags_cluster="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"CiscoDevNet\" } ]"
 ```
 
-Once all Variables have been imported into your environment run the plan in the tfc folder:
+* vSphere Optional Variables
+
+  Note: The same rules above apply to the vsphere_target address.  But you can use dns or IPv4 values when modifying.
+
+```bash
+export TF_VAR_vsphere_target="210"
+export TF_VAR_vsphere_cluster="hx-demo"
+export TF_VAR_vsphere_datastore="hx-demo-ds1"
+export TF_VAR_vsphere_portgroup="[\"Management\"]"
+export TF_VAR_vsphere_resource_pool=""
+```
+
+For the Cluster tags below is an example key/value format.
+
+```bash
+export TF_VAR_tags="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"CiscoDevNet\" } ]"
+```
+
+Once all Variables have been imported into your environment run the plan in the tfe folder:
 
 ```bash
 terraform plan -out=main.plan
 terraform apply main.plan
 ```
 
-This module will Create the Terraform Cloud Workspace(s) and Assign the Variables to the workspace(s).
+When run, this module will Create the Terraform Cloud Workspace(s) and Assign the Variables to the workspace(s).
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements

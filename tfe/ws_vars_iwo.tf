@@ -1,19 +1,27 @@
 #__________________________________________________________
 #
-# Terraform Cloud Workspace Variables: remove
+# IKS kube_config Workspace
 #__________________________________________________________
 
-module "tfc_variables_remove" {
+variable "ws_kube" {
+  default     = "kube"
+  description = "Intersight Kubernetes Service kube_config Workspace Name"
+  type        = string
+}
+
+#__________________________________________________________
+#
+# Terraform Cloud Workspace Variables: iwo
+#__________________________________________________________
+
+module "tfc_variables_apps" {
   source = "../../../terraform-cloud/modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[4]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[3]
   variable_list = [
-    #---------------------------
-    # Terraform Cloud Variables
-    #---------------------------
     {
       description = "Terraform Cloud Organization."
       hcl         = false
@@ -28,22 +36,12 @@ module "tfc_variables_remove" {
       sensitive   = false
       value       = "${var.cluster_name}_global_vars"
     },
-    #---------------------------
-    # Intersight Variables
-    #---------------------------
     {
-      description = "Intersight API Key."
+      description = "Intersight Kubernetes Service kube_config Workspace."
       hcl         = false
-      key         = "api_key"
-      sensitive   = true
-      value       = var.api_key
-    },
-    {
-      description = "Intersight Secret Key."
-      hcl         = false
-      key         = "secret_key"
-      sensitive   = true
-      value       = var.secret_key
+      key         = "ws_kube"
+      sensitive   = false
+      value       = "${var.cluster_name}_kube"
     },
   ]
 }

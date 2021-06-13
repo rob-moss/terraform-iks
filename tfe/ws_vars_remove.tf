@@ -9,7 +9,7 @@ module "tfc_variables_remove" {
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[4]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[5]
   variable_list = [
     #---------------------------
     # Terraform Cloud Variables
