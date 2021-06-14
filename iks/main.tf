@@ -314,7 +314,7 @@ module "worker_instance_type" {
   EOT
   )
   node_group_moid = trimspace(<<-EOT
-  %{if var.worker_desired_size != "0"~}${module.worker_profile.node_group_profile_moid}%{endif~}
+  %{if var.worker_desired_size != "0"~}module.worker_profile.node_group_profile_moid%{endif~}
   EOT
   )
   infra_config_policy_moid = module.k8s_vm_infra_policy.infra_config_moid
