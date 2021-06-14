@@ -177,7 +177,7 @@ module "tfc_variables_iks" {
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[1]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[2]
   variable_list = [
     #---------------------------
     # Terraform Cloud Variables

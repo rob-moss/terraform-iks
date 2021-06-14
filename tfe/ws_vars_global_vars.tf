@@ -96,7 +96,7 @@ module "tfc_variables_global" {
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[0]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id[1]
   variable_list = [
     {
       description = "Intersight Organization."
