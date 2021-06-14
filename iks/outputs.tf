@@ -86,7 +86,7 @@ output "worker_profile" {
   ]
   description = "moid of the Worker Node Profile."
   value = trimspace(<<-EOT
-  %{if var.worker_desired_size != "0"~}${module.worker_profile.node_group_profile_moid}
+  %{if var.worker_desired_size != "0"~}module.worker_profile.node_group_profile_moid
   %{else~}blank
   %{endif~}
   EOT
