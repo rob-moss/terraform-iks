@@ -35,10 +35,13 @@
 
 6. You will log into your Intersight account and create the following targets. Please refer to Intersight docs for details on how to create these Targets:
 
-    Intersight Assist - This will provide on-premise proxy communication services.
-    vSphere Target - Requires Intersight Assist Appliance.  
-    TFC Cloud (This requires a Terraform for Cloud Business Account and at least 1 Advantage Tier License in Intersight)
-    TFC Cloud Agent - After Claiming the TFCB Target, provising a Terraform Agent.  Be sure to add the following Managed Hosts/Networks:
+  Intersight Assist - This will provide on-premise proxy communication services. i.e. vSphere and Kubernetes.
+  
+  vSphere Target - Requires Intersight Assist Appliance.  
+  
+  TFC Cloud (This requires a Terraform for Cloud Business Account and at least 1 Advantage Tier License in Intersight)
+  
+  TFC Cloud Agent - After Claiming the TFCB Target, provising a Terraform Agent.  Be sure to add the following Managed Hosts/Networks:
 
     * network for vsphere host i.e. 198.18.0.0/24
     * network for Kubernetes Pod IP Range, i.e 198.18.1.0/24 (CIDR Ranges are not required)
@@ -134,7 +137,7 @@ You should see this:
 
 There is a three step process to decomission the lab.
 
-1. Go into the IKS workspace and change the variable "action" from "Deploy" to "Delete" and Queue a Plan.  Monitor in Intersight for the Completed deletion of the cluster deployment.
+1. Go into the IKS workspace and change the variable "action" from "Deploy" to "Delete" and Queue a Plan.  Monitor in Intersight for the Completed deletion of the cluster deployment. Workspace > Variables > "action": edit.  Then "Queue plan manually".
 
 2. Run a Destroy Infrastrucutre Plan on the {cluster_name}_iks workspace to delete the Kubernetes Policies from Intersight.  Workspace > Settings > Destruction and Deletion > "Queue destroy plan".  Wait for the Completion of the Destroy Apply.
 
