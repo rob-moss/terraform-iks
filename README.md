@@ -132,7 +132,15 @@ You should see this:
 
 ### De-provisioning
 
-You can decommision all resources provisioned by queing a destroy plan in each workspace. Please use the workspace {cluster_name}_remove to delete the cluster. You can delete the policies after the cluster has been deleted.
+There is a three step process to decomission the lab.
+
+1. Go into the IKS workspace and change the variable "action" from "Deploy" to "Delete" and Queue a Plan.  Monitor in Intersight for the Completed deletion of the cluster deployment.
+
+2. Run a Destroy Infrastrucutre Plan on the {cluster_name}_iks workspace to delete the Kubernetes Policies from Intersight.  Workspace > Settings > Destruction and Deletion > "Queue destroy plan".  Wait for the Completion of the Destroy Apply.
+
+3. Back on your machine where you have downloaded the tfe folder and ran the plan to build the workspaces run the command:
+
+      terraform destroy
 
 ### Try with a Cisco DevNet Sandbox
 

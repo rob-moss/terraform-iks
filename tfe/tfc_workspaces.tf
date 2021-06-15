@@ -57,15 +57,6 @@ module "tfc_workspaces" {
       vcs_repo                  = var.vcs_repo
       working_directory         = "app_hello"
     },
-    "remove" = {
-      auto_apply                = true
-      description               = "Workspace used to Destroy IKS Cluster."
-      execution_mode            = "remote"
-      name                      = "${var.cluster_name}_remove"
-      terraform_version         = var.terraform_version
-      vcs_repo                  = var.vcs_repo
-      working_directory         = "remove"
-    },
   }
 }
 

@@ -150,7 +150,7 @@ variable "tags" {
 
 variable "action" {
   default     = "Deploy"
-  description = "Action to perform on the Intersight Kubernetes Cluster.  Options are {Deploy|Ready|Unassign}."
+  description = "Action to perform on the Intersight Kubernetes Cluster.  Options are {Delete|Deploy|Ready|Unassign}."
   type        = string
 }
 
