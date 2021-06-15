@@ -23,8 +23,8 @@ Follow the base repository instructions to obtain values for the following varia
 
 ### Intersight Variables
 
-* api_key
-* secret_key
+* apikey
+* secretkey
 
   instructions: <https://community.cisco.com/t5/data-center-documents/intersight-api-overview/ta-p/3651994>
 
@@ -55,8 +55,8 @@ export TF_VAR_vcs_repo="your_vcs_repo"
 * Intersight Variables
 
 ```bash
-export TF_VAR_api_key="your_api_key"
-export TF_VAR_secret_key="your_secret_key"
+export TF_VAR_apikey="your_api_key"
+export TF_VAR_secretkey="your_secret_key"
 ```
 
 * Global Variables
@@ -97,37 +97,28 @@ export TF_VAR_organization="default"
 
 * Kubernetes Cluster and Policies Default Variables
 
-    To help simply the number of variables that are required the following manipulation rules have been added to the global_vars.
+    To help simplify the number of variables that are required, the following manipulation rules have been added to the global_vars.
 
-    Note: with dns_primary, dns_secondary, ntp_primary, ntp_secondary, ip_pool_gateway, ip_pool_from:
+    network_prefix function ip_pool_gateway, ip_pool_from, and vsphere_target:
 
-    The default value is shown below.  For Example with dns_primary showing 100.
+    The default value is shown below.  For Example with vsphere_target showing the IPv4 last octet of 210.
 
-    This is combined with the network_prefix to become 10.200.0.100.  
+    This is combined with the network_prefix to become 10.200.0.210.  
 
-    This works with the following variables:
-
-    dns_primary
-  
-    dns_secondary
-
-    ntp_primary
-
-    ntp_secondary
+    This combine function works with the following variables:
 
     ip_pool_gateway
 
     ip_pool_from
 
-    Secondary Note: dns_primary will also be assigned to ntp_primary if you don't assign anything.
-    The same applies to dns_secondary; it is assigned to ntp_secondary if ntp_secondary is also left blank.
+    vsphere_target
+
+    Secondary Note: dns_servers will also be assigned to ntp_servers if you don't assign anything to ntp_servers.
 
 ```bash
 export TF_VAR_domain_name="demo.intra"
-export TF_VAR_dns_primary="100"
-export TF_VAR_dns_secondary=""
-export TF_VAR_ntp_primary=""
-export TF_VAR_ntp_secondary=""
+export TF_VAR_dns_servers="[\"10.200.0.100\"]"
+export TF_VAR_ntp_servers="[]"
 export TF_VAR_ip_pool_gateway="254"
 export TF_VAR_ip_pool_from="20"
 export TF_VAR_k8s_pod_cidr="100.65.0.0/16"

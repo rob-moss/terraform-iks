@@ -43,11 +43,11 @@
   
   TFC Cloud Agent - After Claiming the TFCB Target, provising a Terraform Agent.  Be sure to add the following Managed Hosts/Networks:
 
-    * network for vsphere host i.e. 198.18.0.0/24
-    * network for Kubernetes Pod IP Range, i.e 198.18.1.0/24 (CIDR Ranges are not required)
-    * github-releases.githubusercontent.com
-    * github.com
-    * prathjan.github.io
+    network for vsphere host i.e. 198.18.0.0/24
+    network for Kubernetes Pod IP Range, i.e 198.18.1.0/24 (CIDR Ranges are not required)
+    github-releases.githubusercontent.com
+    github.com
+    prathjan.github.io
 
 ### Create TFCB Workspaces using the TFE Provider
 

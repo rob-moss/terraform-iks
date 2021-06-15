@@ -26,18 +26,11 @@ variable "domain_name" {
   type        = string
 }
 
-variable "dns_primary" {
-  default     = "100"
+variable "dns_servers" {
+  default     = "[\"10.200.0.100\"]"
   description = "Primary DNS Server for Kubernetes Sysconfig Policy."
   type        = string
 }
-
-variable "dns_secondary" {
-  default     = ""
-  description = "Secondary DNS Server for Kubernetes Sysconfig Policy."
-  type        = string
-}
-
 
 #______________________________________________
 #
@@ -96,7 +89,7 @@ module "tfc_variables_global" {
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[1]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id.global_vars
   variable_list = [
     {
       description = "Intersight Organization."
@@ -113,18 +106,11 @@ module "tfc_variables_global" {
       value       = var.domain_name
     },
     {
-      description = "Primary DNS Server."
-      hcl         = false
-      key         = "dns_primary"
+      description = "DNS Servers."
+      hcl         = true
+      key         = "dns_servers"
       sensitive   = false
-      value       = var.dns_primary
-    },
-    {
-      description = "Secondary DNS Server."
-      hcl         = false
-      key         = "dns_secondary"
-      sensitive   = false
-      value       = var.dns_secondary
+      value       = var.dns_servers
     },
     {
       description = "IKS Cluster Name."

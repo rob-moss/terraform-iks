@@ -9,7 +9,7 @@ module "tfc_variables_apps" {
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[3]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id.iwo
   variable_list = [
     {
       description = "Terraform Cloud Organization."

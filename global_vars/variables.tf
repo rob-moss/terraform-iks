@@ -51,41 +51,21 @@ output "domain_name" {
   value       = var.domain_name
 }
 
-variable "dns_primary" {
-  default     = "100"
-  description = "Primary DNS Server for Kubernetes Sysconfig Policy or node id of the server."
-  type        = string
-  validation {
-    condition = (
-      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.dns_primary)) ||
-      can(regex("^[0-9]{1,3}$", var.dns_primary))
-    )
-    error_message = "The dns_primary must be in the format X.X.X.X or X."
-  }
+variable "dns_servers" {
+  default     = ["10.200.0.100"]
+  description = "List of DNS Server(s) for Kubernetes System Configuration Policy and IP Pool."
+  type        = list(string)
+#  validation {
+#    condition = (
+#      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.dns_primary))
+#    )
+#    error_message = "The dns_servers must be in the format X.X.X.X or X."
+#  }
 }
-output "dns_primary" {
-  description = "Primary DNS Server."
-  value = trimspace(<<-EOT
-  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_primary))}${var.dns_primary}%{endif}
-  %{if can(regex("^[0-9]{1,3}$", var.dns_primary))}${join(".", [var.network_prefix, var.dns_primary])}%{endif}
-  EOT
-  )
+output "dns_servers" {
+  description = "List of DNS Server(s) for Kubernetes System Configuration Policy and IP Pool."
+  value = var.dns_servers
 }
-
-variable "dns_secondary" {
-  default     = ""
-  description = "Secondary DNS Server for Kubernetes Sysconfig Policy."
-  type        = string
-}
-output "dns_secondary" {
-  description = "Secondary DNS Server."
-  value = trimspace(<<-EOT
-  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_secondary))}${var.dns_secondary}%{endif}
-  %{if can(regex("^[0-9]{1,3}$", var.dns_secondary))}${join(".", [var.network_prefix, var.dns_secondary])}%{endif}
-  EOT
-  )
-}
-
 
 #-----------------------------------
 # Time Variables
@@ -100,39 +80,14 @@ output "timezone" {
   value       = var.timezone
 }
 
-variable "ntp_primary" {
-  default     = ""
-  description = "Primary NTP Server for Kubernetes Sysconfig Policy.  Default value is the variable dns_primary."
-  type        = string
+variable "ntp_servers" {
+  default     = []
+  description = "List of NTP Server for Kubernetes System Configuration Policy.  If undefined then the dns_servers will be used."
+  type        = list(string)
 }
-output "ntp_primary" {
-  description = "Primary NTP Server."
-  #value       = var.ntp_primary != "" ? var.ntp_primary : var.dns_primary
-  value = trimspace(<<-EOT
-  %{if can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.ntp_primary))}var.ntp_primary%{endif}
-  %{if can(regex("^$", var.ntp_primary)) &&
-    can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_primary))}${var.dns_primary}%{endif}
-  %{if can(regex("^$", var.ntp_primary)) &&
-  can(regex("^[0-9]{1,3}$", var.dns_primary))}${join(".", [var.network_prefix, var.dns_primary])}%{endif}
-  EOT
-)
-}
-
-variable "ntp_secondary" {
-  default     = ""
-  description = "Secondary NTP Server for Kubernetes Sysconfig Policy.  Default value is the variable dns_secondary."
-  type        = string
-}
-output "ntp_secondary" {
-  description = "Secondary NTP Server."
-  value = trimspace(<<-EOT
-  %{if can(regex("[\\d]+\\.{3}", var.ntp_secondary))}var.ntp_secondary%{endif}
-  %{if can(regex("^$", var.ntp_secondary)) &&
-    can(regex("[\\d]{1,3}\\.[\\d]{1,3}\\.", var.dns_secondary))}${var.dns_secondary}%{endif}
-  %{if can(regex("^$", var.ntp_secondary)) &&
-  can(regex("^[0-9]{1,3}$", var.dns_secondary))}${join(".", [var.network_prefix, var.dns_secondary])}%{endif}
-  EOT
-)
+output "ntp_servers" {
+  description = "List of NTP Server for Kubernetes System Configuration Policy.  If undefined then the dns_servers will be used."
+  value = var.ntp_servers != [] ? var.ntp_servers : var.dns_servers
 }
 
 #----------------------

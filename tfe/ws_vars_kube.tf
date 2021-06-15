@@ -9,7 +9,7 @@ module "tfc_variables_kube" {
     module.tfc_workspaces
   ]
   category     = "terraform"
-  workspace_id = module.tfc_workspaces.tfe_workspace_id[4]
+  workspace_id = module.tfc_workspaces.tfe_workspace_id.kube
   variable_list = [
     #---------------------------
     # Terraform Cloud Variables
@@ -34,16 +34,16 @@ module "tfc_variables_kube" {
     {
       description = "Intersight API Key."
       hcl         = false
-      key         = "api_key"
+      key         = "apikey"
       sensitive   = true
-      value       = var.api_key
+      value       = var.apikey
     },
     {
       description = "Intersight Secret Key."
       hcl         = false
-      key         = "secret_key"
+      key         = "secretkey"
       sensitive   = true
-      value       = var.secret_key
+      value       = var.secretkey
     },
   ]
 }

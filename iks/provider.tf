@@ -8,7 +8,7 @@ terraform {
   required_providers {
     intersight = {
       source  = "CiscoDevNet/intersight"
-      version = "1.0.8"
+      version = "1.0.9"
     }
   }
 }
@@ -19,7 +19,7 @@ terraform {
 #______________________________________________
 
 provider "intersight" {
-  apikey    = var.api_key
+  apikey    = var.apikey
   endpoint  = local.endpoint
-  secretkey = var.secret_key
+  secretkey = var.secretkey
 }

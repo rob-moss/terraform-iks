@@ -27,13 +27,13 @@ variable "ws_global_vars" {
 # Intersight Provider Variables
 #__________________________________________________________
 
-variable "api_key" {
+variable "apikey" {
   description = "Intersight API Key."
   sensitive   = true
   type        = string
 }
 
-variable "secret_key" {
+variable "secretkey" {
   description = "Intersight Secret Key."
   sensitive   = true
   type        = string
