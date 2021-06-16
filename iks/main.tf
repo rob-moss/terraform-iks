@@ -41,18 +41,18 @@ locals {
   # Kubernetes Add-ons List
   addons_list = data.terraform_remote_state.global.outputs.addons_list
   # Kubernetes Runtime Variables
-  proxy_http_hostname  = data.terraform_remote_state.global.outputs.proxy_http_hostname != "" ? yamldecode(
+  proxy_http_hostname = data.terraform_remote_state.global.outputs.proxy_http_hostname != "" ? yamldecode(
     data.terraform_remote_state.global.outputs.proxy_http_hostname
-    ) : ""
-  proxy_http_username  = data.terraform_remote_state.global.outputs.proxy_http_username != "" ? yamldecode(
+  ) : ""
+  proxy_http_username = data.terraform_remote_state.global.outputs.proxy_http_username != "" ? yamldecode(
     data.terraform_remote_state.global.outputs.proxy_http_username
-    ) : ""
-  proxy_https_hostname  = data.terraform_remote_state.global.outputs.proxy_https_hostname != "" ? yamldecode(
+  ) : ""
+  proxy_https_hostname = data.terraform_remote_state.global.outputs.proxy_https_hostname != "" ? yamldecode(
     data.terraform_remote_state.global.outputs.proxy_https_hostname
-    ) : ""
-  proxy_https_username  = data.terraform_remote_state.global.outputs.proxy_https_username != "" ? yamldecode(
+  ) : ""
+  proxy_https_username = data.terraform_remote_state.global.outputs.proxy_https_username != "" ? yamldecode(
     data.terraform_remote_state.global.outputs.proxy_https_username
-    ) : ""
+  ) : ""
   # Kubernetes Policy Names Variables
   k8s_addon_policy      = yamldecode(data.terraform_remote_state.global.outputs.k8s_addon_policy)
   k8s_runtime_policy    = yamldecode(data.terraform_remote_state.global.outputs.k8s_runtime_policy)
@@ -376,7 +376,7 @@ module "worker_instance_type" {
   %{if var.worker_instance_type == "large"~}${module.k8s_instance_large.worker_profile_moid}%{endif~}
   EOT
   )
-  node_group_moid = var.worker_desired_size != "0" ? module.worker_profile[0].node_group_profile_moid : null
+  node_group_moid          = var.worker_desired_size != "0" ? module.worker_profile[0].node_group_profile_moid : null
   infra_config_policy_moid = module.k8s_vm_infra_policy.infra_config_moid
   tags                     = var.tags
 }
