@@ -376,10 +376,7 @@ module "worker_instance_type" {
   %{if var.worker_instance_type == "large"~}${module.k8s_instance_large.worker_profile_moid}%{endif~}
   EOT
   )
-  node_group_moid = trimspace(<<-EOT
-  %{if var.worker_desired_size != "0"~}module.worker_profile.node_group_profile_moid%{endif~}
-  EOT
-  )
+  node_group_moid = var.worker_desired_size != "0" ? module.worker_profile.node_group_profile_moid : null
   infra_config_policy_moid = module.k8s_vm_infra_policy.infra_config_moid
   tags                     = var.tags
 }
