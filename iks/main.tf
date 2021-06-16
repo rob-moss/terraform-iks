@@ -274,7 +274,7 @@ module "iks_cluster" {
   net_config_moid              = module.k8s_vm_network_policy.network_policy_moid
   sys_config_moid              = module.k8s_vm_network_policy.sys_config_policy_moid
   runtime_policy_moid          = length(module.k8s_runtime_policy) > 0 ? module.k8s_trusted_registry.trusted_registry_moid : null
-  trusted_registry_policy_moid = length(module.k8s_trusted_registry) > 0 ? module.k8s_trusted_registry.trusted_registry_moid : null
+  # trusted_registry_policy_moid = length(module.k8s_trusted_registry) > 0 ? module.k8s_trusted_registry.trusted_registry_moid : null
 }
 
 #_____________________________________________________
