@@ -50,6 +50,9 @@ output "k8s_nodeos_config" {
 }
 
 output "k8s_trusted_registry" {
+  depends_on  = [
+    module.k8s_trusted_registry
+  ]
   description = "moid of the Kubernetes Trusted Registry Policy."
   value       = module.k8s_trusted_registry.trusted_registry_moid
 }

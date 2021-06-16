@@ -225,7 +225,7 @@ module "k8s_trusted_registry" {
   source              = "terraform-cisco-modules/iks/intersight//modules/trusted_registry"
   org_name            = local.organization
   policy_name         = local.k8s_trusted_registry
-  root_ca_registries  = var.unsigned_registries
+  root_ca_registries  = var.root_ca_registries
   unsigned_registries = var.unsigned_registries
   tags                = var.tags
 }
