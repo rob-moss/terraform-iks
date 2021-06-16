@@ -41,19 +41,18 @@ locals {
   # Kubernetes Add-ons List
   addons_list = data.terraform_remote_state.global.outputs.addons_list
   # Kubernetes Runtime Variables
-  proxy_http_hostname  = data.terraform_remote_state.global.outputs.proxy_http_hostname != "" ? var.proxy_http_port : yamldecode(
-      data.terraform_remote_state.global.outputs.proxy_http_hostname
-      )
-  proxy_http_username  = data.terraform_remote_state.global.outputs.proxy_http_username != "" ? var.proxy_http_port : yamldecode(
+  proxy_http_hostname  = data.terraform_remote_state.global.outputs.proxy_http_hostname != "" ? yamldecode(
+    data.terraform_remote_state.global.outputs.proxy_http_hostname
+    ) : ""
+  proxy_http_username  = data.terraform_remote_state.global.outputs.proxy_http_username != "" ? yamldecode(
     data.terraform_remote_state.global.outputs.proxy_http_username
-    )
-  proxy_https_hostname  = data.terraform_remote_state.global.outputs.proxy_https_hostname != "" ? var.proxy_http_port : yamldecode(
-      data.terraform_remote_state.global.outputs.proxy_https_hostname
-      )
-  proxy_https_username  = data.terraform_remote_state.global.outputs.proxy_https_username != "" ? var.proxy_http_port : yamldecode(
+    ) : ""
+  proxy_https_hostname  = data.terraform_remote_state.global.outputs.proxy_https_hostname != "" ? yamldecode(
+    data.terraform_remote_state.global.outputs.proxy_https_hostname
+    ) : ""
+  proxy_https_username  = data.terraform_remote_state.global.outputs.proxy_https_username != "" ? yamldecode(
     data.terraform_remote_state.global.outputs.proxy_https_username
-    )
-
+    ) : ""
   # Kubernetes Policy Names Variables
   k8s_addon_policy      = yamldecode(data.terraform_remote_state.global.outputs.k8s_addon_policy)
   k8s_runtime_policy    = yamldecode(data.terraform_remote_state.global.outputs.k8s_runtime_policy)
@@ -273,8 +272,8 @@ module "iks_cluster" {
   ip_pool_moid                 = module.ip_pool.ip_pool_moid
   net_config_moid              = module.k8s_vm_network_policy.network_policy_moid
   sys_config_moid              = module.k8s_vm_network_policy.sys_config_policy_moid
-  # runtime_policy_moid          = length(module.k8s_runtime_policy) > 0 ? module.k8s_runtime_policy.runtime_policy_moid : null
-  # trusted_registry_policy_moid = length(module.k8s_trusted_registry) > 0 ? module.k8s_trusted_registry.trusted_registry_moid : null
+  #runtime_policy_moid          = length(module.k8s_runtime_policy) > 0 ? module.k8s_runtime_policy.runtime_policy_moid : null
+  #trusted_registry_policy_moid = length(module.k8s_trusted_registry) > 0 ? module.k8s_trusted_registry.trusted_registry_moid : null
 }
 
 #_____________________________________________________
