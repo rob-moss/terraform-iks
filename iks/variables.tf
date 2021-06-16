@@ -83,7 +83,7 @@ variable "k8s_version" {
 variable "docker_no_proxy" {
   default     = "[]"
   description = "Docker no proxy list, when using internet proxy.  Default is no list."
-  type        = string
+  type        = list(string)
 }
 
 variable "proxy_http_hostname" {
