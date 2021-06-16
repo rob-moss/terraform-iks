@@ -78,6 +78,16 @@ export TF_VAR_vsphere_password="your_vshpere_password"
 export TF_VAR_ssh_key="your_ssh_key"
 ```
 
+* Kubernetes Cluster Add-ons Variables
+
+If you want to add both Add-ons that are supported today {ccp-monitor|kubernetes-dashboard} use the following list:
+
+```bash
+export TF_VAR_addons_list="[\"ccp-monitor\", \"kubernetes-dashboard\"]"
+```
+
+You can also just add one or the other by changing the size of the list.
+
 ## Optional Variables
 
 Below are additional variables that have been assigned default values already.  Confirm anything that needs to change for your environment.  The default values are shown below.
