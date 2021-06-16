@@ -202,6 +202,31 @@ output "ip_pool_size" {
 
 #______________________________________________
 #
+# Kubernetes Add-ons Policy Variables
+#______________________________________________
+
+variable "addons_list" {
+  default     = []
+  description = "List of Add-ons for Intersight Kubernetes Service.  List Options are {dashboard|ccp-monitor}."
+  type        = list(string)
+}
+output "addons_list" {
+  description = "List of Add-ons for Policy Creation."
+  value       = [
+    for a in var.addons_list :
+    {
+      addon_policy_name = "${var.cluster_name}_${a}"
+      addon             = a
+      description       = "Policy for ${a}"
+      upgrade_strategy  = "AlwaysReinstall"
+      install_strategy  = "InstallOnly"
+    }
+  ]
+}
+
+
+#______________________________________________
+#
 # Kubernetes Runtime Variables
 #______________________________________________
 

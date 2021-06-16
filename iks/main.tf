@@ -38,6 +38,8 @@ locals {
   ip_pool_gateway       = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_gateway)
   ip_pool_from          = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_from)
   ip_pool_size          = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_size)
+  # Kubernetes Add-ons List
+  addons_list           =yamldecode(data.terraform_remote_state.global.outputs.addons_list)
   # Kubernetes Runtime Variables
   proxy_http_hostname   = yamldecode(data.terraform_remote_state.global.outputs.proxy_http_hostname)
   proxy_http_username   = yamldecode(data.terraform_remote_state.global.outputs.proxy_http_username)
@@ -95,25 +97,10 @@ module "ip_pool" {
 #_____________________________________________________
 
 module "k8s_addons" {
-  source = "terraform-cisco-modules/iks/intersight//modules/addon_policy"
-  addons = [{
-    addon_policy_name = "${local.cluster_name}_dashboard"
-    addon             = "kubernetes-dashboard"
-    description       = "Kubernetes Dashboard Policy"
-    upgrade_strategy  = "AlwaysReinstall"
-    install_strategy  = "InstallOnly"
-    },
-    {
-      addon_policy_name = "${local.cluster_name}_monitor"
-      addon             = "ccp-monitor"
-      description       = "Grafana Policy"
-      upgrade_strategy  = "AlwaysReinstall"
-      install_strategy  = "InstallOnly"
-    }
-  ]
-
-  org_name = local.organization
-  tags     = var.tags
+  source    = "terraform-cisco-modules/iks/intersight//modules/addon_policy"
+  addons    = local.addons_list
+  org_name  = local.organization
+  tags      = var.tags
 }
 
 #______________________________________________

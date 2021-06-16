@@ -69,6 +69,17 @@ variable "ip_pool_from" {
 
 #______________________________________________
 #
+# Kubernetes Add-ons List
+#______________________________________________
+
+variable "addons_list" {
+  default     = "[]"
+  description = "List of Add-ons to be added to Cluster."
+  type = string
+}
+
+#______________________________________________
+#
 # Kubernetes VM Infra Policy Variables
 #______________________________________________
 
@@ -118,6 +129,13 @@ module "tfc_variables_global" {
       key         = "cluster_name"
       sensitive   = false
       value       = var.cluster_name
+    },
+    {
+      description = "Kubernetes Add-ons Policy List."
+      hcl         = true
+      key         = "addons_list"
+      sensitive   = false
+      value       = var.addons_list
     },
     {
       description = "Network Prefix for IP Pool Policy."
