@@ -86,6 +86,12 @@ variable "docker_no_proxy" {
   type        = string
 }
 
+variable "proxy_http_hostname" {
+  default     = ""
+  description = "HTTP Proxy Server Name or IP Address."
+  type        = string
+}
+
 variable "proxy_http_password" {
   default     = ""
   description = "Password for the HTTP Proxy Server, If required."
@@ -102,6 +108,31 @@ variable "proxy_http_port" {
 variable "proxy_http_protocol" {
   default     = "http"
   description = "Proxy HTTP Protocol."
+  type        = string
+}
+
+variable "proxy_http_hostname" {
+  default     = ""
+  description = "HTTP Proxy Server Name or IP Address."
+  type        = string
+}
+
+variable "proxy_http_password" {
+  default     = ""
+  description = "Password for the HTTP Proxy Server, If required."
+  sensitive   = true
+  type        = string
+}
+
+variable "proxy_http_username" {
+  default     = ""
+  description = "HTTP Proxy Username."
+  type        = string
+}
+
+variable "proxy_https_hostname" {
+  default     = ""
+  description = "HTTPS Proxy Server Name or IP Address."
   type        = string
 }
 
@@ -123,6 +154,13 @@ variable "proxy_https_protocol" {
   description = "Proxy HTTP Protocol."
   type        = string
 }
+
+variable "proxy_https_username" {
+  default     = ""
+  description = "HTTPS Proxy Username."
+  type        = string
+}
+
 
 #______________________________________________
 #
