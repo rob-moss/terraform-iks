@@ -86,12 +86,6 @@ variable "docker_no_proxy" {
   type        = list(string)
 }
 
-variable "proxy_http_hostname" {
-  default     = ""
-  description = "HTTP Proxy Server Name or IP Address."
-  type        = string
-}
-
 variable "proxy_http_port" {
   default     = "8080"
   description = "Proxy HTTP Port."
@@ -111,18 +105,6 @@ variable "proxy_http_password" {
   type        = string
 }
 
-variable "proxy_http_username" {
-  default     = ""
-  description = "HTTP Proxy Username."
-  type        = string
-}
-
-variable "proxy_https_hostname" {
-  default     = ""
-  description = "HTTPS Proxy Server Name or IP Address."
-  type        = string
-}
-
 variable "proxy_https_password" {
   default     = ""
   description = "Password for the HTTPS Proxy Server, If required."
@@ -139,12 +121,6 @@ variable "proxy_https_port" {
 variable "proxy_https_protocol" {
   default     = "https"
   description = "Proxy HTTP Protocol."
-  type        = string
-}
-
-variable "proxy_https_username" {
-  default     = ""
-  description = "HTTPS Proxy Username."
   type        = string
 }
 

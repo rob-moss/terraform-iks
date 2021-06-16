@@ -319,13 +319,6 @@ module "tfc_variables_iks" {
       value       = var.docker_no_proxy
     },
     {
-      description = "HTTP Proxy Server Name or IP Address."
-      hcl         = false
-      key         = "proxy_http_hostname"
-      sensitive   = false
-      value       = var.proxy_http_hostname
-    },
-    {
       description = "Password for the HTTP Proxy Server, If required."
       hcl         = false
       key         = "proxy_http_password"
@@ -347,20 +340,6 @@ module "tfc_variables_iks" {
       value       = var.proxy_http_protocol
     },
     {
-      description = "HTTP Proxy Username."
-      hcl         = false
-      key         = "proxy_http_username"
-      sensitive   = false
-      value       = var.proxy_http_username
-    },
-    {
-      description = "HTTPS Proxy Server Name or IP Address."
-      hcl         = false
-      key         = "proxy_https_hostname"
-      sensitive   = false
-      value       = var.proxy_https_hostname
-    },
-    {
       description = "Password for the HTTPS Proxy Server, If required."
       hcl         = false
       key         = "proxy_https_password"
@@ -380,13 +359,6 @@ module "tfc_variables_iks" {
       key         = "proxy_https_protocol"
       sensitive   = false
       value       = var.proxy_https_protocol
-    },
-    {
-      description = "HTTPS Proxy Username."
-      hcl         = false
-      key         = "proxy_https_username"
-      sensitive   = false
-      value       = var.proxy_https_username
     },
     {
       description = "vSphere Password.  Note: this is the password of the Credentials used to register the vSphere Target."

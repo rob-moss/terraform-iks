@@ -213,8 +213,8 @@ module "k8s_runtime_policy" {
   source                = "terraform-cisco-modules/iks/intersight//modules/runtime_policy"
   count                 = local.proxy_http_hostname != "" && local.proxy_https_hostname != "" ? 1 : 0
   docker_no_proxy       = var.docker_no_proxy
-  org_name              = var.organization
-  name                  = var.k8s_runtime_policy
+  org_name              = local.organization
+  name                  = local.k8s_runtime_policy
   proxy_http_hostname   = local.proxy_http_hostname
   proxy_http_port       = var.proxy_http_port
   proxy_http_password   = var.proxy_http_password

@@ -141,6 +141,34 @@ module "tfc_variables_global" {
       value       = var.ip_pool_from
     },
     {
+      description = "HTTP Proxy Server Name or IP Address."
+      hcl         = false
+      key         = "proxy_http_hostname"
+      sensitive   = false
+      value       = var.proxy_http_hostname
+    },
+    {
+      description = "HTTP Proxy Username."
+      hcl         = false
+      key         = "proxy_http_username"
+      sensitive   = false
+      value       = var.proxy_http_username
+    },
+    {
+      description = "HTTPS Proxy Server Name or IP Address."
+      hcl         = false
+      key         = "proxy_https_hostname"
+      sensitive   = false
+      value       = var.proxy_https_hostname
+    },
+    {
+      description = "HTTPS Proxy Username."
+      hcl         = false
+      key         = "proxy_https_username"
+      sensitive   = false
+      value       = var.proxy_https_username
+    },
+    {
       description = "vSphere Server registered as a Target in Intersight."
       hcl         = false
       key         = "vsphere_target"
