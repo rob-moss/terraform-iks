@@ -25,7 +25,7 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_addons_list"></a> [addons\_list](#input\_addons\_list) | List of Add-ons for Intersight Kubernetes Service.  List Options are {dashboard\|ccp-monitor}. | `list(string)` | `[]` | no |
+| <a name="input_addons_list"></a> [addons\_list](#input\_addons\_list) | List of Add-ons for Intersight Kubernetes Service.  Add-ons Options are {ccp-monitor\|kubernetes-dashboard}. | `list(string)` | `[]` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | Intersight Kubernetes Service Cluster Name. | `string` | `"iks"` | no |
 | <a name="input_dns_servers"></a> [dns\_servers](#input\_dns\_servers) | List of DNS Server(s) for Kubernetes System Configuration Policy and IP Pool. | `list(string)` | <pre>[<br>  "10.200.0.100"<br>]</pre> | no |
 | <a name="input_domain_name"></a> [domain\_name](#input\_domain\_name) | Domain Name for Kubernetes Sysconfig Policy. | `string` | `"demo.intra"` | no |
