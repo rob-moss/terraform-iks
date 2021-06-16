@@ -75,7 +75,7 @@ variable "ip_pool_from" {
 variable "addons_list" {
   default     = "[]"
   description = "List of Add-ons to be added to Cluster."
-  type = string
+  type        = string
 }
 
 #______________________________________________

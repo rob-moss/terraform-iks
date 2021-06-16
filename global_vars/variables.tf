@@ -63,16 +63,16 @@ variable "dns_servers" {
   default     = ["10.200.0.100"]
   description = "List of DNS Server(s) for Kubernetes System Configuration Policy and IP Pool."
   type        = list(string)
-#  validation {
-#    condition = (
-#      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.dns_primary))
-#    )
-#    error_message = "The dns_servers must be in the format X.X.X.X or X."
-#  }
+  #  validation {
+  #    condition = (
+  #      can(regex("^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$", var.dns_primary))
+  #    )
+  #    error_message = "The dns_servers must be in the format X.X.X.X or X."
+  #  }
 }
 output "dns_servers" {
   description = "List of DNS Server(s) for Kubernetes System Configuration Policy and IP Pool."
-  value = var.dns_servers
+  value       = var.dns_servers
 }
 
 #______________________________________________
@@ -97,7 +97,7 @@ variable "ntp_servers" {
 }
 output "ntp_servers" {
   description = "List of NTP Server for Kubernetes System Configuration Policy.  If undefined then the dns_servers will be used."
-  value = length(var.ntp_servers) != 0 ? var.ntp_servers : var.dns_servers
+  value       = length(var.ntp_servers) != 0 ? var.ntp_servers : var.dns_servers
 }
 
 #______________________________________________
@@ -212,7 +212,7 @@ variable "addons_list" {
 }
 output "addons_list" {
   description = "List of Add-ons for Policy Creation."
-  value       = [
+  value = [
     for a in var.addons_list :
     {
       addon_policy_name = "${var.cluster_name}_${a}"
