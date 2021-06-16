@@ -421,7 +421,7 @@ module "tfc_variables_iks" {
     # IKS Cluster Variables
     #---------------------------
     {
-      description = "Cluster Action."
+      description = "Action to perform on the Intersight Kubernetes Cluster.  Options are {Delete|Deploy|Ready|Unassign}."
       hcl         = false
       key         = "action"
       sensitive   = false
