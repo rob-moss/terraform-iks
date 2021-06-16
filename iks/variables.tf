@@ -92,13 +92,6 @@ variable "proxy_http_hostname" {
   type        = string
 }
 
-variable "proxy_http_password" {
-  default     = ""
-  description = "Password for the HTTP Proxy Server, If required."
-  sensitive   = true
-  type        = string
-}
-
 variable "proxy_http_port" {
   default     = "8080"
   description = "Proxy HTTP Port."
@@ -108,12 +101,6 @@ variable "proxy_http_port" {
 variable "proxy_http_protocol" {
   default     = "http"
   description = "Proxy HTTP Protocol."
-  type        = string
-}
-
-variable "proxy_http_hostname" {
-  default     = ""
-  description = "HTTP Proxy Server Name or IP Address."
   type        = string
 }
 
