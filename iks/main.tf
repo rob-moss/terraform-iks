@@ -41,24 +41,16 @@ locals {
   # Kubernetes Add-ons List
   addons_list = data.terraform_remote_state.global.outputs.addons_list
   # Kubernetes Runtime Variables
-  proxy_http_hostname  = length(
-    data.terraform_remote_state.global.outputs.proxy_http_hostname
-    ) > 0 ? local.proxy_http_hostname : yamldecode(
+  proxy_http_hostname  = data.terraform_remote_state.global.outputs.proxy_http_hostname == "" ? var.http_hostname : yamldecode(
       data.terraform_remote_state.global.outputs.proxy_http_hostname
       )
-  proxy_http_username  = length(
-    data.terraform_remote_state.global.outputs.proxy_http_username
-  ) > 0 ? local.proxy_http_username : yamldecode(
+  proxy_http_username  = data.terraform_remote_state.global.outputs.proxy_http_username == "" ? var.http_hostname : yamldecode(
     data.terraform_remote_state.global.outputs.proxy_http_username
     )
-  proxy_https_hostname  = length(
-    data.terraform_remote_state.global.outputs.proxy_https_hostname
-    ) > 0 ? local.proxy_https_hostname : yamldecode(
+  proxy_https_hostname  = data.terraform_remote_state.global.outputs.proxy_https_hostname == "" ? var.https_hostname : yamldecode(
       data.terraform_remote_state.global.outputs.proxy_https_hostname
       )
-  proxy_https_username  = length(
-    data.terraform_remote_state.global.outputs.proxy_https_username
-  ) > 0 ? local.proxy_https_username : yamldecode(
+  proxy_https_username  = data.terraform_remote_state.global.outputs.proxy_https_username == "" ? var.https_username : yamldecode(
     data.terraform_remote_state.global.outputs.proxy_https_username
     )
 
