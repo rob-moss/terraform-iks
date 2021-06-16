@@ -25,10 +25,10 @@ locals {
   # Intersight Organization
   organization = yamldecode(data.terraform_remote_state.global.outputs.organization)
   # DNS Variables
-  dns_servers = yamldecode(data.terraform_remote_state.global.outputs.dns_servers)
+  dns_servers = data.terraform_remote_state.global.outputs.dns_servers
   domain_name = yamldecode(data.terraform_remote_state.global.outputs.domain_name)
   # Time Variables
-  ntp_servers = yamldecode(data.terraform_remote_state.global.outputs.ntp_servers)
+  ntp_servers = data.terraform_remote_state.global.outputs.ntp_servers
   timezone    = yamldecode(data.terraform_remote_state.global.outputs.timezone)
   # IKS Cluster Variable
   cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
@@ -39,12 +39,28 @@ locals {
   ip_pool_from    = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_from)
   ip_pool_size    = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_size)
   # Kubernetes Add-ons List
-  addons_list = yamldecode(data.terraform_remote_state.global.outputs.addons_list)
+  addons_list = data.terraform_remote_state.global.outputs.addons_list
   # Kubernetes Runtime Variables
-  proxy_http_hostname  = yamldecode(data.terraform_remote_state.global.outputs.proxy_http_hostname)
-  proxy_http_username  = yamldecode(data.terraform_remote_state.global.outputs.proxy_http_username)
-  proxy_https_hostname = yamldecode(data.terraform_remote_state.global.outputs.proxy_https_hostname)
-  proxy_https_username = yamldecode(data.terraform_remote_state.global.outputs.proxy_https_username)
+  proxy_http_hostname  = length(
+    data.terraform_remote_state.global.outputs.proxy_http_hostname
+    ) > 0 ? local.proxy_http_hostname : yamldecode(
+      data.terraform_remote_state.global.outputs.proxy_http_hostname
+      )
+  proxy_http_username  = length(
+    data.terraform_remote_state.global.outputs.proxy_http_username
+  ) > 0 ? local.proxy_http_username : yamldecode(
+    data.terraform_remote_state.global.outputs.proxy_http_username
+    )
+  proxy_https_hostname  = length(
+    data.terraform_remote_state.global.outputs.proxy_https_hostname
+    ) > 0 ? local.proxy_https_hostname : yamldecode(
+      data.terraform_remote_state.global.outputs.proxy_https_hostname
+      )
+  proxy_https_username  = length(
+    data.terraform_remote_state.global.outputs.proxy_https_username
+  ) > 0 ? local.proxy_https_username : yamldecode(
+    data.terraform_remote_state.global.outputs.proxy_https_username
+    )
 
   # Kubernetes Policy Names Variables
   k8s_addon_policy      = yamldecode(data.terraform_remote_state.global.outputs.k8s_addon_policy)
