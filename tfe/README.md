@@ -86,7 +86,7 @@ If you want to add both Add-ons that are supported today {ccp-monitor|kubernetes
 export TF_VAR_addons_list="[\"ccp-monitor\", \"kubernetes-dashboard\"]"
 ```
 
-You can also just add one or the other by changing the size of the list.
+You can also just include one or the other add-ons.
 
 ## Optional Variables
 
@@ -154,6 +154,7 @@ export TF_VAR_proxy_https_username=""
 ```
 
 Note: The proxy_http_hostname will be cloned to the proxy_https_hostname if left blank, when configuring runtime policies.
+
 Note: The proxy_http_username will be cloned to the proxy_https_username if left blank, when configuring runtime policies.
 
 * Kubernetes Cluster Optional Variables
