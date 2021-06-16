@@ -21,32 +21,38 @@ data "terraform_remote_state" "global" {
 
 locals {
   # Intersight Provider Variables
-  endpoint = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
+  endpoint              = yamldecode(data.terraform_remote_state.global.outputs.endpoint)
   # Intersight Organization
-  organization = yamldecode(data.terraform_remote_state.global.outputs.organization)
+  organization          = yamldecode(data.terraform_remote_state.global.outputs.organization)
   # DNS Variables
-  dns_primary   = yamldecode(data.terraform_remote_state.global.outputs.dns_primary)
-  dns_secondary = yamldecode(data.terraform_remote_state.global.outputs.dns_secondary)
-  domain_name   = yamldecode(data.terraform_remote_state.global.outputs.domain_name)
+  dns_servers           = yamldecode(data.terraform_remote_state.global.outputs.dns_servers)
+  domain_name           = yamldecode(data.terraform_remote_state.global.outputs.domain_name)
   # Time Variables
-  ntp_primary   = yamldecode(data.terraform_remote_state.global.outputs.ntp_primary)
-  ntp_secondary = yamldecode(data.terraform_remote_state.global.outputs.ntp_secondary)
-  timezone      = yamldecode(data.terraform_remote_state.global.outputs.timezone)
+  ntp_servers           = yamldecode(data.terraform_remote_state.global.outputs.ntp_servers)
+  timezone              = yamldecode(data.terraform_remote_state.global.outputs.timezone)
   # IKS Cluster Variable
-  cluster_name = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
+  cluster_name          = yamldecode(data.terraform_remote_state.global.outputs.cluster_name)
   # IP Pool Variables
-  ip_pool         = yamldecode(data.terraform_remote_state.global.outputs.ip_pool)
-  ip_pool_netmask = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_netmask)
-  ip_pool_gateway = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_gateway)
-  ip_pool_from    = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_from)
-  ip_pool_size    = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_size)
+  ip_pool               = yamldecode(data.terraform_remote_state.global.outputs.ip_pool)
+  ip_pool_netmask       = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_netmask)
+  ip_pool_gateway       = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_gateway)
+  ip_pool_from          = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_from)
+  ip_pool_size          = yamldecode(data.terraform_remote_state.global.outputs.ip_pool_size)
+  # Kubernetes Runtime Variables
+  proxy_http_hostname   = yamldecode(data.terraform_remote_state.global.outputs.proxy_http_hostname)
+  proxy_http_username   = yamldecode(data.terraform_remote_state.global.outputs.proxy_http_username)
+  proxy_https_hostname  = yamldecode(data.terraform_remote_state.global.outputs.proxy_https_hostname)
+  proxy_https_username  = yamldecode(data.terraform_remote_state.global.outputs.proxy_https_username)
+
   # Kubernetes Policy Names Variables
+  k8s_addon_policy      = yamldecode(data.terraform_remote_state.global.outputs.k8s_addon_policy)
+  k8s_runtime_policy    = yamldecode(data.terraform_remote_state.global.outputs.k8s_runtime_policy)
   k8s_trusted_registry  = yamldecode(data.terraform_remote_state.global.outputs.k8s_trusted_registry)
   k8s_version_policy    = yamldecode(data.terraform_remote_state.global.outputs.k8s_version_policy)
   k8s_vm_network_policy = yamldecode(data.terraform_remote_state.global.outputs.k8s_vm_network_policy)
   k8s_vm_infra_policy   = yamldecode(data.terraform_remote_state.global.outputs.k8s_vm_infra_policy)
   # vSphere Target Variable
-  vsphere_target = yamldecode(data.terraform_remote_state.global.outputs.vsphere_target)
+  vsphere_target        = yamldecode(data.terraform_remote_state.global.outputs.vsphere_target)
 }
 
 
@@ -77,10 +83,37 @@ module "ip_pool" {
   gateway          = local.ip_pool_gateway
   netmask          = local.ip_pool_netmask
   pool_size        = local.ip_pool_size
-  primary_dns      = local.dns_primary
-  secondary_dns    = local.dns_secondary
+  primary_dns      = local.dns_servers[0]
+  secondary_dns    = length(local.dns_servers) > 1 ? local.dns_servers[1] : null
   starting_address = local.ip_pool_from
   tags             = var.tags
+}
+
+#_____________________________________________________
+#
+# Configure Add-Ons Policy for the Kubernetes Cluster
+#_____________________________________________________
+
+module "k8s_addons" {
+  source = "terraform-cisco-modules/iks/intersight//modules/addon_policy"
+  addons = [{
+    addon_policy_name = "${local.cluster_name}_dashboard"
+    addon             = "kubernetes-dashboard"
+    description       = "Kubernetes Dashboard Policy"
+    upgrade_strategy  = "AlwaysReinstall"
+    install_strategy  = "InstallOnly"
+    },
+    {
+      addon_policy_name = "${local.cluster_name}_monitor"
+      addon             = "ccp-monitor"
+      description       = "Grafana Policy"
+      upgrade_strategy  = "AlwaysReinstall"
+      install_strategy  = "InstallOnly"
+    }
+  ]
+
+  org_name = local.organization
+  tags     = var.tags
 }
 
 #______________________________________________
@@ -90,15 +123,15 @@ module "ip_pool" {
 
 module "k8s_vm_infra_policy" {
   source           = "terraform-cisco-modules/iks/intersight//modules/infra_config_policy"
-  org_name         = local.organization
-  name             = local.k8s_vm_infra_policy
   device_name      = local.vsphere_target
+  name             = local.k8s_vm_infra_policy
+  org_name         = local.organization
+  tags             = var.tags
   vc_password      = var.vsphere_password
   vc_cluster       = var.vsphere_cluster
   vc_datastore     = var.vsphere_datastore
   vc_portgroup     = var.vsphere_portgroup
   vc_resource_pool = var.vsphere_resource_pool
-  tags             = var.tags
 }
 
 #______________________________________________
@@ -111,21 +144,9 @@ module "k8s_vm_network_policy" {
   org_name    = local.organization
   policy_name = local.k8s_vm_network_policy
   cni         = var.cni
-  dns_servers = [
-    local.dns_primary,
-    trimspace(<<-EOT
-    %{if local.dns_secondary != ""~}${local.dns_secondary}%{endif~}
-    EOT
-    )
-  ]
+  dns_servers = local.dns_servers
   domain_name = local.domain_name
-  ntp_servers = [
-    local.ntp_primary,
-    trimspace(<<-EOT
-    %{if local.ntp_secondary != ""~}${local.ntp_secondary}%{endif~}
-    EOT
-    )
-  ]
+  ntp_servers = local.ntp_servers
   pod_cidr     = var.k8s_pod_cidr
   service_cidr = var.k8s_service_cidr
   timezone     = local.timezone
@@ -185,10 +206,35 @@ module "k8s_instance_large" {
 
 #______________________________________________
 #
+# Create the Kubernetes Runtime Policy
+#______________________________________________
+
+module "k8s_runtime_policy" {
+  source                = "terraform-cisco-modules/iks/intersight//modules/runtime_policy"
+  count                 = local.proxy_http_hostname != "" && local.proxy_https_hostname != "" ? 1 : 0
+  docker_no_proxy       = var.docker_no_proxy
+  org_name              = var.organization
+  name                  = var.k8s_runtime_policy
+  proxy_http_hostname   = local.proxy_http_hostname
+  proxy_http_port       = var.proxy_http_port
+  proxy_http_password   = var.proxy_http_password
+  proxy_http_protocol   = var.proxy_http_protocol
+  proxy_http_username   = local.proxy_http_username
+  proxy_https_hostname  = local.proxy_https_hostname
+  proxy_https_password  = var.proxy_https_password
+  proxy_https_port      = var.proxy_https_port
+  proxy_https_protocol  = var.proxy_https_protocol
+  proxy_https_username  = local.proxy_https_username
+  tags                  = var.tags
+}
+
+#______________________________________________
+#
 # Create the Kubernetes Trusted Registry Policy
 #______________________________________________
 
 module "k8s_trusted_registry" {
+  count               = length(var.unsigned_registries) > 0 || length(var.root_ca_registries) > 0 ? 1 : 0
   source              = "terraform-cisco-modules/iks/intersight//modules/trusted_registry"
   org_name            = local.organization
   policy_name         = local.k8s_trusted_registry
@@ -219,21 +265,44 @@ module "iks_cluster" {
     module.k8s_vm_infra_policy,
     module.k8s_vm_network_policy,
   ]
-  source              = "terraform-cisco-modules/iks/intersight//modules/cluster"
-  org_name            = local.organization
-  action              = var.action
-  wait_for_completion = false
-  name                = local.cluster_name
-  load_balancer       = var.load_balancers
-  ssh_key             = var.ssh_key
-  ssh_user            = var.ssh_user
-  tags                = var.tags
+  source                        = "terraform-cisco-modules/iks/intersight//modules/cluster"
+  org_name                      = local.organization
+  action                        = var.action
+  wait_for_completion           = false
+  name                          = local.cluster_name
+  load_balancer                 = var.load_balancers
+  ssh_key                       = var.ssh_key
+  ssh_user                      = var.ssh_user
+  tags                          = var.tags
   # Attach Kubernetes Policies
-  ip_pool_moid                 = module.ip_pool.ip_pool_moid
-  net_config_moid              = module.k8s_vm_network_policy.network_policy_moid
-  sys_config_moid              = module.k8s_vm_network_policy.sys_config_policy_moid
-  trusted_registry_policy_moid = module.k8s_trusted_registry.trusted_registry_moid
+  ip_pool_moid                  = module.ip_pool.ip_pool_moid
+  net_config_moid               = module.k8s_vm_network_policy.network_policy_moid
+  sys_config_moid               = module.k8s_vm_network_policy.sys_config_policy_moid
+  runtime_policy_moid           = length(module.k8s_runtime_policy) > 0 ? module.k8s_trusted_registry.trusted_registry_moid : null
+  trusted_registry_policy_moid  = length(module.k8s_trusted_registry) > 0 ? module.k8s_trusted_registry.trusted_registry_moid : null
 }
+
+#_____________________________________________________
+#
+# Attach the Add-Ons Policy to the Kubernetes Cluster
+#_____________________________________________________
+
+module "iks_addon_profile" {
+  source     = "terraform-cisco-modules/iks/intersight//modules/cluster_addon_profile"
+  count      = var.addons_list != null ? 1 : 0
+  depends_on = [
+    module.k8s_addons,
+    module.iks_cluster
+    ]
+  # source       = "terraform-cisco-modules/iks/intersight//modules/cluster_addon_profile"
+  profile_name = local.k8s_addon_policy
+
+  addons       = keys(module.k8s_addons.addon_policy)
+  cluster_moid = module.iks_cluster.k8s_cluster_moid
+  org_name     = local.organization
+  tags         = var.tags
+}
+
 
 #______________________________________________
 #
@@ -255,7 +324,7 @@ module "master_profile" {
   EOT
   )
   # Attach Kubernetes Policies
-  cluster_moid = module.iks_cluster.cluster_moid
+  cluster_moid = module.iks_cluster.k8s_cluster_moid
   ip_pool_moid = module.ip_pool.ip_pool_moid
   version_moid = module.k8s_version_policy.version_policy_moid
 }
@@ -294,7 +363,7 @@ module "worker_profile" {
   profile_type = "Worker"
   tags         = var.tags
   # Attach Kubernetes Policies
-  cluster_moid = module.iks_cluster.cluster_moid
+  cluster_moid = module.iks_cluster.k8s_cluster_moid
   ip_pool_moid = module.ip_pool.ip_pool_moid
   version_moid = module.k8s_version_policy.version_policy_moid
 }

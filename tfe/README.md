@@ -128,6 +128,24 @@ export TF_VAR_root_ca_registries="[]"
 export TF_VAR_unsigned_registries="[]"
 ```
 
+* Kubernetes Runtime Optional Variables
+
+```bash
+export TF_VAR_docker_no_proxy="[]"
+export TF_VAR_proxy_http_hostname=""
+export TF_VAR_proxy_http_password=""
+export TF_VAR_proxy_http_port="8080"
+export TF_VAR_proxy_http_protocol="http"
+export TF_VAR_proxy_http_username=""
+export TF_VAR_proxy_https_hostname=""
+export TF_VAR_proxy_https_password=""
+export TF_VAR_proxy_https_port="8443"
+export TF_VAR_proxy_https_username=""
+```
+
+Note: The proxy_http_hostname will be cloned to the proxy_https_hostname if left blank, when configuring runtime policies.
+Note: The proxy_http_username will be cloned to the proxy_https_username if left blank, when configuring runtime policies.
+
 * Kubernetes Cluster Optional Variables
 
 ```bash

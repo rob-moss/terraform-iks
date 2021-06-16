@@ -1,6 +1,8 @@
-#-------------------------------
+#__________________________________________________________
+#
 # Intersight Provider Variables
-#-------------------------------
+#__________________________________________________________
+
 variable "endpoint" {
   default     = "https://intersight.com"
   description = "Intersight URL."
@@ -11,9 +13,11 @@ output "endpoint" {
   value       = var.endpoint
 }
 
-#-----------------------------------
+#__________________________________________________________
+#
 # Intersight Organization Variables
-#-----------------------------------
+#__________________________________________________________
+
 variable "organization" {
   default     = "default"
   description = "Intersight Organization."
@@ -24,9 +28,11 @@ output "organization" {
   value       = var.organization
 }
 
-#-----------------------------------
+#______________________________________________
+#
 # Prefix Variable
-#-----------------------------------
+#______________________________________________
+
 variable "network_prefix" {
   default     = "10.200.0"
   description = "Network Prefix to Assign to DNS/NTP Servers & vCenter Target default values."
@@ -38,9 +44,11 @@ variable "network_prefix" {
 }
 
 
-#-----------------------------------
+#______________________________________________
+#
 # DNS Variables
-#-----------------------------------
+#______________________________________________
+
 variable "domain_name" {
   default     = "demo.intra"
   description = "Domain Name for Kubernetes Sysconfig Policy."
@@ -67,9 +75,11 @@ output "dns_servers" {
   value = var.dns_servers
 }
 
-#-----------------------------------
+#______________________________________________
+#
 # Time Variables
-#-----------------------------------
+#______________________________________________
+
 variable "timezone" {
   default     = "America/New_York"
   description = "Timezone for Kubernetes Sysconfig Policy."
@@ -90,9 +100,11 @@ output "ntp_servers" {
   value = var.ntp_servers != [] ? var.ntp_servers : var.dns_servers
 }
 
-#----------------------
+#______________________________________________
+#
 # IKS Cluster Variable
-#----------------------
+#______________________________________________
+
 variable "cluster_name" {
   default     = "iks"
   description = "Intersight Kubernetes Service Cluster Name."
@@ -104,9 +116,11 @@ output "cluster_name" {
 }
 
 
-#------------------------------
+#______________________________________________
+#
 # Intersight IP Pool Variables
-#------------------------------
+#______________________________________________
+
 variable "ip_pool" {
   default     = ""
   description = "Intersight Kubernetes Service IP Pool.  Default name is {cluster_name}_ip_pool"
@@ -114,7 +128,7 @@ variable "ip_pool" {
 }
 output "ip_pool" {
   description = "IP Pool Policy Name."
-  value       = var.ip_pool != "" ? var.ip_pool : join("_", [var.cluster_name, "ip_pool"])
+  value       = var.ip_pool != "" ? var.ip_pool : join("-", [var.cluster_name, "ip_pool"])
 }
 
 variable "ip_pool_netmask" {
@@ -186,18 +200,75 @@ output "ip_pool_size" {
   value       = var.ip_pool_size
 }
 
+#______________________________________________
+#
+# Kubernetes Runtime Variables
+#______________________________________________
 
-#-----------------------------------------
-# Kubernetes Policy Names
-#-----------------------------------------
-variable "k8s_version_policy" {
+variable "proxy_http_hostname" {
   default     = ""
-  description = "Kubernetes Version Policy Name.  Default name is {cluster_name}-k8s-version."
+  description = "HTTP Proxy Server Name or IP Address."
   type        = string
 }
-output "k8s_version_policy" {
-  description = "Kubernetes Version Policy Name."
-  value       = var.k8s_version_policy != "" ? var.k8s_version_policy : join("-", [var.cluster_name, "k8s-version"])
+output "proxy_http_hostname" {
+  description = "HTTP Proxy Server Name or IP Address."
+  value       = var.proxy_http_hostname
+}
+
+variable "proxy_http_username" {
+  default     = ""
+  description = "HTTP Proxy Username."
+  type        = string
+}
+output "proxy_http_username" {
+  description = "HTTP Proxy Username."
+  value       = var.proxy_http_username
+}
+
+variable "proxy_https_hostname" {
+  default     = ""
+  description = "HTTPS Proxy Server Name or IP Address."
+  type        = string
+}
+output "proxy_https_hostname" {
+  description = "HTTPS Proxy Server Name or IP Address.  If Left blank, and proxy_http_hostname is defined, it will be copied to here."
+  value       = var.proxy_https_hostname != [] ? var.proxy_https_hostname : var.proxy_http_hostname
+}
+
+variable "proxy_https_username" {
+  default     = ""
+  description = "HTTPS Proxy Username."
+  type        = string
+}
+output "proxy_https_username" {
+  description = "HTTPS Proxy Username."
+  value       = var.proxy_https_username != [] ? var.proxy_https_username : var.proxy_http_username
+}
+
+
+#______________________________________________
+#
+# Kubernetes Policy Names
+#______________________________________________
+
+variable "k8s_addon_policy" {
+  default     = ""
+  description = "Kubernetes Runtime Policy Name.  Default name is {cluster_name}-runtime."
+  type        = string
+}
+output "k8s_addon_policy" {
+  description = "Kubernetes Trusted Registry Policy Name."
+  value       = var.k8s_addon_policy != "" ? var.k8s_addon_policy : join("-", [var.cluster_name, "addon"])
+}
+
+variable "k8s_runtime_policy" {
+  default     = ""
+  description = "Kubernetes Runtime Policy Name.  Default name is {cluster_name}-runtime."
+  type        = string
+}
+output "k8s_runtime_policy" {
+  description = "Kubernetes Trusted Registry Policy Name."
+  value       = var.k8s_runtime_policy != "" ? var.k8s_runtime_policy : join("-", [var.cluster_name, "runtime"])
 }
 
 variable "k8s_trusted_registry" {
@@ -208,6 +279,16 @@ variable "k8s_trusted_registry" {
 output "k8s_trusted_registry" {
   description = "Kubernetes Trusted Registry Policy Name."
   value       = var.k8s_trusted_registry != "" ? var.k8s_trusted_registry : join("-", [var.cluster_name, "registry"])
+}
+
+variable "k8s_version_policy" {
+  default     = ""
+  description = "Kubernetes Version Policy Name.  Default name is {cluster_name}-k8s-version."
+  type        = string
+}
+output "k8s_version_policy" {
+  description = "Kubernetes Version Policy Name."
+  value       = var.k8s_version_policy != "" ? var.k8s_version_policy : join("-", [var.cluster_name, "k8s-version"])
 }
 
 variable "k8s_vm_network_policy" {
@@ -231,9 +312,11 @@ output "k8s_vm_infra_policy" {
 }
 
 
-#--------------------------------
+#______________________________________________
+#
 # K8S VM Infra Policy Variables
-#--------------------------------
+#______________________________________________
+#
 variable "vsphere_target" {
   default     = "210"
   description = "vSphere Server registered as a Target in Intersight.  The default, 210, only works if this is for the DevNet Sandbox."

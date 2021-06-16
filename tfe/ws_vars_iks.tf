@@ -28,6 +28,80 @@ variable "k8s_version" {
 
 #______________________________________________
 #
+# Kubernetes Runtime Variables
+#______________________________________________
+
+variable "docker_no_proxy" {
+  default     = "[]"
+  description = "Docker no proxy list, when using internet proxy.  Default is no list."
+  type        = string
+}
+
+variable "proxy_http_hostname" {
+  default     = ""
+  description = "HTTP Proxy Server Name or IP Address."
+  type        = string
+}
+
+variable "proxy_http_password" {
+  default     = ""
+  description = "Password for the HTTP Proxy Server, If required."
+  sensitive   = true
+  type        = string
+}
+
+variable "proxy_http_port" {
+  default     = "8080"
+  description = "Proxy HTTP Port."
+  type        = string
+}
+
+variable "proxy_http_protocol" {
+  default     = "http"
+  description = "Proxy HTTP Protocol."
+  type        = string
+}
+
+variable "proxy_http_username" {
+  default     = ""
+  description = "HTTP Proxy Username."
+  type        = string
+}
+
+variable "proxy_https_hostname" {
+  default     = ""
+  description = "HTTPS Proxy Server Name or IP Address."
+  type        = string
+}
+
+variable "proxy_https_password" {
+  default     = ""
+  description = "Password for the HTTPS Proxy Server, If required."
+  sensitive   = true
+  type        = string
+}
+
+variable "proxy_https_port" {
+  default     = "8443"
+  description = "Proxy HTTP Port."
+  type        = string
+}
+
+variable "proxy_https_protocol" {
+  default     = "https"
+  description = "Proxy HTTP Protocol."
+  type        = string
+}
+
+variable "proxy_https_username" {
+  default     = ""
+  description = "HTTPS Proxy Username."
+  type        = string
+}
+
+
+#______________________________________________
+#
 # K8S VM Infrastructure Policy Variables
 #______________________________________________
 #
@@ -236,6 +310,83 @@ module "tfc_variables_iks" {
       key         = "k8s_version"
       sensitive   = false
       value       = var.k8s_version
+    },
+    {
+      description = "Docker no proxy list, when using internet proxy.  Default is no list."
+      hcl         = true
+      key         = "docker_no_proxy"
+      sensitive   = false
+      value       = var.docker_no_proxy
+    },
+    {
+      description = "HTTP Proxy Server Name or IP Address."
+      hcl         = false
+      key         = "proxy_http_hostname"
+      sensitive   = false
+      value       = var.proxy_http_hostname
+    },
+    {
+      description = "Password for the HTTP Proxy Server, If required."
+      hcl         = false
+      key         = "proxy_http_password"
+      sensitive   = true
+      value       = var.proxy_http_password
+    },
+    {
+      description = "Proxy HTTP Port."
+      hcl         = false
+      key         = "proxy_http_port"
+      sensitive   = false
+      value       = var.proxy_http_port
+    },
+    {
+      description = "Proxy HTTP Protocol."
+      hcl         = false
+      key         = "proxy_http_protocol"
+      sensitive   = false
+      value       = var.proxy_http_protocol
+    },
+    {
+      description = "HTTP Proxy Username."
+      hcl         = false
+      key         = "proxy_http_username"
+      sensitive   = false
+      value       = var.proxy_http_username
+    },
+    {
+      description = "HTTPS Proxy Server Name or IP Address."
+      hcl         = false
+      key         = "proxy_https_hostname"
+      sensitive   = false
+      value       = var.proxy_https_hostname
+    },
+    {
+      description = "Password for the HTTPS Proxy Server, If required."
+      hcl         = false
+      key         = "proxy_https_password"
+      sensitive   = true
+      value       = var.proxy_https_password
+    },
+    {
+      description = "Proxy HTTPS Port."
+      hcl         = false
+      key         = "proxy_https_port"
+      sensitive   = false
+      value       = var.proxy_https_port
+    },
+    {
+      description = "Proxy HTTPS Protocol."
+      hcl         = false
+      key         = "proxy_https_protocol"
+      sensitive   = false
+      value       = var.proxy_https_protocol
+    },
+    {
+      description = "HTTPS Proxy Username."
+      hcl         = false
+      key         = "proxy_https_username"
+      sensitive   = false
+      value       = var.proxy_https_username
     },
     {
       description = "vSphere Password.  Note: this is the password of the Credentials used to register the vSphere Target."

@@ -77,7 +77,56 @@ variable "k8s_version" {
 
 #______________________________________________
 #
-# K8S VM Infra Policy Variables
+# Kubernetes Runtime Policy Variables
+#______________________________________________
+
+variable "docker_no_proxy" {
+  default     = "[]"
+  description = "Docker no proxy list, when using internet proxy.  Default is no list."
+  type        = string
+}
+
+variable "proxy_http_password" {
+  default     = ""
+  description = "Password for the HTTP Proxy Server, If required."
+  sensitive   = true
+  type        = string
+}
+
+variable "proxy_http_port" {
+  default     = "8080"
+  description = "Proxy HTTP Port."
+  type        = string
+}
+
+variable "proxy_http_protocol" {
+  default     = "http"
+  description = "Proxy HTTP Protocol."
+  type        = string
+}
+
+variable "proxy_https_password" {
+  default     = ""
+  description = "Password for the HTTPS Proxy Server, If required."
+  sensitive   = true
+  type        = string
+}
+
+variable "proxy_https_port" {
+  default     = "8443"
+  description = "Proxy HTTP Port."
+  type        = string
+}
+
+variable "proxy_https_protocol" {
+  default     = "https"
+  description = "Proxy HTTP Protocol."
+  type        = string
+}
+
+#______________________________________________
+#
+# Kubernetes VM Infra Policy Variables
 #______________________________________________
 
 variable "vsphere_password" {
