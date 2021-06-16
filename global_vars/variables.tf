@@ -97,7 +97,7 @@ variable "ntp_servers" {
 }
 output "ntp_servers" {
   description = "List of NTP Server for Kubernetes System Configuration Policy.  If undefined then the dns_servers will be used."
-  value = var.ntp_servers != [] ? var.ntp_servers : var.dns_servers
+  value = length(var.ntp_servers) != 0 ? var.ntp_servers : var.dns_servers
 }
 
 #______________________________________________
