@@ -292,7 +292,7 @@ module "iks_addon_profile" {
   profile_name = local.k8s_addon_policy
 
   addons       = keys(module.k8s_addons.addon_policy)
-  cluster_moid = module.iks_cluster.k8s_cluster_moid
+  cluster_moid = module.iks_cluster.cluster_moid
   org_name     = local.organization
   tags         = var.tags
 }
@@ -318,7 +318,7 @@ module "master_profile" {
   EOT
   )
   # Attach Kubernetes Policies
-  cluster_moid = module.iks_cluster.k8s_cluster_moid
+  cluster_moid = module.iks_cluster.cluster_moid
   ip_pool_moid = module.ip_pool.ip_pool_moid
   version_moid = module.k8s_version_policy.version_policy_moid
 }
@@ -357,7 +357,7 @@ module "worker_profile" {
   profile_type = "Worker"
   tags         = var.tags
   # Attach Kubernetes Policies
-  cluster_moid = module.iks_cluster.k8s_cluster_moid
+  cluster_moid = module.iks_cluster.cluster_moid
   ip_pool_moid = module.ip_pool.ip_pool_moid
   version_moid = module.k8s_version_policy.version_policy_moid
 }

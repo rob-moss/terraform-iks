@@ -75,7 +75,7 @@ output "k8s_vm_infra_policy" {
 
 output "iks_cluster" {
   description = "moid of the IKS Cluster."
-  value       = module.iks_cluster.k8s_cluster_moid
+  value       = module.iks_cluster.cluster_moid
 }
 
 output "master_profile" {
