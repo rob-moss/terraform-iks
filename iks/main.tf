@@ -276,7 +276,7 @@ module "iks_cluster" {
 
 module "iks_addon_profile" {
   source = "terraform-cisco-modules/iks/intersight//modules/cluster_addon_profile"
-  count  = var.addons_list != null ? 1 : 0
+  count  = local.addons_list != null ? 1 : 0
   depends_on = [
     module.k8s_addons,
     module.iks_cluster
