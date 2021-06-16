@@ -207,7 +207,7 @@ output "ip_pool_size" {
 
 variable "addons_list" {
   default     = []
-  description = "List of Add-ons for Intersight Kubernetes Service.  List Options are {dashboard|ccp-monitor}."
+  description = "List of Add-ons for Intersight Kubernetes Service.  Add-ons Options are {ccp-monitor|kubernetes-dashboard}."
   type        = list(string)
 }
 output "addons_list" {

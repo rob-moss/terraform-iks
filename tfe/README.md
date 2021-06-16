@@ -185,13 +185,13 @@ export TF_VAR_vsphere_portgroup="[\"Management\"]"
 export TF_VAR_vsphere_resource_pool=""
 ```
 
-For the Cluster tags below is an example key/value format.
+For the Cluster tags; below is an example key/value format.
 
 ```bash
 export TF_VAR_tags="[ { key = \"Terraform\", value = \"Module\" }, { key = \"Owner\", value = \"CiscoDevNet\" } ]"
 ```
 
-Once all Variables have been imported into your environment run the plan in the tfe folder:
+Once all Variables have been imported into your environment, run the plan in the tfe folder:
 
 ```bash
 terraform plan -out=main.plan
