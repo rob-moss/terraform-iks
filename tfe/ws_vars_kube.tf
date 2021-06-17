@@ -4,7 +4,7 @@
 #__________________________________________________________
 
 module "tfc_variables_kube" {
-  source = "../../terraform-cloud/modules/tfc_variables"
+  source = "terraform-cisco-modules/modules/tfe//modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]

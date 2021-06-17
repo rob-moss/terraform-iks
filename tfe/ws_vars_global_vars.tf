@@ -95,7 +95,7 @@ variable "vsphere_target" {
 #__________________________________________________________
 
 module "tfc_variables_global" {
-  source = "../../terraform-cloud/modules/tfc_variables"
+  source = "terraform-cisco-modules/modules/tfe//modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]

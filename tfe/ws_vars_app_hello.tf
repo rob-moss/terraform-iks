@@ -4,7 +4,7 @@
 #__________________________________________________________
 
 module "tfc_variables_app_hello" {
-  source = "../../terraform-cloud/modules/tfc_variables"
+  source = "terraform-cisco-modules/modules/tfe//modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
@@ -33,4 +33,8 @@ module "tfc_variables_app_hello" {
       value       = "${var.cluster_name}_kube"
     },
   ]
+}
+
+output "app_hello_vars" {
+  value = module.tfc_variables_app_hello.tfe_variable_id
 }

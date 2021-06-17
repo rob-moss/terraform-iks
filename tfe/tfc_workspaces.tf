@@ -4,7 +4,7 @@
 #__________________________________________________________
 
 module "tfc_workspaces" {
-  source = "../../terraform-cloud/modules/tfc_workspaces"
+  source = "terraform-cisco-modules/modules/tfe//modules/tfc_workspaces"
   depends_on = [
     module.tfc_agent_pool
   ]

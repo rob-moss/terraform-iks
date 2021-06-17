@@ -247,7 +247,7 @@ variable "worker_max_size" {
 #__________________________________________________________
 
 module "tfc_variables_iks" {
-  source = "../../terraform-cloud/modules/tfc_variables"
+  source = "terraform-cisco-modules/modules/tfe//modules/tfc_variables"
   depends_on = [
     module.tfc_workspaces
   ]
