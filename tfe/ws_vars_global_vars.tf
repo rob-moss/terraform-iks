@@ -28,14 +28,20 @@ variable "domain_name" {
 
 variable "dns_servers" {
   default     = "[\"10.200.0.100\"]"
-  description = "Primary DNS Server for Kubernetes Sysconfig Policy."
+  description = "DNS Servers for Kubernetes Sysconfig Policy."
   type        = string
 }
 
 #______________________________________________
 #
-# Timezone
+# Time Variables
 #______________________________________________
+
+variable "ntp_servers" {
+  default     = "[]"
+  description = "NTP Servers for Kubernetes Sysconfig Policy."
+  type        = string
+}
 
 variable "timezone" {
   default     = "America/New_York"
@@ -122,6 +128,13 @@ module "tfc_variables_global" {
       key         = "dns_servers"
       sensitive   = false
       value       = var.dns_servers
+    },
+    {
+      description = "NTP Servers."
+      hcl         = true
+      key         = "ntp_servers"
+      sensitive   = false
+      value       = var.ntp_servers
     },
     {
       description = "IKS Cluster Name."
